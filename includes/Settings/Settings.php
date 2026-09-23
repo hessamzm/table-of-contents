@@ -16,7 +16,7 @@ final class Settings
         'enabled' => true,
         'post_types' => ['post', 'page', 'product'],
         'heading_levels' => [2, 3, 4, 5, 6],
-        'title' => 'Table of Contents',
+        'title' => '',
         'style' => 'classic',
         'show_numbers' => false,
         'background_color' => '#ffffff',
