@@ -16,7 +16,7 @@ Completed:
 
 ## Phase 2 — Automatic Rendering
 
-Implemented:
+Completed:
 
 - Automatic rendering through the `the_content` filter.
 - Main-loop and main-query safeguards.
@@ -27,6 +27,23 @@ Implemented:
 - Frontend stylesheet loaded only on eligible singular content.
 - Extensible render decision and title/container filters.
 
+## Phase 3 — Admin Settings & Styling System
+
+Implemented:
+
+- WordPress Settings API based settings page under Settings > Table of Contents.
+- Enable/disable automatic rendering.
+- Select eligible Post, Page and Product post types.
+- Select H1–H6 heading levels.
+- Global TOC title.
+- Classic, Minimal and Card styles.
+- Hierarchical numbering option.
+- Background, text, link and border colors.
+- Font size, indentation and border radius.
+- Sanitization for colors and CSS lengths.
+- Frontend CSS variables generated from sanitized settings.
+- Settings-aware automatic renderer and TOC renderer.
+
 ## Requirements
 
 - WordPress 7+
@@ -36,7 +53,7 @@ Implemented:
 
 1. Architecture + Core Engine — Completed
 2. Automatic Rendering — Completed
-3. Admin settings and styling system
+3. Admin Settings and Styling System — In Progress
 4. Gutenberg block and shortcode
 5. Rank Math and compatibility integrations
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy

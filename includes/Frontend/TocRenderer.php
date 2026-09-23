@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Hessamzm\TableOfContents\Frontend;
 
+use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\TOC\HeadingNode;
 use Hessamzm\TableOfContents\TOC\HeadingTree;
 
@@ -10,23 +11,41 @@ defined('ABSPATH') || exit;
 
 final class TocRenderer
 {
+    public function __construct(private readonly Settings $settings)
+    {
+    }
+
     public function render(HeadingTree $tree): string
     {
         if ($tree->isEmpty()) {
             return '';
         }
 
-        $title = (string) apply_filters(
-            'hessamzm_toc/title',
-            __('Table of Contents', 'table-of-contents')
-        );
+        $title = (string) $this->settings->get('title');
+
+        if ($title === '') {
+            $title = __('Table of Contents', 'table-of-contents');
+        }
+
+        $title = (string) apply_filters('hessamzm_toc/title', $title);
+
+        $style = sanitize_html_class((string) $this->settings->get('style'));
+        $numbered = (bool) $this->settings->get('show_numbers');
+        $classes = [
+            'hessamzm-toc',
+            'hessamzm-toc--' . ($style ?: 'classic'),
+        ];
+
+        if ($numbered) {
+            $classes[] = 'hessamzm-toc--numbered';
+        }
 
         $attributes = (string) apply_filters(
             'hessamzm_toc/container_attributes',
-            'class="hessamzm-toc"'
+            ''
         );
 
-        $html = '<nav ' . wp_kses_post($attributes) . ' aria-label="' . esc_attr($title) . '">';
+        $html = '<nav class="' . esc_attr(implode(' ', $classes)) . '"' . ($attributes !== '' ? ' ' . wp_kses_post($attributes) : '') . ' aria-label="' . esc_attr($title) . '">';
         $html .= '<p class="hessamzm-toc__title">' . esc_html($title) . '</p>';
         $html .= '<ol class="hessamzm-toc__list">';
 
@@ -37,7 +56,7 @@ final class TocRenderer
         $html .= '</ol>';
         $html .= '</nav>';
 
-        return $html;
+        return (string) apply_filters('hessamzm_toc/html', $html, $tree);
     }
 
     private function renderNode(HeadingNode $node): string

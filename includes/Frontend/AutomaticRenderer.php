@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Hessamzm\TableOfContents\Frontend;
 
+use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
 
 defined('ABSPATH') || exit;
@@ -14,6 +15,7 @@ final class AutomaticRenderer
     public function __construct(
         private readonly ContentProcessor $processor,
         private readonly TocRenderer $tocRenderer,
+        private readonly Settings $settings,
     ) {
     }
 
@@ -25,7 +27,7 @@ final class AutomaticRenderer
 
     public function enqueueAssets(): void
     {
-        if (!$this->shouldRender()) {
+        if (!$this->isEnabled() || !$this->shouldRender()) {
             return;
         }
 
@@ -35,11 +37,13 @@ final class AutomaticRenderer
             [],
             HESSAMZM_TOC_VERSION
         );
+
+        wp_add_inline_style('hessamzm-toc', $this->getCssVariables());
     }
 
     public function filterContent(string $content): string
     {
-        if (!$this->shouldRender()) {
+        if (!$this->isEnabled() || !$this->shouldRender()) {
             return $content;
         }
 
@@ -72,11 +76,38 @@ final class AutomaticRenderer
     /**
      * @return list<int>
      */
+    private function getCssVariables(): string
+    {
+        $map = [
+            '--hessamzm-toc-background-color' => 'background_color',
+            '--hessamzm-toc-text-color' => 'text_color',
+            '--hessamzm-toc-link-color' => 'link_color',
+            '--hessamzm-toc-border-color' => 'border_color',
+            '--hessamzm-toc-font-size' => 'font_size',
+            '--hessamzm-toc-indentation' => 'indentation',
+            '--hessamzm-toc-border-radius' => 'border_radius',
+        ];
+
+        $variables = [];
+
+        foreach ($map as $property => $key) {
+            $value = (string) $this->settings->get($key);
+            $variables[] = $property . ':' . esc_attr($value);
+        }
+
+        return ':root{' . implode(';', $variables) . ';}';
+    }
+
+    private function isEnabled(): bool
+    {
+        return (bool) $this->settings->get('enabled');
+    }
+
     private function getLevels(): array
     {
         $levels = (array) apply_filters(
             'hessamzm_toc/heading_levels',
-            [2, 3, 4, 5, 6]
+            (array) $this->settings->get('heading_levels')
         );
 
         return array_values(
@@ -105,7 +136,7 @@ final class AutomaticRenderer
 
         $postTypes = (array) apply_filters(
             'hessamzm_toc/post_types',
-            ['post', 'page', 'product']
+            (array) $this->settings->get('post_types')
         );
 
         if (!in_array($postType, $postTypes, true)) {

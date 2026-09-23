@@ -1,0 +1,243 @@
+<?php
+declare(strict_types=1);
+
+namespace Hessamzm\TableOfContents\Admin;
+
+use Hessamzm\TableOfContents\Settings\Settings;
+
+defined('ABSPATH') || exit;
+
+final class SettingsPage
+{
+    private const PAGE_SLUG = 'hessamzm-toc';
+
+    public function __construct(private readonly Settings $settings)
+    {
+    }
+
+    public function boot(): void
+    {
+        add_action('admin_menu', [$this, 'registerMenu']);
+        add_action('admin_init', [$this, 'registerSettings']);
+    }
+
+    public function registerMenu(): void
+    {
+        add_options_page(
+            __('Table of Contents', 'table-of-contents'),
+            __('Table of Contents', 'table-of-contents'),
+            'manage_options',
+            self::PAGE_SLUG,
+            [$this, 'render']
+        );
+    }
+
+    public function registerSettings(): void
+    {
+        register_setting(
+            'hessamzm_toc',
+            Settings::OPTION_KEY,
+            [
+                'type' => 'array',
+                'sanitize_callback' => [$this->settings, 'sanitize'],
+                'default' => $this->settings->defaults(),
+            ]
+        );
+
+        add_settings_section(
+            'hessamzm_toc_general',
+            __('General', 'table-of-contents'),
+            [$this, 'renderGeneralDescription'],
+            self::PAGE_SLUG
+        );
+
+        $this->addCheckbox(
+            'enabled',
+            __('Enable automatic TOC', 'table-of-contents'),
+            __('Automatically add the table of contents to eligible content.', 'table-of-contents')
+        );
+
+        $this->addCheckboxGroup(
+            'post_types',
+            __('Post types', 'table-of-contents'),
+            [
+                'post' => __('Posts', 'table-of-contents'),
+                'page' => __('Pages', 'table-of-contents'),
+                'product' => __('Products', 'table-of-contents'),
+            ]
+        );
+
+        $this->addCheckboxGroup(
+            'heading_levels',
+            __('Heading levels', 'table-of-contents'),
+            array_combine(
+                range(1, 6),
+                array_map(
+                    static fn (int $level): string => sprintf(
+                        /* translators: %d: heading level */
+                        __('Heading %d', 'table-of-contents'),
+                        $level
+                    ),
+                    range(1, 6)
+                )
+            )
+        );
+
+        add_settings_section(
+            'hessamzm_toc_style',
+            __('Appearance', 'table-of-contents'),
+            '__return_false',
+            self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            'style',
+            __('Style', 'table-of-contents'),
+            [$this, 'renderStyleField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_style'
+        );
+
+        $this->addTextField('title', __('Title', 'table-of-contents'));
+        $this->addCheckbox('show_numbers', __('Show numbers', 'table-of-contents'), __('Prefix TOC items with hierarchical numbers.', 'table-of-contents'), 'hessamzm_toc_style');
+
+        foreach ([
+            'background_color' => __('Background color', 'table-of-contents'),
+            'text_color' => __('Text color', 'table-of-contents'),
+            'link_color' => __('Link color', 'table-of-contents'),
+            'border_color' => __('Border color', 'table-of-contents'),
+        ] as $key => $label) {
+            add_settings_field(
+                $key,
+                $label,
+                [$this, 'renderColorField'],
+                self::PAGE_SLUG,
+                'hessamzm_toc_style',
+                ['key' => $key]
+            );
+        }
+
+        $this->addTextField('font_size', __('Font size', 'table-of-contents'), 'css-length');
+        $this->addTextField('indentation', __('Indentation', 'table-of-contents'), 'css-length');
+        $this->addTextField('border_radius', __('Border radius', 'table-of-contents'), 'css-length');
+    }
+
+    public function renderGeneralDescription(): void
+    {
+        echo '<p>' . esc_html__('Configure automatic TOC rendering and its global appearance.', 'table-of-contents') . '</p>';
+    }
+
+    public function render(): void
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('You do not have permission to access this page.', 'table-of-contents'));
+        }
+
+        echo '<div class="wrap">';
+        echo '<h1>' . esc_html__('Table of Contents', 'table-of-contents') . '</h1>';
+        echo '<form method="post" action="options.php">';
+        settings_fields('hessamzm_toc');
+        do_settings_sections(self::PAGE_SLUG);
+        submit_button();
+        echo '</form>';
+        echo '</div>';
+    }
+
+    private function addCheckbox(string $key, string $label, string $description, string $section = 'hessamzm_toc_general'): void
+    {
+        add_settings_field(
+            $key,
+            $label,
+            [$this, 'renderCheckboxField'],
+            self::PAGE_SLUG,
+            $section,
+            ['key' => $key, 'description' => $description]
+        );
+    }
+
+    /**
+     * @param array<string,string> $options
+     */
+    private function addCheckboxGroup(string $key, string $label, array $options): void
+    {
+        add_settings_field(
+            $key,
+            $label,
+            [$this, 'renderCheckboxGroupField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_general',
+            ['key' => $key, 'options' => $options]
+        );
+    }
+
+    private function addTextField(string $key, string $label, string $class = ''): void
+    {
+        add_settings_field(
+            $key,
+            $label,
+            [$this, 'renderTextField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_style',
+            ['key' => $key, 'class' => $class]
+        );
+    }
+
+    public function renderCheckboxField(array $args): void
+    {
+        $key = (string) $args['key'];
+        $checked = (bool) $this->settings->get($key);
+
+        echo '<label><input type="checkbox" name="' . esc_attr(Settings::OPTION_KEY . '[' . $key . ']') . '" value="1" ' . checked($checked, true, false) . '> ';
+        echo esc_html((string) $args['description']);
+        echo '</label>';
+    }
+
+    public function renderCheckboxGroupField(array $args): void
+    {
+        $key = (string) $args['key'];
+        $selected = (array) $this->settings->get($key);
+
+        foreach ((array) $args['options'] as $value => $label) {
+            echo '<label style="display:block;margin-bottom:6px">';
+            echo '<input type="checkbox" name="' . esc_attr(Settings::OPTION_KEY . '[' . $key . '][]') . '" value="' . esc_attr((string) $value) . '" ' . checked(in_array($value, $selected, true), true, false) . '> ';
+            echo esc_html((string) $label);
+            echo '</label>';
+        }
+    }
+
+    public function renderStyleField(): void
+    {
+        $value = (string) $this->settings->get('style');
+        $options = [
+            'classic' => __('Classic', 'table-of-contents'),
+            'minimal' => __('Minimal', 'table-of-contents'),
+            'card' => __('Card', 'table-of-contents'),
+        ];
+
+        echo '<select name="' . esc_attr(Settings::OPTION_KEY . '[style]') . '">';
+        foreach ($options as $key => $label) {
+            echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select>';
+    }
+
+    public function renderColorField(array $args): void
+    {
+        $key = (string) $args['key'];
+        $value = (string) $this->settings->get($key);
+
+        echo '<input type="color" name="' . esc_attr(Settings::OPTION_KEY . '[' . $key . ']') . '" value="' . esc_attr($value) . '">';
+    }
+
+    public function renderTextField(array $args): void
+    {
+        $key = (string) $args['key'];
+        $class = (string) ($args['class'] ?? '');
+        $value = (string) $this->settings->get($key);
+
+        echo '<input type="text" class="regular-text" name="' . esc_attr(Settings::OPTION_KEY . '[' . $key . ']') . '" value="' . esc_attr($value) . '">';
+        if ($class === 'css-length') {
+            echo '<p class="description">' . esc_html__('Use a CSS length such as 16px, 1rem, or 1.5em.', 'table-of-contents') . '</p>';
+        }
+    }
+}
