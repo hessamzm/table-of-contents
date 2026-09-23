@@ -37,6 +37,8 @@ final class AutomaticRenderer
             [],
             HESSAMZM_TOC_VERSION
         );
+
+        wp_add_inline_style('hessamzm-toc', $this->getCssVariables());
     }
 
     public function filterContent(string $content): string
@@ -74,6 +76,28 @@ final class AutomaticRenderer
     /**
      * @return list<int>
      */
+    private function getCssVariables(): string
+    {
+        $map = [
+            '--hessamzm-toc-background-color' => 'background_color',
+            '--hessamzm-toc-text-color' => 'text_color',
+            '--hessamzm-toc-link-color' => 'link_color',
+            '--hessamzm-toc-border-color' => 'border_color',
+            '--hessamzm-toc-font-size' => 'font_size',
+            '--hessamzm-toc-indentation' => 'indentation',
+            '--hessamzm-toc-border-radius' => 'border_radius',
+        ];
+
+        $variables = [];
+
+        foreach ($map as $property => $key) {
+            $value = (string) $this->settings->get($key);
+            $variables[] = $property . ':' . esc_attr($value);
+        }
+
+        return ':root{' . implode(';', $variables) . ';}';
+    }
+
     private function isEnabled(): bool
     {
         return (bool) $this->settings->get('enabled');
