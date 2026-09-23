@@ -65,15 +65,29 @@ final class ContentProcessor
 
                 ++$headingIndex;
 
-                $attributes = (string) $match[2];
                 $id = $heading->id();
 
-                if ($id === null || preg_match('/\bid\s*=\s*(["\']).*?\1/i', $attributes)) {
+                if ($id === null) {
                     return $match[0];
                 }
 
-                $attributes = rtrim($attributes);
-                $attributes .= ' id="' . esc_attr($id) . '"';
+                $attributes = (string) $match[2];
+
+                if (preg_match('/\bid\s*=\s*(["\'])(.*?)\1/i', $attributes, $idMatch)) {
+                    if ($idMatch[2] === $id) {
+                        return $match[0];
+                    }
+
+                    $attributes = preg_replace(
+                        '/\bid\s*=\s*(["\']).*?\1/i',
+                        'id="' . esc_attr($id) . '"',
+                        $attributes,
+                        1
+                    ) ?? $attributes;
+                } else {
+                    $attributes = rtrim($attributes);
+                    $attributes .= ' id="' . esc_attr($id) . '"';
+                }
 
                 return '<h' . $match[1] . $attributes . '>' . $match[3] . '</h' . $match[1] . '>';
             },
