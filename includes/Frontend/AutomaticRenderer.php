@@ -19,7 +19,22 @@ final class AutomaticRenderer
 
     public function boot(): void
     {
+        add_action('wp_enqueue_scripts', [$this, 'enqueueAssets']);
         add_filter('the_content', [$this, 'filterContent'], 20);
+    }
+
+    public function enqueueAssets(): void
+    {
+        if (!$this->shouldRender()) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'hessamzm-toc',
+            HESSAMZM_TOC_URL . 'assets/css/frontend.css',
+            [],
+            HESSAMZM_TOC_VERSION
+        );
     }
 
     public function filterContent(string $content): string
