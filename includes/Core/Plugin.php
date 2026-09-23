@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Hessamzm\TableOfContents\Core;
 
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
+use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
+use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\TOC\AnchorGenerator;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
 use Hessamzm\TableOfContents\TOC\HeadingParser;
@@ -21,9 +23,13 @@ final class Plugin
     private ContentProcessor $contentProcessor;
     private TocRenderer $tocRenderer;
     private AutomaticRenderer $automaticRenderer;
+    private Settings $settings;
+    private SettingsPage $settingsPage;
 
     public function __construct()
     {
+        $this->settings = new Settings();
+        $this->settingsPage = new SettingsPage($this->settings);
         $this->parser = new HeadingParser();
         $this->anchorGenerator = new AnchorGenerator();
         $this->tocBuilder = new TocBuilder();
@@ -32,15 +38,17 @@ final class Plugin
             $this->anchorGenerator,
             $this->tocBuilder
         );
-        $this->tocRenderer = new TocRenderer();
+        $this->tocRenderer = new TocRenderer($this->settings);
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
-            $this->tocRenderer
+            $this->tocRenderer,
+            $this->settings
         );
     }
 
     public function boot(): void
     {
+        $this->settingsPage->boot();
         $this->automaticRenderer->boot();
 
         /**
