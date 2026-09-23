@@ -99,7 +99,7 @@ final class SettingsPage
         );
 
         $this->addTextField('title', __('Title', 'table-of-contents'));
-        $this->addCheckbox('show_numbers', __('Show numbers', 'table-of-contents'), __('Prefix TOC items with hierarchical numbers.', 'table-of-contents'));
+        $this->addCheckbox('show_numbers', __('Show numbers', 'table-of-contents'), __('Prefix TOC items with hierarchical numbers.', 'table-of-contents'), 'hessamzm_toc_style');
 
         foreach ([
             'background_color' => __('Background color', 'table-of-contents'),
@@ -143,14 +143,14 @@ final class SettingsPage
         echo '</div>';
     }
 
-    private function addCheckbox(string $key, string $label, string $description): void
+    private function addCheckbox(string $key, string $label, string $description, string $section = 'hessamzm_toc_general'): void
     {
         add_settings_field(
             $key,
             $label,
             [$this, 'renderCheckboxField'],
             self::PAGE_SLUG,
-            'hessamzm_toc_general',
+            $section,
             ['key' => $key, 'description' => $description]
         );
     }
