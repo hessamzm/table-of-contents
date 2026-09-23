@@ -1,8 +1,20 @@
 .hessamzm-toc {
     margin: 0 0 2rem;
     padding: 1rem 1.25rem;
-    border: 1px solid #dcdcde;
-    background: #fff;
+    color: var(--hessamzm-toc-text-color);
+    background: var(--hessamzm-toc-background-color);
+    border: 1px solid var(--hessamzm-toc-border-color);
+    border-radius: var(--hessamzm-toc-border-radius);
+    font-size: var(--hessamzm-toc-font-size);
+}
+
+.hessamzm-toc--minimal {
+    padding-inline: 0;
+    border-width: 0 0 0 2px;
+}
+
+.hessamzm-toc--card {
+    box-shadow: 0 1px 4px rgb(0 0 0 / 8%);
 }
 
 .hessamzm-toc__title {
@@ -13,7 +25,7 @@
 .hessamzm-toc__list,
 .hessamzm-toc__children {
     margin: 0;
-    padding-inline-start: 1.5rem;
+    padding-inline-start: var(--hessamzm-toc-indentation);
 }
 
 .hessamzm-toc__item {
@@ -21,10 +33,23 @@
 }
 
 .hessamzm-toc__link {
+    color: var(--hessamzm-toc-link-color);
     text-decoration: none;
 }
 
 .hessamzm-toc__link:hover,
 .hessamzm-toc__link:focus {
     text-decoration: underline;
+}
+
+.hessamzm-toc--numbered {
+    counter-reset: hessamzm-toc;
+}
+
+.hessamzm-toc--numbered .hessamzm-toc__item {
+    counter-increment: hessamzm-toc;
+}
+
+.hessamzm-toc--numbered .hessamzm-toc__link::before {
+    content: counters(hessamzm-toc, ".") ". ";
 }
