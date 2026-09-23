@@ -1,0 +1,30 @@
+.hessamzm-toc {
+    margin: 0 0 2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid #dcdcde;
+    background: #fff;
+}
+
+.hessamzm-toc__title {
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+}
+
+.hessamzm-toc__list,
+.hessamzm-toc__children {
+    margin: 0;
+    padding-inline-start: 1.5rem;
+}
+
+.hessamzm-toc__item {
+    margin: 0.35rem 0;
+}
+
+.hessamzm-toc__link {
+    text-decoration: none;
+}
+
+.hessamzm-toc__link:hover,
+.hessamzm-toc__link:focus {
+    text-decoration: underline;
+}
