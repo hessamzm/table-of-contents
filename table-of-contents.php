@@ -27,6 +27,7 @@ require_once HESSAMZM_TOC_DIR . 'includes/Contracts/HeadingParserInterface.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Contracts/AnchorGeneratorInterface.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Contracts/TocBuilderInterface.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/Heading.php';
+require_once HESSAMZM_TOC_DIR . 'includes/TOC/HeadingNode.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/HeadingParser.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/AnchorGenerator.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/HeadingTree.php';
