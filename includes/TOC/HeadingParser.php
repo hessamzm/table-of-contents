@@ -61,7 +61,7 @@ final class HeadingParser implements HeadingParserInterface
     private function extractId(string $attributes): ?string
     {
         if (preg_match('/\bid\s*=\s*(["\'])(.*?)\1/i', $attributes, $match)) {
-            $id = sanitize_title_with_dashes($match[2]);
+            $id = trim($match[2]);
 
             return $id !== '' ? $id : null;
         }
