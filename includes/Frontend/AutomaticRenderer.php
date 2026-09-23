@@ -50,7 +50,8 @@ final class AutomaticRenderer
         $this->rendering = true;
 
         try {
-            $processed = $this->processor->process($content);
+            $levels = $this->getLevels();
+            $processed = $this->processor->process($content, $levels);
 
             if ($processed['tree']->isEmpty()) {
                 return $content;
@@ -66,6 +67,24 @@ final class AutomaticRenderer
         } finally {
             $this->rendering = false;
         }
+    }
+
+    /**
+     * @return list<int>
+     */
+    private function getLevels(): array
+    {
+        $levels = (array) apply_filters(
+            'hessamzm_toc/heading_levels',
+            [2, 3, 4, 5, 6]
+        );
+
+        return array_values(
+            array_filter(
+                array_map('intval', $levels),
+                static fn (int $level): bool => $level >= 1 && $level <= 6
+            )
+        );
     }
 
     private function shouldRender(): bool
@@ -84,7 +103,12 @@ final class AutomaticRenderer
 
         $postType = get_post_type();
 
-        if (!in_array($postType, ['post', 'page', 'product'], true)) {
+        $postTypes = (array) apply_filters(
+            'hessamzm_toc/post_types',
+            ['post', 'page', 'product']
+        );
+
+        if (!in_array($postType, $postTypes, true)) {
             return false;
         }
 
