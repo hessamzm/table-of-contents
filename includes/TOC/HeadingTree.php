@@ -8,10 +8,23 @@ defined('ABSPATH') || exit;
 final class HeadingTree
 {
     /**
-     * @param list<Heading> $headings
+     * @param list<HeadingNode> $roots
      */
-    public function __construct(private readonly array $headings)
+    public function __construct(private readonly array $roots)
     {
+    }
+
+    /**
+     * @return list<HeadingNode>
+     */
+    public function roots(): array
+    {
+        return $this->roots;
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->roots === [];
     }
 
     /**
@@ -19,11 +32,17 @@ final class HeadingTree
      */
     public function headings(): array
     {
-        return $this->headings;
-    }
+        $headings = [];
 
-    public function isEmpty(): bool
-    {
-        return $this->headings === [];
+        $walk = static function (array $nodes) use (&$headings, &$walk): void {
+            foreach ($nodes as $node) {
+                $headings[] = $node->heading();
+                $walk($node->children());
+            }
+        };
+
+        $walk($this->roots);
+
+        return $headings;
     }
 }
