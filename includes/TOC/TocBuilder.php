@@ -14,44 +14,64 @@ final class TocBuilder implements TocBuilderInterface
      */
     public function build(array $headings): HeadingTree
     {
-        /** @var list<HeadingNode> $roots */
+        /**
+         * @var list<array{heading:Heading,children:list<array{heading:Heading,children:list<mixed>}>}> $roots
+         */
         $roots = [];
 
         /**
-         * Stack entries contain a reference to the current node's children.
-         *
-         * @var list<array{level:int,children:list<HeadingNode>}> $stack
+         * @var list<array{level:int,children:array}> $stack
          */
         $stack = [];
 
         foreach ($headings as $heading) {
-            $node = new HeadingNode($heading);
+            $entry = [
+                'heading' => $heading,
+                'children' => [],
+            ];
 
             while ($stack !== [] && $stack[array_key_last($stack)]['level'] >= $heading->level()) {
                 array_pop($stack);
             }
 
             if ($stack === []) {
-                $roots[] = $node;
+                $roots[] = $entry;
+                $rootIndex = array_key_last($roots);
                 $stack[] = [
                     'level' => $heading->level(),
-                    'children' => &$roots,
+                    'children' => &$roots[$rootIndex]['children'],
                 ];
                 continue;
             }
 
             $parentChildren = &$stack[array_key_last($stack)]['children'];
-            $parentIndex = array_key_last($parentChildren);
-            $parentNode = $parentChildren[$parentIndex];
-            $parentChildren[$parentIndex] = $parentNode->withChild($node);
+            $parentChildren[] = $entry;
+            $childIndex = array_key_last($parentChildren);
 
-            $children = $parentChildren[$parentIndex]->children();
             $stack[] = [
                 'level' => $heading->level(),
-                'children' => &$children,
+                'children' => &$parentChildren[$childIndex]['children'],
             ];
         }
 
-        return new HeadingTree($roots);
+        return new HeadingTree($this->toNodes($roots));
+    }
+
+    /**
+     * @param list<array{heading:Heading,children:array}> $entries
+     * @return list<HeadingNode>
+     */
+    private function toNodes(array $entries): array
+    {
+        $nodes = [];
+
+        foreach ($entries as $entry) {
+            $nodes[] = new HeadingNode(
+                $entry['heading'],
+                $this->toNodes($entry['children'])
+            );
+        }
+
+        return $nodes;
     }
 }
