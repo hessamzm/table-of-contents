@@ -72,7 +72,8 @@ final class Plugin
             $this->contentProcessor,
             $this->tocRenderer,
             $this->settings,
-            $assets
+            $assets,
+            $this->seoTocCompatibility
         );
     }
 
