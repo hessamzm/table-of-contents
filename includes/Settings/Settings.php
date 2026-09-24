@@ -128,7 +128,7 @@ final class Settings
         );
 
         $clean['product_toc_enabled'] = $clean['product_toc']['enabled'];
-        $clean['product_toc_position'] = $clean['product_toc']['position'];
+        $clean['product_toc_position'] = $clean['product_toc']['placement'];
         $clean['heading_levels'] = $clean['post_toc']['heading_levels'];
         $clean['title'] = $clean['post_toc']['title'];
         $clean['style'] = $clean['post_toc']['style'];
