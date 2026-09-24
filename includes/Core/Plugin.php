@@ -50,7 +50,7 @@ final class Plugin
             $this->settings
         );
         $this->block = new TableOfContentsBlock($manualRenderer);
-        $this->shortcode = new TableOfContentsShortcode($manualRenderer, $this->settings);
+        $this->shortcode = new TableOfContentsShortcode($manualRenderer);
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
