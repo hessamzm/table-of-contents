@@ -85,6 +85,28 @@ final class SettingsPage
         );
 
         add_settings_section(
+            'hessamzm_toc_product',
+            __('Product TOC', 'table-of-contents'),
+            [$this, 'renderProductDescription'],
+            self::PAGE_SLUG
+        );
+
+        $this->addCheckbox(
+            'product_toc_enabled',
+            __('Enable Product TOC', 'table-of-contents'),
+            __('Generate a dedicated table of contents for WooCommerce product descriptions.', 'table-of-contents'),
+            'hessamzm_toc_product'
+        );
+
+        add_settings_field(
+            'product_toc_position',
+            __('Product TOC position', 'table-of-contents'),
+            [$this, 'renderProductPositionField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_product'
+        );
+
+        add_settings_section(
             'hessamzm_toc_style',
             __('Appearance', 'table-of-contents'),
             '__return_false',
@@ -180,6 +202,28 @@ final class SettingsPage
     public function renderGeneralDescription(): void
     {
         echo '<p>' . esc_html__('Configure automatic TOC rendering and its global appearance.', 'table-of-contents') . '</p>';
+    }
+
+    public function renderProductDescription(): void
+    {
+        echo '<p>' . esc_html__('Configure the WooCommerce product TOC independently from the general automatic renderer.', 'table-of-contents') . '</p>';
+    }
+
+    public function renderProductPositionField(): void
+    {
+        $value = (string) $this->settings->get('product_toc_position');
+        $options = [
+            'before_summary' => __('Before product summary', 'table-of-contents'),
+            'before_tabs' => __('Before product tabs', 'table-of-contents'),
+            'after_tabs' => __('After product tabs', 'table-of-contents'),
+        ];
+
+        echo '<select name="' . esc_attr(Settings::OPTION_KEY . '[product_toc_position]') . '">';
+        foreach ($options as $key => $label) {
+            echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select>';
+        echo '<p class="description">' . esc_html__('The TOC uses the product description headings and the global appearance settings.', 'table-of-contents') . '</p>';
     }
 
     public function enqueueAssets(string $hookSuffix): void
