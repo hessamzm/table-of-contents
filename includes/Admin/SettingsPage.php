@@ -135,6 +135,46 @@ final class SettingsPage
         $this->addTextField('sticky_font_size', __('Sticky TOC font size', 'table-of-contents'), 'css-length');
         $this->addTextField('indentation', __('Indentation', 'table-of-contents'), 'css-length');
         $this->addTextField('border_radius', __('Border radius', 'table-of-contents'), 'css-length');
+
+        add_settings_section(
+            'hessamzm_toc_shortcode',
+            __('Shortcode', 'table-of-contents'),
+            [$this, 'renderShortcodeDescription'],
+            self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            'shortcode',
+            __('Basic shortcode', 'table-of-contents'),
+            [$this, 'renderShortcodeField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_shortcode'
+        );
+
+        add_settings_field(
+            'shortcode_advanced',
+            __('Advanced shortcode', 'table-of-contents'),
+            [$this, 'renderAdvancedShortcodeField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_shortcode'
+        );
+    }
+
+    public function renderShortcodeDescription(): void
+    {
+        echo '<p>' . esc_html__('Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor.', 'table-of-contents') . '</p>';
+    }
+
+    public function renderShortcodeField(): void
+    {
+        echo '<input type="text" class="large-text code" readonly value="' . esc_attr('[hessamzm_toc]') . '">';
+        echo '<p class="description">' . esc_html__('Uses the global TOC settings and the current content.', 'table-of-contents') . '</p>';
+    }
+
+    public function renderAdvancedShortcodeField(): void
+    {
+        echo '<input type="text" class="large-text code" readonly value="' . esc_attr('[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]') . '">';
+        echo '<p class="description">' . esc_html__('Optional attributes: levels, title, style, and numbers.', 'table-of-contents') . '</p>';
     }
 
     public function renderGeneralDescription(): void
