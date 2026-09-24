@@ -29,7 +29,7 @@ Completed:
 
 ## Phase 3 — Admin Settings & Styling System
 
-Implemented:
+Completed:
 
 - WordPress Settings API based settings page under Settings > Table of Contents.
 - Enable/disable automatic rendering.
@@ -46,7 +46,7 @@ Implemented:
 
 ## Phase 4 — Gutenberg Block + Shortcode
 
-Implemented:
+In Progress:
 
 - Dynamic Gutenberg block registered from `block.json` metadata.
 - Block Editor controls for title, style, numbering and H1–H6 selection.
@@ -66,7 +66,7 @@ Implemented:
 1. Architecture + Core Engine — Completed
 2. Automatic Rendering — Completed
 3. Admin Settings and Styling System — In Progress
-4. Gutenberg block and shortcode
+4. Gutenberg block and shortcode — In Progress
 5. Rank Math and compatibility integrations
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy
 7. Security, translation, performance, tests and documentation
