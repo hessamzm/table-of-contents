@@ -146,6 +146,10 @@ final class AutomaticRenderer
 
         $postType = get_post_type();
 
+        if ($postType === 'product') {
+            return false;
+        }
+
         $postTypes = (array) apply_filters(
             'hessamzm_toc/post_types',
             (array) $this->settings->get('post_types')
