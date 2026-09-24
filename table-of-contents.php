@@ -45,6 +45,7 @@ require_once HESSAMZM_TOC_DIR . 'includes/Frontend/TocRenderer.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/TocAssets.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/AutomaticRenderer.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Integrations/RankMath/RankMathIntegration.php';
+require_once HESSAMZM_TOC_DIR . 'includes/Integrations/SEO/SeoTocCompatibility.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Integrations/WooCommerce/ProductTocRenderer.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Integrations/WooCommerce/WooCommerceIntegration.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Core/Plugin.php';
