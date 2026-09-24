@@ -258,14 +258,20 @@ final class SettingsPage
             wp_die(esc_html__('You do not have permission to access this page.', 'table-of-contents'));
         }
 
-        echo '<div class="wrap">';
+        echo '<div class="wrap hessamzm-toc-settings-page">';
         echo '<h1>' . esc_html__('Table of Contents', 'table-of-contents') . '</h1>';
+        echo '<div class="hessamzm-toc-settings-layout">';
+        echo '<aside class="hessamzm-toc-settings-preview">';
+        $this->renderLivePreview();
+        echo '</aside>';
+        echo '<main class="hessamzm-toc-settings-form">';
         echo '<form method="post" action="options.php">';
         settings_fields('hessamzm_toc');
         do_settings_sections(self::PAGE_SLUG);
-        $this->renderLivePreview();
         submit_button();
         echo '</form>';
+        echo '</main>';
+        echo '</div>';
         echo '</div>';
     }
 
