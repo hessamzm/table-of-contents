@@ -189,3 +189,90 @@ msgstr "فهرست مطالب تولیدشده از محتوای نوشته یا
 
 msgid "This widget uses the current post or product content and the global TOC settings."
 msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات عمومی فهرست مطالب استفاده می‌کند."
+
+msgid "Content types"
+msgstr "نوع محتوا"
+
+msgid "Blog posts"
+msgstr "نوشته‌های وبلاگ"
+
+msgid "WooCommerce products"
+msgstr "محصولات ووکامرس"
+
+msgid "Articles"
+msgstr "مقالات"
+
+msgid "Enable TOC"
+msgstr "فعال‌سازی فهرست مطالب"
+
+msgid "Generate a dedicated TOC for WooCommerce product descriptions."
+msgstr "یک فهرست مطالب اختصاصی برای توضیحات محصولات ووکامرس ایجاد می‌کند."
+
+msgid "Generate a dedicated TOC for blog posts."
+msgstr "یک فهرست مطالب اختصاصی برای نوشته‌های وبلاگ ایجاد می‌کند."
+
+msgid "Alignment"
+msgstr "تراز"
+
+msgid "TOC placement"
+msgstr "محل قرارگیری فهرست مطالب"
+
+msgid "Shortcode generators"
+msgstr "سازنده‌های کد کوتاه"
+
+msgid "Build a ready-to-use shortcode without memorizing attributes. Each generator uses the settings for its own TOC profile as the starting point."
+msgstr "یک کد کوتاه آماده استفاده بسازید، بدون اینکه لازم باشد ویژگی‌ها را به خاطر بسپارید. هر سازنده از تنظیمات پروفایل فهرست مطالب مربوط به خود به‌عنوان نقطه شروع استفاده می‌کند."
+
+msgid "Blog TOC shortcode"
+msgstr "کد کوتاه فهرست مطالب وبلاگ"
+
+msgid "Use this shortcode inside a blog post to insert the Blog TOC manually."
+msgstr "از این کد کوتاه داخل یک نوشته وبلاگ برای درج دستی فهرست مطالب وبلاگ استفاده کنید."
+
+msgid "Product TOC shortcode"
+msgstr "کد کوتاه فهرست مطالب محصول"
+
+msgid "Use this shortcode inside a WooCommerce product to insert the Product TOC manually."
+msgstr "از این کد کوتاه داخل یک محصول ووکامرس برای درج دستی فهرست مطالب محصول استفاده کنید."
+
+msgid "Generated shortcode"
+msgstr "کد کوتاه تولیدشده"
+
+msgid "Copy shortcode"
+msgstr "کپی کد کوتاه"
+
+msgid "Copied"
+msgstr "کپی شد"
+
+msgid "General plugin settings. Blog posts and products are enabled and configured independently in their respective tabs."
+msgstr "تنظیمات عمومی افزونه. فعال‌سازی و پیکربندی نوشته‌های وبلاگ و محصولات به‌صورت مستقل در تب‌های مربوط به خود انجام می‌شود."
+
+msgid "Create and customize the TOC used specifically for blog posts. These settings are independent from the product TOC."
+msgstr "فهرست مطالب مخصوص نوشته‌های وبلاگ را ایجاد و سفارشی کنید. این تنظیمات مستقل از فهرست مطالب محصولات هستند."
+
+msgid "Create and customize the TOC used specifically for WooCommerce products. These settings are independent from the article TOC."
+msgstr "فهرست مطالب مخصوص محصولات ووکامرس را ایجاد و سفارشی کنید. این تنظیمات مستقل از فهرست مطالب مقالات هستند."
+
+msgid "Table of Contents settings"
+msgstr "تنظیمات فهرست مطالب"
+
+msgid "Leave empty to use the global plugin title."
+msgstr "برای استفاده از عنوان عمومی افزونه، این قسمت را خالی بگذارید."
+
+msgid "Global setting"
+msgstr "تنظیم عمومی"
+
+msgid "Override the global numbering setting."
+msgstr "تنظیم شماره‌گذاری عمومی را نادیده بگیرید."
+
+msgid "Leave all heading levels unchecked to use the global selection."
+msgstr "برای استفاده از انتخاب عمومی سطوح عنوان، همه سطوح را بدون علامت بگذارید."
+
+msgid "The table of contents will be generated on the front end from this post’s headings."
+msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
+
+msgid "Display a manually placed table of contents."
+msgstr "نمایش فهرست مطالبی که به‌صورت دستی در محتوا قرار داده شده است."
+
+msgid "This widget uses the current post or product content and its independent TOC profile settings."
+msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات مستقل فهرست مطالب مربوط به آن استفاده می‌کند."
