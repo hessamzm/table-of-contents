@@ -36,9 +36,7 @@ final class ProductTocRenderer
 
         if ($position === 'before_summary') {
             add_action('woocommerce_before_single_product_summary', [$this, 'render'], 30);
-        } elseif ($position === 'before_tabs') {
-            add_action('woocommerce_after_single_product_summary', [$this, 'render'], 5);
-        } else {
+        } elseif ($position === 'after_tabs') {
             add_action('woocommerce_after_single_product_summary', [$this, 'render'], 12);
         }
     }
@@ -100,7 +98,21 @@ final class ProductTocRenderer
             return $content;
         }
 
-        return $processed['content'];
+        $processedContent = $processed['content'];
+
+        if ($this->getPosition() !== 'inside_description' || $processed['tree']->isEmpty()) {
+            return $processedContent;
+        }
+
+        $this->assets->enqueue();
+
+        $toc = $this->tocRenderer->render($processed['tree']);
+
+        if ($toc === '') {
+            return $processedContent;
+        }
+
+        return '<div class="hessamzm-toc-product hessamzm-toc-product--inside-description">' . $toc . '</div>' . $processedContent;
     }
 
     private function getProcessedDescription(?object $product = null): ?array
@@ -183,9 +195,9 @@ final class ProductTocRenderer
     {
         $position = sanitize_key((string) $this->settings->get('product_toc_position'));
 
-        return in_array($position, ['before_summary', 'before_tabs', 'after_tabs'], true)
+        return in_array($position, ['before_summary', 'inside_description', 'after_tabs'], true)
             ? $position
-            : 'before_tabs';
+            : 'inside_description';
     }
 
     /** @return list<int> */
