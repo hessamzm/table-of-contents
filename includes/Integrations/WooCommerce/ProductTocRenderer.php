@@ -168,7 +168,7 @@ final class ProductTocRenderer
 
         return in_array($position, ['before_summary', 'before_tabs', 'after_tabs'], true)
             ? $position
-            : 'before_summary';
+            : 'before_tabs';
     }
 
     /** @return list<int> */
