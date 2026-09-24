@@ -56,6 +56,18 @@ In Progress:
 - Shared manual rendering service keeps block and shortcode behavior consistent.
 - Frontend CSS variables scoped to the TOC component instead of `:root`.
 
+### Shortcode usage
+
+Basic:
+
+`[hessamzm_toc]`
+
+Optional attributes:
+
+`[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
+
+When `levels` is omitted, the shortcode uses the global heading-level settings. The block follows the same global settings unless a per-block override is selected.
+
 ## Requirements
 
 - WordPress 7+
