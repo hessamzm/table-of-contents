@@ -11,6 +11,7 @@ use Hessamzm\TableOfContents\Frontend\TocAssets;
 use Hessamzm\TableOfContents\Blocks\TableOfContentsBlock;
 use Hessamzm\TableOfContents\Shortcodes\TableOfContentsShortcode;
 use Hessamzm\TableOfContents\Services\ManualTocRenderer;
+use Hessamzm\TableOfContents\Widgets\TableOfContentsWidget;
 use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\TOC\AnchorGenerator;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
@@ -33,6 +34,7 @@ final class Plugin
     private TableOfContentsBlock $block;
     private TableOfContentsShortcode $shortcode;
     private RankMathIntegration $rankMathIntegration;
+    private TableOfContentsWidget $widget;
 
     public function __construct()
     {
@@ -56,6 +58,7 @@ final class Plugin
         );
         $this->block = new TableOfContentsBlock($manualRenderer);
         $this->shortcode = new TableOfContentsShortcode($manualRenderer);
+        $this->widget = new TableOfContentsWidget($manualRenderer);
         $this->rankMathIntegration = new RankMathIntegration();
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
@@ -71,6 +74,7 @@ final class Plugin
         $this->automaticRenderer->boot();
         $this->block->boot();
         $this->shortcode->boot();
+        $this->widget->boot();
         $this->rankMathIntegration->boot();
 
         /**
