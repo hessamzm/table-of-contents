@@ -90,11 +90,18 @@ The unit suite covers heading parsing, anchor generation, tree building, and set
 
 Text domain: `table-of-contents`
 
+The repository uses a standard gettext translation pipeline:
+
+- Source template: `languages/table-of-contents.pot`.
+- Editable translations: `languages/table-of-contents-fa_IR.po` and `languages/table-of-contents-ar_AR.po`.
+- Compiled compatibility files: `.mo`.
+- WordPress 6.5+ runtime files: `.l10n.php`.
 - PHP strings use WordPress gettext functions.
 - Gutenberg strings use `wp.i18n`.
 - Script translation hooks are registered for frontend and editor scripts.
-- Translation template: `languages/table-of-contents.pot`.
-- Persian runtime translation: `languages/table-of-contents-fa_IR.l10n.php`.
+- Translation generation uses WP-CLI `wp i18n` commands.
+
+See [docs/i18n.md](docs/i18n.md) for the update and build workflow.
 
 ## Security
 
