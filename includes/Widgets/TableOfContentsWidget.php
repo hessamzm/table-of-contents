@@ -24,6 +24,16 @@ final class TableOfContentsWidget extends \WP_Widget
         );
     }
 
+    public function boot(): void
+    {
+        add_action('widgets_init', [$this, 'register']);
+    }
+
+    public function register(): void
+    {
+        register_widget($this);
+    }
+
     public function widget($args, $instance): void
     {
         if (!$this->isSupportedContext()) {
