@@ -15,6 +15,11 @@ function sanitize_title_with_dashes(string $title): string
     return trim($title, '-');
 }
 
+function esc_attr(string $text): string
+{
+    return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
 function sanitize_key(string $key): string
 {
     return strtolower(preg_replace('/[^a-z0-9_\\-]/', '', $key) ?? '');
