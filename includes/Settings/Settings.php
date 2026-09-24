@@ -15,7 +15,7 @@ final class Settings
         'post_types' => ['post', 'page', 'product'],
         'heading_levels' => [2, 3, 4, 5, 6],
         'title' => '',
-        'style' => 'classic',
+        'style' => 'paper',
         'show_numbers' => false,
         'background_color' => '#ffffff',
         'text_color' => '#1d2327',
@@ -82,9 +82,9 @@ final class Settings
             ? sanitize_text_field($settings['title'])
             : $this->defaults['title'];
 
-        $styles = ['classic', 'minimal', 'card'];
-        $style = isset($settings['style']) ? sanitize_key($settings['style']) : 'classic';
-        $clean['style'] = in_array($style, $styles, true) ? $style : 'classic';
+        $styles = ['classic', 'minimal', 'card', 'paper'];
+        $style = isset($settings['style']) ? sanitize_key($settings['style']) : 'paper';
+        $clean['style'] = in_array($style, $styles, true) ? $style : 'paper';
 
         $clean['show_numbers'] = !empty($settings['show_numbers']);
         $clean['sticky_toc'] = !empty($settings['sticky_toc']);
