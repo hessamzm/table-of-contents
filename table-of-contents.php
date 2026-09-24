@@ -39,6 +39,7 @@ require_once HESSAMZM_TOC_DIR . 'includes/Blocks/TableOfContentsBlock.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Shortcodes/TableOfContentsShortcode.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Admin/SettingsPage.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/TocRenderer.php';
+require_once HESSAMZM_TOC_DIR . 'includes/Frontend/TocAssets.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/AutomaticRenderer.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Core/Plugin.php';
 
