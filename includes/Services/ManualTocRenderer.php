@@ -97,7 +97,7 @@ final class ManualTocRenderer
         if (isset($attributes['style'])) {
             $style = sanitize_key((string) $attributes['style']);
 
-            if (in_array($style, ['classic', 'minimal', 'card'], true)) {
+            if (in_array($style, ['classic', 'minimal', 'card', 'paper'], true)) {
                 $overrides['style'] = $style;
             }
         }
