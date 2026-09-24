@@ -6,6 +6,7 @@ namespace Hessamzm\TableOfContents\Frontend;
 use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\Widgets\TableOfContentsWidget;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
+use Hessamzm\TableOfContents\Integrations\SEO\SeoTocCompatibility;
 
 defined('ABSPATH') || exit;
 
@@ -18,6 +19,7 @@ final class AutomaticRenderer
         private readonly TocRenderer $tocRenderer,
         private readonly Settings $settings,
         private readonly TocAssets $assets,
+        private readonly SeoTocCompatibility $seoTocCompatibility,
     ) {
     }
 
@@ -77,7 +79,8 @@ final class AutomaticRenderer
     {
         return str_contains($content, 'hessamzm-toc-manual')
             || has_block('hessamzm/table-of-contents', $content)
-            || has_shortcode($content, 'hessamzm_toc');
+            || has_shortcode($content, 'hessamzm_toc')
+            || $this->seoTocCompatibility->hasToc($content);
     }
 
     private function hasActiveTocWidget(): bool
