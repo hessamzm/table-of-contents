@@ -233,6 +233,7 @@ final class SettingsPage
         echo '<main class="hessamzm-toc-settings-form">';
         echo '<form method="post" action="options.php">';
         settings_fields('hessamzm_toc');
+        echo '<input type="hidden" name="' . esc_attr(Settings::OPTION_KEY . '[_active_tab]') . '" value="' . esc_attr($tab) . '">';
         $section = 'hessamzm_toc_' . $tab;
         echo '<div class="hessamzm-toc-settings-section">';
         if ($tab === 'general') {
