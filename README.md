@@ -29,7 +29,7 @@ Completed:
 
 ## Phase 3 — Admin Settings & Styling System
 
-Implemented:
+Completed:
 
 - WordPress Settings API based settings page under Settings > Table of Contents.
 - Enable/disable automatic rendering.
@@ -44,6 +44,30 @@ Implemented:
 - Frontend CSS variables generated from sanitized settings.
 - Settings-aware automatic renderer and TOC renderer.
 
+## Phase 4 — Gutenberg Block + Shortcode
+
+In Progress:
+
+- Dynamic Gutenberg block registered from `block.json` metadata.
+- Block Editor controls for title, style, numbering and H1–H6 selection.
+- Server-side block rendering using the shared TOC processing pipeline.
+- `[hessamzm_toc]` shortcode with optional `levels`, `title`, `style` and `numbers` attributes.
+- Manual TOC marker prevents duplicate automatic TOC insertion while still allowing automatic anchor injection.
+- Shared manual rendering service keeps block and shortcode behavior consistent.
+- Frontend CSS variables scoped to the TOC component instead of `:root`.
+
+### Shortcode usage
+
+Basic:
+
+`[hessamzm_toc]`
+
+Optional attributes:
+
+`[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
+
+When `levels` is omitted, the shortcode uses the global heading-level settings. The block follows the same global settings unless a per-block override is selected.
+
 ## Requirements
 
 - WordPress 7+
@@ -53,8 +77,8 @@ Implemented:
 
 1. Architecture + Core Engine — Completed
 2. Automatic Rendering — Completed
-3. Admin Settings and Styling System — In Progress
-4. Gutenberg block and shortcode
+3. Admin Settings and Styling System — Completed
+4. Gutenberg block and shortcode — In Progress
 5. Rank Math and compatibility integrations
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy
 7. Security, translation, performance, tests and documentation

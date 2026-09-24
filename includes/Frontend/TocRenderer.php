@@ -15,13 +15,15 @@ final class TocRenderer
     {
     }
 
-    public function render(HeadingTree $tree): string
+    public function render(HeadingTree $tree, array $overrides = []): string
     {
         if ($tree->isEmpty()) {
             return '';
         }
 
-        $title = (string) $this->settings->get('title');
+        $title = array_key_exists('title', $overrides)
+            ? sanitize_text_field((string) $overrides['title'])
+            : (string) $this->settings->get('title');
 
         if ($title === '') {
             $title = __('Table of Contents', 'table-of-contents');
@@ -29,8 +31,10 @@ final class TocRenderer
 
         $title = (string) apply_filters('hessamzm_toc/title', $title);
 
-        $style = sanitize_html_class((string) $this->settings->get('style'));
-        $numbered = (bool) $this->settings->get('show_numbers');
+        $style = sanitize_html_class((string) ($overrides['style'] ?? $this->settings->get('style')));
+        $numbered = array_key_exists('show_numbers', $overrides)
+            ? (bool) $overrides['show_numbers']
+            : (bool) $this->settings->get('show_numbers');
         $classes = [
             'hessamzm-toc',
             'hessamzm-toc--' . ($style ?: 'classic'),
