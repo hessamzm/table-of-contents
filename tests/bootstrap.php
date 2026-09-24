@@ -46,6 +46,19 @@ function wp_parse_args($args, $defaults = []): array
     return array_merge($defaults, is_array($args) ? $args : []);
 }
 
+function apply_filters(string $hook, $value, ...$args)
+{
+    return $value;
+}
+
+function has_block(string $block_name, string $content): bool
+{
+    return (bool) preg_match(
+        '/<!--\\s*wp:' . preg_quote($block_name, '/') . '(?:\\s|-->|$)/',
+        $content
+    );
+}
+
 require_once dirname(__DIR__) . '/includes/Contracts/HeadingParserInterface.php';
 require_once dirname(__DIR__) . '/includes/Contracts/AnchorGeneratorInterface.php';
 require_once dirname(__DIR__) . '/includes/Contracts/TocBuilderInterface.php';
@@ -57,3 +70,4 @@ require_once dirname(__DIR__) . '/includes/TOC/HeadingTree.php';
 require_once dirname(__DIR__) . '/includes/TOC/TocBuilder.php';
 require_once dirname(__DIR__) . '/includes/Settings/Settings.php';
 require_once dirname(__DIR__) . '/includes/Integrations/WooCommerce/ProductTocRenderer.php';
+require_once dirname(__DIR__) . '/includes/Integrations/SEO/SeoTocCompatibility.php';

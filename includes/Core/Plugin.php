@@ -5,6 +5,7 @@ namespace Hessamzm\TableOfContents\Core;
 
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
 use Hessamzm\TableOfContents\Integrations\RankMath\RankMathIntegration;
+use Hessamzm\TableOfContents\Integrations\SEO\SeoTocCompatibility;
 use Hessamzm\TableOfContents\Integrations\WooCommerce\WooCommerceIntegration;
 use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
@@ -35,6 +36,7 @@ final class Plugin
     private TableOfContentsBlock $block;
     private TableOfContentsShortcode $shortcode;
     private RankMathIntegration $rankMathIntegration;
+    private SeoTocCompatibility $seoTocCompatibility;
     private WooCommerceIntegration $wooCommerceIntegration;
     private TableOfContentsWidget $widget;
 
@@ -62,6 +64,7 @@ final class Plugin
         $this->shortcode = new TableOfContentsShortcode($manualRenderer);
         $this->widget = new TableOfContentsWidget($manualRenderer);
         $this->rankMathIntegration = new RankMathIntegration();
+        $this->seoTocCompatibility = new SeoTocCompatibility();
         $this->wooCommerceIntegration = new WooCommerceIntegration(
             $this->contentProcessor,
             $this->tocRenderer,
@@ -72,7 +75,8 @@ final class Plugin
             $this->contentProcessor,
             $this->tocRenderer,
             $this->settings,
-            $assets
+            $assets,
+            $this->seoTocCompatibility
         );
     }
 
