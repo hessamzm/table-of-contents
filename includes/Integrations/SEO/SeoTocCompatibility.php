@@ -42,8 +42,8 @@ final class SeoTocCompatibility
 
         return array_values(
             array_filter(
-                array_map('sanitize_key', $blocks),
-                static fn (string $blockName): bool => $blockName !== ''
+                array_map('strval', $blocks),
+                static fn (string $blockName): bool => (bool) preg_match('/^[a-z0-9_-]+\/[a-z0-9_-]+$/', $blockName)
             )
         );
     }
