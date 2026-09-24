@@ -33,7 +33,7 @@ final class ContentProcessor
         $tree = $this->tocBuilder->build($headings);
 
         return [
-            'content' => $this->injectAnchors($content, $headings),
+            'content' => $this->injectAnchors($content, $headings, $levels),
             'tree' => $tree,
         ];
     }
@@ -41,7 +41,7 @@ final class ContentProcessor
     /**
      * @param list<Heading> $headings
      */
-    private function injectAnchors(string $content, array $headings): string
+    private function injectAnchors(string $content, array $headings, array $levels): string
     {
         $headingIndex = 0;
 
@@ -52,18 +52,25 @@ final class ContentProcessor
             function (array $match) use ($headings, &$headingIndex): string {
                 $level = (int) $match[1];
 
-                if (!isset($headings[$headingIndex]) || $headings[$headingIndex]->level() !== $level) {
+                if (!in_array($level, $levels, true)) {
+                    return $match[0];
+                }
+
+                if (!isset($headings[$headingIndex])) {
                     return $match[0];
                 }
 
                 $heading = $headings[$headingIndex];
+                ++$headingIndex;
+
+                if ($heading->level() !== $level) {
+                    return $match[0];
+                }
                 $text = trim(wp_strip_all_tags((string) $match[3]));
 
                 if ($text !== $heading->text()) {
                     return $match[0];
                 }
-
-                ++$headingIndex;
 
                 $id = $heading->id();
 
