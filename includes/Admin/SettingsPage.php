@@ -100,6 +100,7 @@ final class SettingsPage
 
         $this->addTextField('title', __('Title', 'table-of-contents'));
         $this->addCheckbox('show_numbers', __('Show numbers', 'table-of-contents'), __('Prefix TOC items with hierarchical numbers.', 'table-of-contents'), 'hessamzm_toc_style');
+        $this->addCheckbox('sticky_toc', __('Sticky TOC', 'table-of-contents'), __('Keep the TOC visible while scrolling on larger screens.', 'table-of-contents'), 'hessamzm_toc_style');
 
         foreach ([
             'background_color' => __('Background color', 'table-of-contents'),

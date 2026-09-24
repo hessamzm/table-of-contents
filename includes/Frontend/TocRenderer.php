@@ -44,6 +44,14 @@ final class TocRenderer
             $classes[] = 'hessamzm-toc--numbered';
         }
 
+        $sticky = array_key_exists('sticky_toc', $overrides)
+            ? (bool) $overrides['sticky_toc']
+            : (bool) $this->settings->get('sticky_toc');
+
+        if ($sticky) {
+            $classes[] = 'hessamzm-toc--sticky';
+        }
+
         $attributes = (string) apply_filters(
             'hessamzm_toc/container_attributes',
             ''

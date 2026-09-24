@@ -26,6 +26,7 @@ final class Settings
         'font_size' => '16px',
         'indentation' => '1.5rem',
         'border_radius' => '0px',
+        'sticky_toc' => false,
     ];
 
     /**
@@ -97,6 +98,7 @@ final class Settings
         $clean['style'] = in_array($style, $styles, true) ? $style : 'classic';
 
         $clean['show_numbers'] = !empty($settings['show_numbers']);
+        $clean['sticky_toc'] = !empty($settings['sticky_toc']);
 
         foreach (['background_color', 'text_color', 'link_color', 'border_color'] as $key) {
             $value = isset($settings[$key]) ? sanitize_hex_color($settings[$key]) : false;

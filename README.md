@@ -92,5 +92,20 @@ Runtime validation with WordPress + Rank Math is still pending.
 3. Admin Settings and Styling System — Completed
 4. Gutenberg block and shortcode — Implemented
 5. Rank Math compatibility — Implemented; runtime validation pending
-6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Next
+6. Frontend assets, sticky TOC, responsive behavior and scroll spy — In Progress
 7. Security, translation, performance, tests and documentation
+
+
+## Phase 6 — Frontend Assets, Sticky TOC, Responsive Behavior & Scroll Spy
+
+In Progress:
+
+- Dedicated frontend JavaScript asset with no external dependency.
+- IntersectionObserver-based active heading tracking.
+- Accessible `aria-current="location"` state for the active TOC link.
+- Smooth heading navigation with reduced-motion handling.
+- Sticky TOC option in global settings.
+- Responsive behavior that disables sticky positioning on smaller screens.
+- Scoped frontend styles without global CSS framework dependencies.
+
+Runtime browser and WordPress integration testing is still pending.
