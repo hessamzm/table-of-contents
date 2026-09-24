@@ -105,16 +105,9 @@ final class AutomaticRenderer
 
     private function isEnabled(): bool
     {
-        if (!(bool) $this->settings->get('enabled')) {
-            return false;
-        }
+        $profile = $this->getProfile();
 
-        $postType = get_post_type();
-        if ($postType === 'post') {
-            return (bool) $this->settings->getProfile('post')['enabled'];
-        }
-
-        return true;
+        return !empty($profile['enabled']);
     }
 
     private function getLevels(): array
