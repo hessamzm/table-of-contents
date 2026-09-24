@@ -149,6 +149,13 @@ final class SettingsPage
         }
 
         wp_enqueue_style(
+            'hessamzm-toc',
+            HESSAMZM_TOC_URL . 'assets/css/frontend.css',
+            [],
+            HESSAMZM_TOC_VERSION
+        );
+
+        wp_enqueue_style(
             'hessamzm-toc-admin',
             HESSAMZM_TOC_URL . 'assets/css/admin.css',
             [],
@@ -199,7 +206,7 @@ final class SettingsPage
         }
         echo '</ol></div>';
         echo '<div class="hessamzm-toc__footer">';
-        echo '<button type="button" class="hessamzm-toc__toggle">' . esc_html__('View more', 'table-of-contents') . '</button>';
+        echo '<button type="button" class="hessamzm-toc__toggle" data-expand-label="' . esc_attr__('View more', 'table-of-contents') . '" data-collapse-label="' . esc_attr__('View less', 'table-of-contents') . '">' . esc_html__('View more', 'table-of-contents') . '</button>';
         echo '</div></nav>';
         echo '</div></div>';
     }
