@@ -14,7 +14,8 @@ Production-oriented WordPress Table of Contents plugin by hessamzm.
 - Automatic insertion above eligible post, page, or product content.
 - Existing heading IDs are preserved and duplicate anchors are made unique.
 - Gutenberg dynamic block.
-- `[hessamzm_toc]` shortcode.
+- `[hessamzm_toc]` shortcode with usage examples shown in the plugin settings.
+- WordPress sidebar widget for Posts and Products, generated from the current content.
 - Rank Math TOC detection compatibility.
 - Classic, Minimal, Card, and Paper Menu styles.
 - Three-line compact preview with configurable expand/collapse labels.
@@ -49,11 +50,17 @@ Insert the **Table of Contents** block. The block is rendered server-side from t
 
 ### Shortcode
 
+The plugin settings page includes copy-ready shortcode examples.
+
 `[hessamzm_toc]`
 
 Optional:
 
 `[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
+
+### Sidebar widget
+
+Add the **Table of Contents** widget to any active WordPress widget area. On single Posts and Products it reads the current content and renders the TOC using the global plugin settings. On other content types it remains hidden. When the widget is active on a supported Post or Product, automatic inline TOC insertion is suppressed to prevent duplicate TOCs.
 
 ## Extensibility
 
@@ -103,7 +110,9 @@ The plugin uses WordPress Settings API validation/sanitization, escaped output, 
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Implemented; runtime validation pending
 7. Security, lifecycle, translation, performance, tests and documentation — Implemented; runtime WordPress/browser validation pending
 8. TOC UX and Paper Menu style — Implemented
-9. TOC position, configurable labels, and Persian admin/frontend localization — In Progress
+9. TOC position, configurable labels, and Persian admin/frontend localization — Implemented; runtime validation pending
+10. Live settings preview and sticky typography customization — Implemented; runtime validation pending
+11. Settings shortcode guidance and Post/Product sidebar widget — Implemented; runtime validation pending
 
 ## Production validation
 
