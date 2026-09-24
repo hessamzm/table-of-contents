@@ -30,6 +30,14 @@ final class TocAssets
 
         wp_add_inline_style('hessamzm-toc', $this->getCssVariables());
 
+        wp_enqueue_script(
+            'hessamzm-toc-frontend',
+            HESSAMZM_TOC_URL . 'assets/js/frontend.js',
+            [],
+            HESSAMZM_TOC_VERSION,
+            true
+        );
+
         $this->enqueued = true;
     }
 
