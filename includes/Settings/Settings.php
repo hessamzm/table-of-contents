@@ -98,6 +98,7 @@ final class Settings
         if (in_array($activeTab, ['general', 'articles', 'products'], true)) {
             $stored = get_option(self::OPTION_KEY, []);
             $stored = is_array($stored) ? wp_parse_args($stored, $this->defaults) : $this->defaults;
+
             $clean = $stored;
 
             if ($activeTab === 'general') {
@@ -145,6 +146,7 @@ final class Settings
                 );
             }
 
+            $clean['_active_tab'] = null;
             $clean['product_toc_enabled'] = !empty($clean['product_toc']['enabled']);
             $clean['product_toc_position'] = (string) ($clean['product_toc']['placement'] ?? 'inside_description');
             $clean['heading_levels'] = $clean['post_toc']['heading_levels'] ?? $this->defaults['heading_levels'];
