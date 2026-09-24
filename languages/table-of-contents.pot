@@ -300,3 +300,99 @@ msgstr ""
 msgid "Configure the WooCommerce product TOC independently from the general automatic renderer."
 msgstr ""
 
+
+#: includes/Admin/SettingsPage.php
+msgid "Content types"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Blog posts"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "WooCommerce products"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Articles"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Enable TOC"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Generate a dedicated TOC for WooCommerce product descriptions."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Generate a dedicated TOC for blog posts."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Alignment"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "TOC placement"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Shortcode generators"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Build a ready-to-use shortcode without memorizing attributes. Each generator uses the settings for its own TOC profile as the starting point."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Blog TOC shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Use this shortcode inside a blog post to insert the Blog TOC manually."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Product TOC shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Use this shortcode inside a WooCommerce product to insert the Product TOC manually."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Generated shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Copy shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Copied"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "General plugin settings. Blog posts and products are enabled and configured independently in their respective tabs."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Create and customize the TOC used specifically for blog posts. These settings are independent from the product TOC."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Create and customize the TOC used specifically for WooCommerce products. These settings are independent from the article TOC."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Table of Contents settings"
+msgstr ""
+
+#: blocks/table-of-contents/index.js
+msgid "Leave empty to use the global plugin title."
+msgstr ""
+
+#: includes/Widgets/TableOfContentsWidget.php
+msgid "This widget uses the current post or product content and its independent TOC profile settings."
+msgstr ""
