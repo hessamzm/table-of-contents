@@ -50,20 +50,23 @@ final class TocRenderer
 
         $expandLabel = __('View more', 'table-of-contents');
         $collapseLabel = __('View less', 'table-of-contents');
+        $listId = function_exists('wp_unique_id') ? wp_unique_id('hessamzm-toc-list-') : 'hessamzm-toc-list';
 
         $html = '<nav class="' . esc_attr(implode(' ', $classes)) . '"' .
             ($safeAttributes !== '' ? ' ' . $safeAttributes : '') .
             ' aria-label="' . esc_attr($title) . '">';
         $html .= '<div class="hessamzm-toc__header">';
         $html .= '<p class="hessamzm-toc__title">' . esc_html($title) . '</p>';
-        $html .= '<button type="button" class="hessamzm-toc__toggle" aria-expanded="false" data-expand-label="' . esc_attr($expandLabel) . '" data-collapse-label="' . esc_attr($collapseLabel) . '">' . esc_html($expandLabel) . '</button>';
         $html .= '</div>';
-        $html .= '<div class="hessamzm-toc__body">';
-        $html .= '<ol id="hessamzm-toc-list" class="hessamzm-toc__list">';
+        $html .= '<div class="hessamzm-toc__body" data-toc-preview-lines="3">';
+        $html .= '<ol id="' . esc_attr($listId) . '" class="hessamzm-toc__list">';
 
         foreach ($tree->roots() as $node) { $html .= $this->renderNode($node); }
 
-        $html .= '</ol></div></nav>';
+        $html .= '</ol></div>';
+        $html .= '<div class="hessamzm-toc__footer">';
+        $html .= '<button type="button" class="hessamzm-toc__toggle" aria-expanded="false" aria-controls="' . esc_attr($listId) . '" data-expand-label="' . esc_attr($expandLabel) . '" data-collapse-label="' . esc_attr($collapseLabel) . '">' . esc_html($expandLabel) . '</button>';
+        $html .= '</div></nav>';
 
         return (string) apply_filters('hessamzm_toc/html', $html, $tree);
     }
