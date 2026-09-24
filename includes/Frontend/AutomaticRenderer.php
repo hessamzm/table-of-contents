@@ -61,6 +61,10 @@ final class AutomaticRenderer
                 return $content;
             }
 
+            if ($this->hasManualToc($content)) {
+                return $processed['content'];
+            }
+
             $toc = $this->tocRenderer->render($processed['tree']);
 
             if ($toc === '') {
@@ -95,7 +99,12 @@ final class AutomaticRenderer
             $variables[] = $property . ':' . esc_attr($value);
         }
 
-        return ':root{' . implode(';', $variables) . ';}';
+        return '.hessamzm-toc{' . implode(';', $variables) . ';}';
+    }
+
+    private function hasManualToc(string $content): bool
+    {
+        return str_contains($content, 'hessamzm-toc-manual');
     }
 
     private function isEnabled(): bool
