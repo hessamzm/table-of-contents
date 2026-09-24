@@ -25,8 +25,6 @@ final class ManualTocRenderer
      */
     public function render(array $attributes = []): string
     {
-        $this->assets->enqueue();
-
         $postId = get_the_ID();
 
         if (!$postId) {
@@ -38,6 +36,8 @@ final class ManualTocRenderer
         if ($content === '') {
             return '';
         }
+
+        $this->assets->enqueue();
 
         $levels = $this->resolveLevels($attributes);
         $processed = $this->processor->process($content, $levels);
