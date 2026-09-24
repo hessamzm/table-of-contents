@@ -192,7 +192,7 @@ final class SettingsPage
         echo '<p class="description">' . esc_html__('Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes.', 'table-of-contents') . '</p>';
         echo '<div class="hessamzm-toc-preview-stage">';
         echo '<nav class="hessamzm-toc hessamzm-toc--paper hessamzm-toc--position-right" aria-label="' . esc_attr__('Live preview', 'table-of-contents') . '">';
-        echo '<div class="hessamzm-toc__header"><p class="hessamzm-toc__title">' . esc_html__('Table of Contents', 'table-of-contents') . '</p></div>';
+        echo '<div class="hessamzm-toc__header"><p class="hessamzm-toc__title" data-default-title="' . esc_attr__('Table of Contents', 'table-of-contents') . '">' . esc_html__('Table of Contents', 'table-of-contents') . '</p></div>';
         echo '<div class="hessamzm-toc__body">';
         echo '<ol class="hessamzm-toc__list">';
         foreach ($previewItems as $index => $item) {
