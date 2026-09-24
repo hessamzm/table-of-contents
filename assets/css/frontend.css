@@ -284,13 +284,13 @@
 
 /* Sticky mode is deliberately a compact top navigation, not a page-height sidebar. */
 .hessamzm-toc--position-left {
-    margin-inline-start: 0;
-    margin-inline-end: auto;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .hessamzm-toc--position-right {
-    margin-inline-start: auto;
-    margin-inline-end: 0;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 .hessamzm-toc--sticky {
