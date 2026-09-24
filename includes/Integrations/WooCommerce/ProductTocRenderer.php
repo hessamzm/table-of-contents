@@ -1,0 +1,194 @@
+<?php
+declare(strict_types=1);
+
+namespace Hessamzm\TableOfContents\Integrations\WooCommerce;
+
+use Hessamzm\TableOfContents\Frontend\TocAssets;
+use Hessamzm\TableOfContents\Frontend\TocRenderer;
+use Hessamzm\TableOfContents\Settings\Settings;
+use Hessamzm\TableOfContents\TOC\ContentProcessor;
+
+defined('ABSPATH') || exit;
+
+final class ProductTocRenderer
+{
+    /** @var array<int,array{content:string,tree:\Hessamzm\TableOfContents\TOC\HeadingTree}> */
+    private array $processed = [];
+
+    public function __construct(
+        private readonly ContentProcessor $processor,
+        private readonly TocRenderer $tocRenderer,
+        private readonly Settings $settings,
+        private readonly TocAssets $assets,
+    ) {
+    }
+
+    public function boot(): void
+    {
+        if (!$this->isAvailable() || !$this->isEnabled()) {
+            return;
+        }
+
+        add_filter('the_content', [$this, 'filterProductDescription'], 20);
+
+        $position = $this->getPosition();
+
+        if ($position === 'before_summary') {
+            add_action('woocommerce_before_single_product_summary', [$this, 'render'], 30);
+        } elseif ($position === 'before_tabs') {
+            add_action('woocommerce_after_single_product_summary', [$this, 'render'], 5);
+        } else {
+            add_action('woocommerce_after_single_product', [$this, 'render'], 5);
+        }
+    }
+
+    public function render(): void
+    {
+        if (!$this->shouldRender()) {
+            return;
+        }
+
+        $processed = $this->getProcessedDescription();
+
+        if ($processed === null || $processed['tree']->isEmpty()) {
+            return;
+        }
+
+        $this->assets->enqueue();
+
+        $toc = $this->tocRenderer->render($processed['tree']);
+
+        if ($toc === '') {
+            return;
+        }
+
+        echo '<div class="hessamzm-toc-product">' . $toc . '</div>';
+    }
+
+    public function filterProductDescription(string $content): string
+    {
+        if (!$this->shouldRender()) {
+            return $content;
+        }
+
+        $product = $this->getProduct();
+
+        if ($product === null) {
+            return $content;
+        }
+
+        $processed = $this->getProcessedDescription($product);
+
+        if ($processed === null) {
+            return $content;
+        }
+
+        return $processed['content'];
+    }
+
+    private function getProcessedDescription(?object $product = null): ?array
+    {
+        $product ??= $this->getProduct();
+
+        if ($product === null || !method_exists($product, 'get_id') || !method_exists($product, 'get_description')) {
+            return null;
+        }
+
+        $productId = absint($product->get_id());
+
+        if ($productId < 1) {
+            return null;
+        }
+
+        if (isset($this->processed[$productId])) {
+            return $this->processed[$productId];
+        }
+
+        $description = (string) $product->get_description();
+
+        if ($description === '') {
+            return null;
+        }
+
+        $levels = $this->getLevels();
+        $processed = $this->processor->process($description, $levels);
+
+        $this->processed[$productId] = $processed;
+
+        return $processed;
+    }
+
+    private function getProduct(): ?object
+    {
+        if (!$this->isAvailable() || !is_singular('product') || !function_exists('wc_get_product')) {
+            return null;
+        }
+
+        $product = wc_get_product(get_queried_object_id());
+
+        return is_object($product) && is_a($product, 'WC_Product') ? $product : null;
+    }
+
+    private function shouldRender(): bool
+    {
+        if (!$this->isAvailable() || !$this->isEnabled() || is_admin() || !is_singular('product')) {
+            return false;
+        }
+
+        if (is_feed() || post_password_required()) {
+            return false;
+        }
+
+        if (!$this->isProductSelected()) {
+            return false;
+        }
+
+        return (bool) apply_filters(
+            'hessamzm_toc/product_should_render',
+            true,
+            get_queried_object_id()
+        );
+    }
+
+    private function isProductSelected(): bool
+    {
+        $postTypes = (array) $this->settings->get('post_types');
+
+        return in_array('product', $postTypes, true);
+    }
+
+    private function isEnabled(): bool
+    {
+        return (bool) $this->settings->get('product_toc_enabled');
+    }
+
+    private function getPosition(): string
+    {
+        $position = sanitize_key((string) $this->settings->get('product_toc_position'));
+
+        return in_array($position, ['before_summary', 'before_tabs', 'after_tabs'], true)
+            ? $position
+            : 'before_summary';
+    }
+
+    /** @return list<int> */
+    private function getLevels(): array
+    {
+        $levels = (array) apply_filters(
+            'hessamzm_toc/product_heading_levels',
+            (array) $this->settings->get('heading_levels')
+        );
+
+        return array_values(
+            array_filter(
+                array_map('intval', $levels),
+                static fn (int $level): bool => $level >= 1 && $level <= 6
+            )
+        );
+    }
+
+    private function isAvailable(): bool
+    {
+        return class_exists('WooCommerce') && function_exists('wc_get_product');
+    }
+}
