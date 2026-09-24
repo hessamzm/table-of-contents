@@ -7,7 +7,6 @@
  * Requires at least: 7.0
  * Requires PHP: 8.2
  * WC requires at least: 10.0
- * WC tested up to: 10.7
  * Author: hessamzm
  * Author URI: https://github.com/hessamzm
  * Text Domain: table-of-contents
