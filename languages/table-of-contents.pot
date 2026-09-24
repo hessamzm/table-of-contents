@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Table of Contents 0.7.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"X-Domain: table-of-contents\n"
+
+#: includes/Admin/SettingsPage.php
+msgid "Table of Contents"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "General"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Appearance"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Enable automatic TOC"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Automatically add the table of contents to eligible content."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Post types"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Posts"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Pages"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Products"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Heading levels"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Heading %d"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Style"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Title"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Show numbers"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Prefix TOC items with hierarchical numbers."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Sticky TOC"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Keep the TOC visible while scrolling on larger screens."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Delete data on uninstall"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Delete plugin settings when the plugin is permanently uninstalled. This does not affect post content."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Background color"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Text color"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Link color"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Border color"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Font size"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Indentation"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Border radius"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Classic"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Minimal"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Card"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Configure automatic TOC rendering and its global appearance."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Use a CSS length such as 16px, 1rem, or 1.5em."
+msgstr ""
+
+#: includes/Frontend/TocRenderer.php
+#: includes/Integrations/RankMath/RankMathIntegration.php
+msgid "Table of Contents"
+msgstr ""
+
+#: blocks/table-of-contents/index.js
+msgid "Global setting"
+msgstr ""
+
+#: blocks/table-of-contents/index.js
+msgid "Override the global numbering setting."
+msgstr ""
+
+#: blocks/table-of-contents/index.js
+msgid "Leave all heading levels unchecked to use the global selection."
+msgstr ""
+
+#: blocks/table-of-contents/index.js
+msgid "The table of contents will be generated on the front end from this post’s headings."
+msgstr ""
+
+#: blocks/table-of-contents/block.json
+msgid "Display a manually placed table of contents."
+msgstr ""
