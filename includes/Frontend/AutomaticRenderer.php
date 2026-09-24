@@ -35,7 +35,7 @@ final class AutomaticRenderer
             return;
         }
 
-        $this->assets->enqueue();
+        $this->assets->enqueue($this->getProfile());
     }
 
     public function filterContent(string $content): string
@@ -48,7 +48,8 @@ final class AutomaticRenderer
             return $content;
         }
 
-        $this->assets->enqueue();
+        $profile = $this->getProfile();
+        $this->assets->enqueue($profile);
         $this->rendering = true;
 
         try {
@@ -63,7 +64,7 @@ final class AutomaticRenderer
                 return $processed['content'];
             }
 
-            $toc = $this->tocRenderer->render($processed['tree']);
+            $toc = $this->tocRenderer->render($processed['tree'], array_merge($profile, ['profile' => 'post']));
 
             if ($toc === '') {
                 return $content;
@@ -83,6 +84,12 @@ final class AutomaticRenderer
             || $this->seoTocCompatibility->hasToc($content);
     }
 
+    /** @return array<string,mixed> */
+    private function getProfile(): array
+    {
+        return get_post_type() === 'post' ? $this->settings->getProfile('post') : $this->settings->getProfile('post');
+    }
+
     private function hasActiveTocWidget(): bool
     {
         if (!in_array(get_post_type(), ['post', 'product'], true)) {
@@ -94,14 +101,23 @@ final class AutomaticRenderer
 
     private function isEnabled(): bool
     {
-        return (bool) $this->settings->get('enabled');
+        if (!(bool) $this->settings->get('enabled')) {
+            return false;
+        }
+
+        $postType = get_post_type();
+        if ($postType === 'post') {
+            return (bool) $this->settings->getProfile('post')['enabled'];
+        }
+
+        return true;
     }
 
     private function getLevels(): array
     {
         $levels = (array) apply_filters(
             'hessamzm_toc/heading_levels',
-            (array) $this->settings->get('heading_levels')
+            (array) ($this->settings->getProfile('post')['heading_levels'] ?? [])
         );
 
         return array_values(
