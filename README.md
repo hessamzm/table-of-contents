@@ -2,90 +2,94 @@
 
 Production-oriented WordPress Table of Contents plugin by hessamzm.
 
-## Phase 1 — Architecture + Core Engine
-
-Completed:
-
-- Heading parsing for H1–H6.
-- Configurable heading-level selection.
-- Existing heading ID preservation.
-- Deterministic unique anchor generation.
-- Heading collection/tree boundary for future renderers.
-- Contract-based services for extensibility.
-- WordPress-safe bootstrap and prefixed hooks.
-
-## Phase 2 — Automatic Rendering
-
-Completed:
-
-- Automatic rendering through the `the_content` filter.
-- Main-loop and main-query safeguards.
-- Posts, Pages and WooCommerce Product post type support without a WooCommerce hard dependency.
-- TOC insertion above the processed content.
-- Automatic anchor injection for selected headings.
-- Existing IDs are preserved unless uniqueness requires a generated suffix.
-- Frontend stylesheet loaded only on eligible singular content.
-- Extensible render decision and title/container filters.
-
-## Phase 3 — Admin Settings & Styling System
-
-Completed:
-
-- WordPress Settings API based settings page under Settings > Table of Contents.
-- Enable/disable automatic rendering.
-- Select eligible Post, Page and Product post types.
-- Select H1–H6 heading levels.
-- Global TOC title.
-- Classic, Minimal and Card styles.
-- Hierarchical numbering option.
-- Background, text, link and border colors.
-- Font size, indentation and border radius.
-- Sanitization for colors and CSS lengths.
-- Frontend CSS variables generated from sanitized settings.
-- Settings-aware automatic renderer and TOC renderer.
-
-## Phase 4 — Gutenberg Block + Shortcode
-
-Implemented:
-
-- Dynamic Gutenberg block registered from `block.json` metadata.
-- Block Editor controls for title, style, numbering and H1–H6 selection.
-- Server-side block rendering using the shared TOC processing pipeline.
-- `[hessamzm_toc]` shortcode with optional `levels`, `title`, `style` and `numbers` attributes.
-- Manual TOC marker prevents duplicate automatic TOC insertion while still allowing automatic anchor injection.
-- Shared manual rendering service keeps block and shortcode behavior consistent.
-- Frontend CSS variables scoped to the TOC component instead of `:root`.
-
-### Shortcode usage
-
-Basic:
-
-`[hessamzm_toc]`
-
-Optional attributes:
-
-`[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
-
-When `levels` is omitted, the shortcode uses the global heading-level settings. The block follows the same global settings unless a per-block override is selected.
-
-## Phase 5 — Rank Math Compatibility
-
-Implemented:
-
-- Rank Math TOC detection compatibility via `rank_math/researches/toc_plugins`.
-- No hard dependency on Rank Math.
-- Integration activates only when Rank Math is available.
-- Dynamic plugin basename registration.
-- Filter `hessamzm_toc/rank_math_integration_enabled` to disable the integration.
-
-Runtime validation with WordPress + Rank Math is still pending.
-
 ## Requirements
 
 - WordPress 7+
 - PHP 8.2+
+- WooCommerce 10+ is supported for Product post types, but WooCommerce is not a hard dependency.
 
-## Planned phases
+## Features
+
+- Automatic TOC for selected H1-H6 headings.
+- Automatic insertion above eligible post, page, or product content.
+- Existing heading IDs are preserved and duplicate anchors are made unique.
+- Gutenberg dynamic block.
+- `[hessamzm_toc]` shortcode.
+- Rank Math TOC detection compatibility.
+- Classic, Minimal, and Card styles.
+- Hierarchical numbering.
+- Sticky TOC on larger screens.
+- IntersectionObserver scroll spy with `aria-current="location"`.
+- Responsive frontend behavior and reduced-motion support.
+- Settings API based administration.
+- Sanitized color, CSS length, heading-level, post-type, and style settings.
+
+## Configuration
+
+Open **Settings > Table of Contents** to configure:
+
+- Automatic rendering.
+- Eligible post types.
+- Heading levels.
+- TOC title and style.
+- Numbering and sticky behavior.
+- Colors, font size, indentation, and border radius.
+- Optional deletion of plugin settings on uninstall.
+
+Deactivation does not delete settings or content. Permanent deletion removes the settings option only when **Delete data on uninstall** is enabled.
+
+## Manual placement
+
+### Gutenberg
+
+Insert the **Table of Contents** block. The block is rendered server-side from the current post content.
+
+### Shortcode
+
+`[hessamzm_toc]`
+
+Optional:
+
+`[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
+
+## Extensibility
+
+Key filters include:
+
+- `hessamzm_toc/should_render`
+- `hessamzm_toc/post_types`
+- `hessamzm_toc/heading_levels`
+- `hessamzm_toc/title`
+- `hessamzm_toc/container_attributes`
+- `hessamzm_toc/html`
+- `hessamzm_toc/shortcode_attributes`
+- `hessamzm_toc/rank_math_integration_enabled`
+
+## Development
+
+Install development dependencies:
+
+```bash
+composer install
+vendor/bin/phpunit
+```
+
+The unit suite covers heading parsing, anchor generation, tree building, and settings sanitization. Full WordPress/browser integration testing requires a WordPress test environment and is tracked separately.
+
+## Internationalization
+
+Text domain: `table-of-contents`
+
+- PHP strings use WordPress gettext functions.
+- Gutenberg strings use `wp.i18n`.
+- Script translation hooks are registered for frontend and editor scripts.
+- Translation template: `languages/table-of-contents.pot`.
+
+## Security
+
+The plugin uses WordPress Settings API validation/sanitization, escaped output, capability checks on the settings page, controlled CSS values, and sanitized shortcode/block inputs. No custom database tables are used.
+
+## Project phases
 
 1. Architecture + Core Engine — Completed
 2. Automatic Rendering — Completed
@@ -93,37 +97,16 @@ Runtime validation with WordPress + Rank Math is still pending.
 4. Gutenberg block and shortcode — Implemented
 5. Rank Math compatibility — Implemented; runtime validation pending
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Implemented; runtime validation pending
-7. Security, translation, performance, tests and documentation — Next
-7. Security, translation, performance, tests and documentation
+7. Security, lifecycle, translation, performance, tests and documentation — Implemented; runtime WordPress/browser validation pending
 
+## Production validation
 
-## Phase 6 — Frontend Assets, Sticky TOC, Responsive Behavior & Scroll Spy
+The remaining release gate is runtime validation in a real WordPress environment, including:
 
-Implemented:
-
-- Dedicated frontend JavaScript asset with no external dependency.
-- IntersectionObserver-based active heading tracking.
-- Accessible `aria-current="location"` state for the active TOC link.
-- Smooth heading navigation with reduced-motion handling.
-- Sticky TOC option in global settings.
-- Responsive behavior that disables sticky positioning on smaller screens.
-- Scoped frontend styles without global CSS framework dependencies.
-
-Runtime browser and WordPress integration testing is still pending.
-
-
-## Phase 7 — Security, Translation, Performance, Tests & Documentation
-
-Planned scope:
-
-- Security hardening and API/input/output review.
-- Plugin lifecycle, activation defaults and uninstall handling.
-- Translation readiness for PHP, JavaScript, block metadata and generated POT.
-- Frontend asset and query performance review.
-- Automated tests for parsing, anchors, tree building, content processing and settings sanitization.
-- Integration-oriented tests for block, shortcode, automatic rendering and Rank Math compatibility.
-- Accessibility and responsive behavior validation.
-- Production documentation and release checklist.
-
-Current status: In Progress.
-Runtime WordPress/browser validation remains required before production release.
+- Plugin activation/deactivation/uninstall behavior.
+- Automatic rendering on posts/pages/products.
+- Gutenberg block and shortcode rendering.
+- Rank Math detection.
+- Frontend sticky and scroll spy behavior.
+- Accessibility and responsive checks.
+- PHPUnit execution in the project environment.
