@@ -49,7 +49,7 @@ final class ContentProcessor
 
         $processed = preg_replace_callback(
             $pattern,
-            function (array $match) use ($headings, &$headingIndex): string {
+            function (array $match) use ($headings, $levels, &$headingIndex): string {
                 $level = (int) $match[1];
 
                 if (!in_array($level, $levels, true)) {
