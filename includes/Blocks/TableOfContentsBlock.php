@@ -43,6 +43,12 @@ final class TableOfContentsBlock
             true
         );
 
+        wp_set_script_translations(
+            'hessamzm-toc-block-editor',
+            'table-of-contents',
+            HESSAMZM_TOC_DIR . 'languages'
+        );
+
         register_block_type(
             $blockPath,
             [
