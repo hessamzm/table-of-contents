@@ -38,6 +38,12 @@ final class TocAssets
             true
         );
 
+        wp_set_script_translations(
+            'hessamzm-toc-frontend',
+            'table-of-contents',
+            HESSAMZM_TOC_DIR . 'languages'
+        );
+
         $this->enqueued = true;
     }
 
