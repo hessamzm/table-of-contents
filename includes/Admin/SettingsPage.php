@@ -51,7 +51,6 @@ final class SettingsPage
             [$this, 'renderGeneralDescription'],
             self::PAGE_SLUG
         );
-        $this->addCheckbox('enabled', __('Enable plugin', 'table-of-contents'), __('Enable the Table of Contents plugin globally.', 'table-of-contents'), 'hessamzm_toc_general');
         $this->addCheckboxGroup('post_types', __('Content types', 'table-of-contents'), [
             'post' => __('Blog posts', 'table-of-contents'),
             'page' => __('Pages', 'table-of-contents'),
@@ -363,7 +362,7 @@ final class SettingsPage
 
     public function renderGeneralDescription(): void
     {
-        echo '<p>' . esc_html__('Global plugin controls. Blog posts and products have their own independent TOC configurations in their respective tabs.', 'table-of-contents') . '</p>';
+        echo '<p>' . esc_html__('General plugin settings. Blog posts and products are enabled and configured independently in their respective tabs.', 'table-of-contents') . '</p>';
     }
 
     public function renderArticlesDescription(): void
