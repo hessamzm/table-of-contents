@@ -35,6 +35,12 @@ final class TocRenderer
         }
 
         $classes = ['hessamzm-toc', 'hessamzm-toc--' . ($style ?: 'classic'), 'hessamzm-toc--position-' . $position];
+        if (!empty($overrides['profile'])) {
+            $profile = sanitize_html_class((string) $overrides['profile']);
+            if ($profile !== '') {
+                $classes[] = 'hessamzm-toc--profile-' . $profile;
+            }
+        }
         if ($numbered) { $classes[] = 'hessamzm-toc--numbered'; }
 
         $sticky = array_key_exists('sticky_toc', $overrides)
