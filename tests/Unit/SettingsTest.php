@@ -31,6 +31,13 @@ final class SettingsTest extends TestCase
         self::assertSame('left', $clean['position']);
         self::assertSame('13px', $clean['sticky_font_size']);
         self::assertTrue($clean['product_toc_enabled']);
-        self::assertSame('before_tabs', $clean['product_toc_position']);
+        self::assertSame('inside_description', $clean['product_toc_position']);
+    }
+
+    public function testItDefaultsProductTocToInsideDescription(): void
+    {
+        $settings = new Settings();
+
+        self::assertSame('inside_description', $settings->defaults()['product_toc_position']);
     }
 }

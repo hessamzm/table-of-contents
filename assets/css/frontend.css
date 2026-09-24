@@ -367,3 +367,19 @@
         transition: none;
     }
 }
+
+
+/* WooCommerce classic themes may set overflow on the tabs wrapper.
+ * That creates a scrolling ancestor and prevents the product TOC from
+ * sticking to the viewport. Only relax overflow when this plugin is using
+ * its sticky Product TOC mode.
+ */
+.single-product.hessamzm-toc-product-sticky .woocommerce-tabs,
+.single-product.hessamzm-toc-product-sticky .woocommerce-Tabs-panel,
+.single-product.hessamzm-toc-product-sticky .woocommerce-tabs .panel {
+    overflow: visible;
+}
+
+.hessamzm-toc-product--inside-description {
+    margin-block-end: 1.5rem;
+}
