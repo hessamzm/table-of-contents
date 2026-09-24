@@ -56,3 +56,4 @@ require_once dirname(__DIR__) . '/includes/TOC/AnchorGenerator.php';
 require_once dirname(__DIR__) . '/includes/TOC/HeadingTree.php';
 require_once dirname(__DIR__) . '/includes/TOC/TocBuilder.php';
 require_once dirname(__DIR__) . '/includes/Settings/Settings.php';
+require_once dirname(__DIR__) . '/includes/Integrations/WooCommerce/ProductTocRenderer.php';
