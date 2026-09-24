@@ -28,6 +28,13 @@ final class TableOfContentsBlock
             return;
         }
 
+        wp_register_style(
+            'hessamzm-toc',
+            HESSAMZM_TOC_URL . 'assets/css/frontend.css',
+            [],
+            HESSAMZM_TOC_VERSION
+        );
+
         wp_register_script(
             'hessamzm-toc-block-editor',
             HESSAMZM_TOC_URL . 'blocks/table-of-contents/index.js',
