@@ -53,7 +53,10 @@ function apply_filters(string $hook, $value, ...$args)
 
 function has_block(string $block_name, string $content): bool
 {
-    return str_contains($content, '<!-- wp:' . $block_name);
+    return (bool) preg_match(
+        '/<!--\\s*wp:' . preg_quote($block_name, '/') . '(?:\\s|-->|$)/',
+        $content
+    );
 }
 
 require_once dirname(__DIR__) . '/includes/Contracts/HeadingParserInterface.php';
