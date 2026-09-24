@@ -3,7 +3,7 @@
  * Plugin Name: Table of Contents
  * Plugin URI: https://github.com/hessamzm/table-of-contents
  * Description: Automatic, extensible table of contents engine for WordPress content.
- * Version: 0.3.0
+ * Version: 0.4.0
  * Requires at least: 7.0
  * Requires PHP: 8.2
  * Author: hessamzm
@@ -18,7 +18,7 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-define('HESSAMZM_TOC_VERSION', '0.3.0');
+define('HESSAMZM_TOC_VERSION', '0.4.0');
 define('HESSAMZM_TOC_FILE', __FILE__);
 define('HESSAMZM_TOC_DIR', plugin_dir_path(__FILE__));
 define('HESSAMZM_TOC_URL', plugin_dir_url(__FILE__));
@@ -34,6 +34,9 @@ require_once HESSAMZM_TOC_DIR . 'includes/TOC/HeadingTree.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/TocBuilder.php';
 require_once HESSAMZM_TOC_DIR . 'includes/TOC/ContentProcessor.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Settings/Settings.php';
+require_once HESSAMZM_TOC_DIR . 'includes/Services/ManualTocRenderer.php';
+require_once HESSAMZM_TOC_DIR . 'includes/Blocks/TableOfContentsBlock.php';
+require_once HESSAMZM_TOC_DIR . 'includes/Shortcodes/TableOfContentsShortcode.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Admin/SettingsPage.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/TocRenderer.php';
 require_once HESSAMZM_TOC_DIR . 'includes/Frontend/AutomaticRenderer.php';
