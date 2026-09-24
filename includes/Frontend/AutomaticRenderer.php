@@ -45,6 +45,7 @@ final class AutomaticRenderer
             return $content;
         }
 
+        $this->assets->enqueue();
         $this->rendering = true;
 
         try {
