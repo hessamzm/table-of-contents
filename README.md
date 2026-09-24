@@ -92,13 +92,14 @@ Runtime validation with WordPress + Rank Math is still pending.
 3. Admin Settings and Styling System — Completed
 4. Gutenberg block and shortcode — Implemented
 5. Rank Math compatibility — Implemented; runtime validation pending
-6. Frontend assets, sticky TOC, responsive behavior and scroll spy — In Progress
+6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Implemented; runtime validation pending
+7. Security, translation, performance, tests and documentation — Next
 7. Security, translation, performance, tests and documentation
 
 
 ## Phase 6 — Frontend Assets, Sticky TOC, Responsive Behavior & Scroll Spy
 
-In Progress:
+Implemented:
 
 - Dedicated frontend JavaScript asset with no external dependency.
 - IntersectionObserver-based active heading tracking.
@@ -109,3 +110,20 @@ In Progress:
 - Scoped frontend styles without global CSS framework dependencies.
 
 Runtime browser and WordPress integration testing is still pending.
+
+
+## Phase 7 — Security, Translation, Performance, Tests & Documentation
+
+Planned scope:
+
+- Security hardening and API/input/output review.
+- Plugin lifecycle, activation defaults and uninstall handling.
+- Translation readiness for PHP, JavaScript, block metadata and generated POT.
+- Frontend asset and query performance review.
+- Automated tests for parsing, anchors, tree building, content processing and settings sanitization.
+- Integration-oriented tests for block, shortcode, automatic rendering and Rank Math compatibility.
+- Accessibility and responsive behavior validation.
+- Production documentation and release checklist.
+
+Current status: In Progress.
+Runtime WordPress/browser validation remains required before production release.
