@@ -95,20 +95,8 @@ msgid "You do not have permission to access this page."
 msgstr "شما اجازه دسترسی به این صفحه را ندارید."
 
 msgid "Use a CSS length such as 16px, 1rem, or 1.5em."
-msgstr "یک مقدار CSS مانند 16px، 1rem یا 1.5em وارد کنید."
-
-msgid "Global setting"
-msgstr "تنظیم عمومی"
-
-msgid "Override the global numbering setting."
-msgstr "تنظیم شماره‌گذاری عمومی را نادیده بگیرید."
-
-msgid "Leave all heading levels unchecked to use the global selection."
+msgstr "یک مقدار CSS مانند 16px، 1rem یا 1.5em وارد کنید."msgid "Leave all heading levels unchecked to use the global selection."
 msgstr "برای استفاده از انتخاب سطوح عمومی، همه سطوح عنوان را بدون علامت بگذارید."
-
-msgid "The table of contents will be generated on the front end from this post’s headings."
-msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
-
 msgid "Display a manually placed table of contents."
 msgstr "نمایش یک فهرست مطالب که به‌صورت دستی قرار داده شده است."
 
@@ -264,15 +252,7 @@ msgstr "تنظیم عمومی"
 
 msgid "Override the global numbering setting."
 msgstr "تنظیم شماره‌گذاری عمومی را نادیده بگیرید."
-
-msgid "Leave all heading levels unchecked to use the global selection."
-msgstr "برای استفاده از انتخاب عمومی سطوح عنوان، همه سطوح را بدون علامت بگذارید."
-
 msgid "The table of contents will be generated on the front end from this post’s headings."
 msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
-
-msgid "Display a manually placed table of contents."
-msgstr "نمایش فهرست مطالبی که به‌صورت دستی در محتوا قرار داده شده است."
-
 msgid "This widget uses the current post or product content and its independent TOC profile settings."
 msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات مستقل فهرست مطالب مربوط به آن استفاده می‌کند."
