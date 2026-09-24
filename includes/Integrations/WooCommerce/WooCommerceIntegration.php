@@ -17,7 +17,7 @@ final class WooCommerceIntegration
     public function __construct(
         ContentProcessor $processor,
         TocRenderer $tocRenderer,
-        Settings $settings,
+        private readonly Settings $settings,
         TocAssets $assets,
     ) {
         $this->productTocRenderer = new ProductTocRenderer(
@@ -41,11 +41,7 @@ final class WooCommerceIntegration
 
     public function disableAutomaticProductToc(bool $shouldRender, int $postId, string $postType): bool
     {
-        if ($postType !== 'product') {
-            return $shouldRender;
-        }
-
-        if (!(bool) apply_filters('hessamzm_toc/product_toc_enabled', true)) {
+        if ($postType !== 'product' || !(bool) $this->settings->get('product_toc_enabled')) {
             return $shouldRender;
         }
 
