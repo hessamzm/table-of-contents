@@ -195,7 +195,7 @@ final class ProductTocRenderer
 
     private function getPosition(): string
     {
-        $position = sanitize_key((string) $this->getProfile()['position']);
+        $position = sanitize_key((string) $this->getProfile()['placement']);
 
         return in_array($position, ['before_summary', 'inside_description', 'after_tabs'], true)
             ? $position
