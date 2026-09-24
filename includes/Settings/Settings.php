@@ -93,6 +93,72 @@ final class Settings
     /** @param array<string,mixed> $settings @return array<string,mixed> */
     public function sanitize(array $settings): array
     {
+        $activeTab = isset($settings['_active_tab']) ? sanitize_key((string) $settings['_active_tab']) : '';
+
+        if (in_array($activeTab, ['general', 'articles', 'products'], true)) {
+            $stored = get_option(self::OPTION_KEY, []);
+            $stored = is_array($stored) ? wp_parse_args($stored, $this->defaults) : $this->defaults;
+            $clean = $stored;
+
+            if ($activeTab === 'general') {
+                if (array_key_exists('enabled', $settings)) {
+                    $clean['enabled'] = !empty($settings['enabled']);
+                }
+
+                if (array_key_exists('delete_data_on_uninstall', $settings)) {
+                    $clean['delete_data_on_uninstall'] = !empty($settings['delete_data_on_uninstall']);
+                }
+
+                if (array_key_exists('post_types', $settings)) {
+                    $postTypes = is_array($settings['post_types'])
+                        ? array_map('sanitize_key', $settings['post_types'])
+                        : [];
+                    $clean['post_types'] = array_values(array_intersect($postTypes, ['post', 'page', 'product']));
+                }
+            }
+
+            if ($activeTab === 'articles') {
+                $postInput = isset($settings['post_toc']) && is_array($settings['post_toc'])
+                    ? $settings['post_toc']
+                    : [];
+
+                $clean['post_toc'] = $this->sanitizeProfile(
+                    $postInput,
+                    $this->storedProfile($stored, 'post'),
+                    false
+                );
+            }
+
+            if ($activeTab === 'products') {
+                $productInput = isset($settings['product_toc']) && is_array($settings['product_toc'])
+                    ? $settings['product_toc']
+                    : [];
+
+                $clean['product_toc'] = $this->sanitizeProfile(
+                    $productInput,
+                    array_merge($this->storedProfile($stored, 'product'), [
+                        'enabled' => !empty($stored['product_toc_enabled']),
+                        'position' => (string) ($stored['position'] ?? 'right'),
+                        'placement' => (string) ($stored['product_toc_position'] ?? 'inside_description'),
+                    ]),
+                    true
+                );
+            }
+
+            $clean['product_toc_enabled'] = !empty($clean['product_toc']['enabled']);
+            $clean['product_toc_position'] = (string) ($clean['product_toc']['placement'] ?? 'inside_description');
+            $clean['heading_levels'] = $clean['post_toc']['heading_levels'] ?? $this->defaults['heading_levels'];
+            $clean['title'] = $clean['post_toc']['title'] ?? $this->defaults['title'];
+            $clean['style'] = $clean['post_toc']['style'] ?? $this->defaults['style'];
+            $clean['show_numbers'] = !empty($clean['post_toc']['show_numbers']);
+            $clean['sticky_toc'] = !empty($clean['post_toc']['sticky_toc']);
+            $clean['position'] = $clean['post_toc']['position'] ?? $this->defaults['position'];
+
+            unset($clean['_active_tab']);
+
+            return $clean;
+        }
+
         $clean = $this->defaults;
         $clean['enabled'] = !empty($settings['enabled']);
         $clean['delete_data_on_uninstall'] = !empty($settings['delete_data_on_uninstall']);
@@ -102,7 +168,7 @@ final class Settings
             : $this->defaults['post_types'];
         $clean['post_types'] = array_values(array_intersect($postTypes, ['post', 'page', 'product']));
 
-        $legacy = $this->sanitizeProfile($settings, $this->profileFromLegacy($this->defaults), false);
+        $legacy = $this->sanitizeProfile($settings, $this->profileFromLegacy($settings), false);
         $clean = array_merge($clean, $legacy);
 
         $postInput = isset($settings['post_toc']) && is_array($settings['post_toc'])
@@ -209,6 +275,15 @@ final class Settings
             'more_text' => (string) ($settings['more_text'] ?? 'View more'),
             'less_text' => (string) ($settings['less_text'] ?? 'View less'),
         ];
+    }
+
+    /** @return array<string,mixed> */
+    private function storedProfile(array $stored, string $type): array
+    {
+        $key = $type === 'product' ? 'product_toc' : 'post_toc';
+        $profile = isset($stored[$key]) && is_array($stored[$key]) ? $stored[$key] : [];
+
+        return wp_parse_args($profile, $this->profileFromLegacy($stored));
     }
 
     private function sanitize_css_length(string $value, string $fallback): string
