@@ -41,7 +41,7 @@ return [
     'Use a CSS length such as 16px, 1rem, or 1.5em.' => 'استخدم قيمة لطول CSS مثل 16px أو 1rem أو 1.5em.',
     'View more' => 'عرض المزيد',
     'View less' => 'عرض أقل',
-];    "Sticky TOC font size" => "حجم خط فهرس المحتويات الثابت",
+    "Sticky TOC font size" => "حجم خط فهرس المحتويات الثابت",
     "Live preview" => "معاينة مباشرة",
     "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes." => "عاين فهرس المحتويات أثناء تخصيص مظهره. تظهر التغييرات فورًا ويتم حفظها عند النقر على حفظ التغييرات.",
     "Introduction" => "مقدمة",
