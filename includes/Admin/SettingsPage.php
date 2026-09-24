@@ -214,7 +214,7 @@ final class SettingsPage
         $value = (string) $this->settings->get('product_toc_position');
         $options = [
             'before_summary' => __('Before product summary', 'table-of-contents'),
-            'before_tabs' => __('Before product tabs', 'table-of-contents'),
+            'inside_description' => __('Inside product description', 'table-of-contents'),
             'after_tabs' => __('After product tabs', 'table-of-contents'),
         ];
 

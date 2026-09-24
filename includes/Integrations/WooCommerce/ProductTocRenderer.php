@@ -30,6 +30,7 @@ final class ProductTocRenderer
         }
 
         add_filter('the_content', [$this, 'filterProductDescription'], 20);
+        add_filter('body_class', [$this, 'filterBodyClass']);
 
         $position = $this->getPosition();
 
@@ -63,6 +64,22 @@ final class ProductTocRenderer
         }
 
         echo '<div class="hessamzm-toc-product">' . $toc . '</div>';
+    }
+
+    /**
+     * Adds a scoped body class so WooCommerce tab overflow can be relaxed
+     * only when Product TOC sticky mode is active.
+     *
+     * @param list<string> $classes
+     * @return list<string>
+     */
+    public function filterBodyClass(array $classes): array
+    {
+        if ($this->shouldRender() && (bool) $this->settings->get('sticky_toc')) {
+            $classes[] = 'hessamzm-toc-product-sticky';
+        }
+
+        return $classes;
     }
 
     public function filterProductDescription(string $content): string
