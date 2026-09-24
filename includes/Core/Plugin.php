@@ -6,6 +6,7 @@ namespace Hessamzm\TableOfContents\Core;
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
 use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
+use Hessamzm\TableOfContents\Frontend\TocAssets;
 use Hessamzm\TableOfContents\Blocks\TableOfContentsBlock;
 use Hessamzm\TableOfContents\Shortcodes\TableOfContentsShortcode;
 use Hessamzm\TableOfContents\Services\ManualTocRenderer;
@@ -44,10 +45,12 @@ final class Plugin
             $this->tocBuilder
         );
         $this->tocRenderer = new TocRenderer($this->settings);
+        $assets = new TocAssets($this->settings);
         $manualRenderer = new ManualTocRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
-            $this->settings
+            $this->settings,
+            $assets
         );
         $this->block = new TableOfContentsBlock($manualRenderer);
         $this->shortcode = new TableOfContentsShortcode($manualRenderer);
