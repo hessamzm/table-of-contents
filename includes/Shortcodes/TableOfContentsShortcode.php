@@ -4,18 +4,14 @@ declare(strict_types=1);
 namespace Hessamzm\TableOfContents\Shortcodes;
 
 use Hessamzm\TableOfContents\Services\ManualTocRenderer;
-use Hessamzm\TableOfContents\Settings\Settings;
-
 defined('ABSPATH') || exit;
 
 final class TableOfContentsShortcode
 {
     public const TAG = 'hessamzm_toc';
 
-    public function __construct(
-        private readonly ManualTocRenderer $renderer,
-        private readonly Settings $settings,
-    ) {
+    public function __construct(private readonly ManualTocRenderer $renderer)
+    {
     }
 
     public function boot(): void
