@@ -1,0 +1,191 @@
+msgid ""
+msgstr "Project-Id-Version: Table of Contents 0.11.1\nReport-Msgid-Bugs-To: https://github.com/hessamzm/table-of-contents/issues\nLast-Translator: hessamzm\nLanguage-Team: Arabic\nLanguage: ar_AR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\nX-Domain: table-of-contents\nPO-Revision-Date: 2026-09-24 00:00:00+0000\n"
+
+msgid "Table of Contents"
+msgstr "فهرس المحتويات"
+
+msgid "General"
+msgstr "عام"
+
+msgid "Appearance"
+msgstr "المظهر"
+
+msgid "Enable automatic TOC"
+msgstr "تفعيل فهرس المحتويات التلقائي"
+
+msgid "Automatically add the table of contents to eligible content."
+msgstr "إضافة فهرس المحتويات تلقائيًا إلى المحتوى المؤهل."
+
+msgid "Post types"
+msgstr "أنواع المحتوى"
+
+msgid "Posts"
+msgstr "المقالات"
+
+msgid "Pages"
+msgstr "الصفحات"
+
+msgid "Products"
+msgstr "المنتجات"
+
+msgid "Heading levels"
+msgstr "مستويات العناوين"
+
+msgid "Heading %d"
+msgstr "العنوان %d"
+
+msgid "Style"
+msgstr "النمط"
+
+msgid "Title"
+msgstr "العنوان"
+
+msgid "Show numbers"
+msgstr "إظهار الأرقام"
+
+msgid "Prefix TOC items with hierarchical numbers."
+msgstr "إضافة أرقام هرمية إلى عناصر فهرس المحتويات."
+
+msgid "Sticky TOC"
+msgstr "فهرس محتويات ثابت"
+
+msgid "Keep the TOC visible while scrolling on larger screens."
+msgstr "إبقاء فهرس المحتويات ظاهرًا أثناء التمرير على الشاشات الكبيرة."
+
+msgid "Delete data on uninstall"
+msgstr "حذف البيانات عند إلغاء التثبيت"
+
+msgid "Delete plugin settings when the plugin is permanently uninstalled. This does not affect post content."
+msgstr "حذف إعدادات الإضافة عند إلغاء تثبيتها نهائيًا. لا يؤثر ذلك في محتوى المقالات."
+
+msgid "Background color"
+msgstr "لون الخلفية"
+
+msgid "Text color"
+msgstr "لون النص"
+
+msgid "Link color"
+msgstr "لون الرابط"
+
+msgid "Border color"
+msgstr "لون الحدود"
+
+msgid "Font size"
+msgstr "حجم الخط"
+
+msgid "Indentation"
+msgstr "المسافة البادئة"
+
+msgid "Border radius"
+msgstr "استدارة الحدود"
+
+msgid "Classic"
+msgstr "كلاسيكي"
+
+msgid "Minimal"
+msgstr "بسيط"
+
+msgid "Card"
+msgstr "بطاقة"
+
+msgid "Configure automatic TOC rendering and its global appearance."
+msgstr "إعداد عرض فهرس المحتويات التلقائي ومظهره العام."
+
+msgid "You do not have permission to access this page."
+msgstr "ليس لديك صلاحية للوصول إلى هذه الصفحة."
+
+msgid "Use a CSS length such as 16px, 1rem, or 1.5em."
+msgstr "استخدم قيمة لطول CSS مثل 16px أو 1rem أو 1.5em."
+
+msgid "Global setting"
+msgstr "الإعداد العام"
+
+msgid "Override the global numbering setting."
+msgstr "تجاوز عن إعداد الترقيم العام."
+
+msgid "Leave all heading levels unchecked to use the global selection."
+msgstr "اترك جميع مستويات العناوين بدون تحديد لاستخدام الاختيار العام."
+
+msgid "The table of contents will be generated on the front end from this post’s headings."
+msgstr "سيتم إنشاء فهرس المحتويات في الواجهة الأمامية استنادًا إلى عناوين هذا المقال."
+
+msgid "Display a manually placed table of contents."
+msgstr "عرض فهرس محتويات موضوع يدويًا."
+
+msgid "Paper Menu"
+msgstr "قائمة ورقية"
+
+msgid "TOC position"
+msgstr "موضع فهرس المحتويات"
+
+msgid "View more text"
+msgstr "نص عرض المزيد"
+
+msgid "View less text"
+msgstr "نص عرض أقل"
+
+msgid "Right"
+msgstr "يمين"
+
+msgid "Left"
+msgstr "يسار"
+
+msgid "Choose which side of the content the TOC is aligned to."
+msgstr "حدد الجانب الذي تتم محاذاة فهرس المحتويات إليه بالنسبة للمحتوى."
+
+msgid "View more"
+msgstr "عرض المزيد"
+
+msgid "View less"
+msgstr "عرض أقل"
+
+msgid "Sticky TOC font size"
+msgstr "حجم خط فهرس المحتويات الثابت"
+
+msgid "Live preview"
+msgstr "معاينة مباشرة"
+
+msgid "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes."
+msgstr "عاين فهرس المحتويات أثناء تخصيص مظهره. تظهر التغييرات فورًا ويتم حفظها عند النقر على حفظ التغييرات."
+
+msgid "Introduction"
+msgstr "مقدمة"
+
+msgid "Getting Started"
+msgstr "البدء"
+
+msgid "Configuration"
+msgstr "الإعدادات"
+
+msgid "Advanced Settings"
+msgstr "الإعدادات المتقدمة"
+
+msgid "Conclusion"
+msgstr "الخلاصة"
+
+msgid "Subsection example"
+msgstr "مثال على قسم فرعي"
+
+msgid "Shortcode"
+msgstr "الرمز القصير"
+
+msgid "Basic shortcode"
+msgstr "الرمز القصير الأساسي"
+
+msgid "Advanced shortcode"
+msgstr "الرمز القصير المتقدم"
+
+msgid "Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor."
+msgstr "انسخ أحد هذه الرموز القصيرة والصقه في مقالة أو صفحة أو أداة أو محرر يدعم الرموز القصيرة."
+
+msgid "Uses the global TOC settings and the current content."
+msgstr "يستخدم إعدادات فهرس المحتويات العامة والمحتوى الحالي."
+
+msgid "Optional attributes: levels, title, style, and numbers."
+msgstr "الخصائص الاختيارية: levels وtitle وstyle وnumbers."
+
+msgid "Displays a table of contents generated from the current post or product content."
+msgstr "يعرض فهرس محتويات مُنشأ من محتوى المقالة أو المنتج الحالي."
+
+msgid "This widget uses the current post or product content and the global TOC settings."
+msgstr "تستخدم هذه الأداة محتوى المقالة أو المنتج الحالي وإعدادات فهرس المحتويات العامة."

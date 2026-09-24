@@ -1,0 +1,191 @@
+msgid ""
+msgstr "Project-Id-Version: Table of Contents 0.11.1\nReport-Msgid-Bugs-To: https://github.com/hessamzm/table-of-contents/issues\nLast-Translator: hessamzm\nLanguage-Team: Persian\nLanguage: fa_IR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n > 1);\nX-Domain: table-of-contents\nPO-Revision-Date: 2026-09-24 00:00:00+0000\n"
+
+msgid "Table of Contents"
+msgstr "فهرست مطالب"
+
+msgid "General"
+msgstr "عمومی"
+
+msgid "Appearance"
+msgstr "ظاهر"
+
+msgid "Enable automatic TOC"
+msgstr "فعال‌سازی فهرست مطالب خودکار"
+
+msgid "Automatically add the table of contents to eligible content."
+msgstr "فهرست مطالب را به‌صورت خودکار به محتوای واجد شرایط اضافه می‌کند."
+
+msgid "Post types"
+msgstr "نوع محتوا"
+
+msgid "Posts"
+msgstr "نوشته‌ها"
+
+msgid "Pages"
+msgstr "برگه‌ها"
+
+msgid "Products"
+msgstr "محصولات"
+
+msgid "Heading levels"
+msgstr "سطح عنوان‌ها"
+
+msgid "Heading %d"
+msgstr "عنوان %d"
+
+msgid "Style"
+msgstr "استایل"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "Show numbers"
+msgstr "نمایش شماره‌ها"
+
+msgid "Prefix TOC items with hierarchical numbers."
+msgstr "شماره‌گذاری سلسله‌مراتبی آیتم‌های فهرست مطالب."
+
+msgid "Sticky TOC"
+msgstr "فهرست مطالب چسبیده"
+
+msgid "Keep the TOC visible while scrolling on larger screens."
+msgstr "فهرست مطالب را هنگام پیمایش در نمایشگرهای بزرگ قابل مشاهده نگه می‌دارد."
+
+msgid "Delete data on uninstall"
+msgstr "حذف داده‌ها هنگام حذف افزونه"
+
+msgid "Delete plugin settings when the plugin is permanently uninstalled. This does not affect post content."
+msgstr "هنگام حذف کامل افزونه، تنظیمات افزونه را حذف می‌کند. این گزینه محتوای نوشته‌ها را تغییر نمی‌دهد."
+
+msgid "Background color"
+msgstr "رنگ پس‌زمینه"
+
+msgid "Text color"
+msgstr "رنگ متن"
+
+msgid "Link color"
+msgstr "رنگ لینک"
+
+msgid "Border color"
+msgstr "رنگ حاشیه"
+
+msgid "Font size"
+msgstr "اندازه فونت"
+
+msgid "Indentation"
+msgstr "تورفتگی"
+
+msgid "Border radius"
+msgstr "گردی حاشیه"
+
+msgid "Classic"
+msgstr "کلاسیک"
+
+msgid "Minimal"
+msgstr "مینیمال"
+
+msgid "Card"
+msgstr "کارت"
+
+msgid "Configure automatic TOC rendering and its global appearance."
+msgstr "نمایش خودکار فهرست مطالب و ظاهر کلی آن را تنظیم کنید."
+
+msgid "You do not have permission to access this page."
+msgstr "شما اجازه دسترسی به این صفحه را ندارید."
+
+msgid "Use a CSS length such as 16px, 1rem, or 1.5em."
+msgstr "یک مقدار CSS مانند 16px، 1rem یا 1.5em وارد کنید."
+
+msgid "Global setting"
+msgstr "تنظیم عمومی"
+
+msgid "Override the global numbering setting."
+msgstr "تنظیم شماره‌گذاری عمومی را نادیده بگیرید."
+
+msgid "Leave all heading levels unchecked to use the global selection."
+msgstr "برای استفاده از انتخاب سطوح عمومی، همه سطوح عنوان را بدون علامت بگذارید."
+
+msgid "The table of contents will be generated on the front end from this post’s headings."
+msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
+
+msgid "Display a manually placed table of contents."
+msgstr "نمایش یک فهرست مطالب که به‌صورت دستی قرار داده شده است."
+
+msgid "Paper Menu"
+msgstr "منوی کاغذی"
+
+msgid "TOC position"
+msgstr "موقعیت فهرست مطالب"
+
+msgid "View more text"
+msgstr "متن مشاهده بیشتر"
+
+msgid "View less text"
+msgstr "متن مشاهده کمتر"
+
+msgid "Right"
+msgstr "راست"
+
+msgid "Left"
+msgstr "چپ"
+
+msgid "Choose which side of the content the TOC is aligned to."
+msgstr "مشخص کنید فهرست مطالب در کدام سمت محتوای اصلی قرار بگیرد."
+
+msgid "View more"
+msgstr "مشاهده بیشتر"
+
+msgid "View less"
+msgstr "مشاهده کمتر"
+
+msgid "Sticky TOC font size"
+msgstr "اندازه فونت فهرست مطالب چسبیده"
+
+msgid "Live preview"
+msgstr "پیش‌نمایش زنده"
+
+msgid "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes."
+msgstr "هنگام سفارشی‌سازی ظاهر فهرست مطالب، پیش‌نمایش آن را مشاهده کنید. تغییرات بلافاصله نمایش داده می‌شوند و با کلیک روی ذخیره تغییرات ذخیره خواهند شد."
+
+msgid "Introduction"
+msgstr "مقدمه"
+
+msgid "Getting Started"
+msgstr "شروع کار"
+
+msgid "Configuration"
+msgstr "پیکربندی"
+
+msgid "Advanced Settings"
+msgstr "تنظیمات پیشرفته"
+
+msgid "Conclusion"
+msgstr "جمع‌بندی"
+
+msgid "Subsection example"
+msgstr "نمونه زیربخش"
+
+msgid "Shortcode"
+msgstr "کد کوتاه"
+
+msgid "Basic shortcode"
+msgstr "کد کوتاه پایه"
+
+msgid "Advanced shortcode"
+msgstr "کد کوتاه پیشرفته"
+
+msgid "Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor."
+msgstr "یکی از این کدهای کوتاه را کپی کرده و در نوشته، برگه، ابزارک یا ویرایشگری که از کد کوتاه پشتیبانی می‌کند قرار دهید."
+
+msgid "Uses the global TOC settings and the current content."
+msgstr "از تنظیمات عمومی فهرست مطالب و محتوای جاری استفاده می‌کند."
+
+msgid "Optional attributes: levels, title, style, and numbers."
+msgstr "ویژگی‌های اختیاری: levels، title، style و numbers."
+
+msgid "Displays a table of contents generated from the current post or product content."
+msgstr "فهرست مطالب تولیدشده از محتوای نوشته یا محصول جاری را نمایش می‌دهد."
+
+msgid "This widget uses the current post or product content and the global TOC settings."
+msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات عمومی فهرست مطالب استفاده می‌کند."
