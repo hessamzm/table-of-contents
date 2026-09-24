@@ -74,7 +74,7 @@ final class ProductTocRenderer
      */
     public function filterBodyClass(array $classes): array
     {
-        if ($this->shouldRender() && (bool) $this->settings->get('sticky_toc')) {
+        if ($this->shouldRender() && (bool) $this->getProfile()['sticky_toc'] {
             $classes[] = 'hessamzm-toc-product-sticky';
         }
 
@@ -105,9 +105,10 @@ final class ProductTocRenderer
             return $processedContent;
         }
 
-        $this->assets->enqueue();
+        $profile = $this->getProfile();
+        $this->assets->enqueue($profile);
 
-        $toc = $this->tocRenderer->render($processed['tree']);
+        $toc = $this->tocRenderer->render($processed['tree'], array_merge($profile, ['profile' => 'product']));
 
         if ($toc === '') {
             return $processedContent;
