@@ -56,7 +56,7 @@ final class TocRenderer
             ' aria-label="' . esc_attr($title) . '">';
         $html .= '<div class="hessamzm-toc__header">';
         $html .= '<p class="hessamzm-toc__title">' . esc_html($title) . '</p>';
-        $html .= '<button type="button" class="hessamzm-toc__toggle" aria-expanded="false" aria-controls="hessamzm-toc-list" data-expand-label="' . esc_attr($expandLabel) . '" data-collapse-label="' . esc_attr($collapseLabel) . '">' . esc_html($expandLabel) . '</button>';
+        $html .= '<button type="button" class="hessamzm-toc__toggle" aria-expanded="false" data-expand-label="' . esc_attr($expandLabel) . '" data-collapse-label="' . esc_attr($collapseLabel) . '">' . esc_html($expandLabel) . '</button>';
         $html .= '</div>';
         $html .= '<div class="hessamzm-toc__body">';
         $html .= '<ol id="hessamzm-toc-list" class="hessamzm-toc__list">';
