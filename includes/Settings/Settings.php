@@ -58,7 +58,8 @@ final class Settings
             is_array($settings['product_toc']) ? $settings['product_toc'] : [],
             array_merge($legacyProfile, [
                 'enabled' => !empty($settings['product_toc_enabled']),
-                'position' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
+                'position' => (string) ($settings['position'] ?? 'right'),
+                'placement' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
             ])
         );
 
@@ -120,7 +121,8 @@ final class Settings
             $productInput,
             array_merge($this->profileFromLegacy($settings), [
                 'enabled' => !empty($settings['product_toc_enabled']),
-                'position' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
+                'position' => (string) ($settings['position'] ?? 'right'),
+                'placement' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
             ]),
             true
         );
@@ -150,9 +152,10 @@ final class Settings
 
         $style = isset($input['style']) ? sanitize_key((string) $input['style']) : $fallback['style'];
         $position = isset($input['position']) ? sanitize_key((string) $input['position']) : $fallback['position'];
+        $placement = isset($input['placement']) ? sanitize_key((string) $input['placement']) : ($fallback['placement'] ?? 'inside_description');
 
-        if ($position === 'before_tabs') {
-            $position = 'inside_description';
+        if ($placement === 'before_tabs') {
+            $placement = 'inside_description';
         }
 
         $clean = [
@@ -162,9 +165,10 @@ final class Settings
             'style' => in_array($style, ['classic', 'minimal', 'card', 'paper'], true) ? $style : $fallback['style'],
             'show_numbers' => !empty($input['show_numbers']),
             'sticky_toc' => !empty($input['sticky_toc']),
-            'position' => $allowPosition
-                ? (in_array($position, ['before_summary', 'inside_description', 'after_tabs'], true) ? $position : $fallback['position'])
-                : (in_array($position, ['left', 'right'], true) ? $position : $fallback['position']),
+            'position' => in_array($position, ['left', 'right'], true) ? $position : (string) ($fallback['position'] ?? 'right'),
+            'placement' => $allowPosition
+                ? (in_array($placement, ['before_summary', 'inside_description', 'after_tabs'], true) ? $placement : (string) ($fallback['placement'] ?? 'inside_description'))
+                : (string) ($fallback['placement'] ?? 'inside_description'),
             'more_text' => isset($input['more_text']) ? sanitize_text_field((string) $input['more_text']) : $fallback['more_text'],
             'less_text' => isset($input['less_text']) ? sanitize_text_field((string) $input['less_text']) : $fallback['less_text'],
         ];
@@ -201,6 +205,7 @@ final class Settings
             'border_radius' => (string) ($settings['border_radius'] ?? '0px'),
             'sticky_toc' => !empty($settings['sticky_toc']),
             'position' => (string) ($settings['position'] ?? 'right'),
+            'placement' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
             'more_text' => (string) ($settings['more_text'] ?? 'View more'),
             'less_text' => (string) ($settings['less_text'] ?? 'View less'),
         ];
