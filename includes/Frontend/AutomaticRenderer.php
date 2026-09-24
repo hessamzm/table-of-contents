@@ -74,7 +74,9 @@ final class AutomaticRenderer
 
     private function hasManualToc(string $content): bool
     {
-        return str_contains($content, 'hessamzm-toc-manual');
+        return str_contains($content, 'hessamzm-toc-manual')
+            || has_block('hessamzm/table-of-contents', $content)
+            || has_shortcode($content, 'hessamzm_toc');
     }
 
     private function isEnabled(): bool
