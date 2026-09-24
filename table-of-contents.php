@@ -59,11 +59,18 @@ register_deactivation_hook(
 add_action(
     'plugins_loaded',
     static function (): void {
-        load_plugin_textdomain(
-            'table-of-contents',
-            false,
-            dirname(plugin_basename(HESSAMZM_TOC_FILE)) . '/languages'
-        );
+        $locale = determine_locale();
+        $translation_file = HESSAMZM_TOC_DIR . 'languages/table-of-contents-' . $locale . '.l10n.php';
+
+        if (is_readable($translation_file)) {
+            load_textdomain('table-of-contents', $translation_file);
+        } else {
+            load_plugin_textdomain(
+                'table-of-contents',
+                false,
+                dirname(plugin_basename(HESSAMZM_TOC_FILE)) . '/languages'
+            );
+        }
     },
     1
 );
