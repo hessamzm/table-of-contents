@@ -27,5 +27,6 @@
   "supports": {
     "html": false
   },
-  "editorScript": "hessamzm-toc-block-editor"
+  "editorScript": "hessamzm-toc-block-editor",
+  "editorStyle": "hessamzm-toc-block-editor"
 }
