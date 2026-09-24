@@ -5,6 +5,7 @@ namespace Hessamzm\TableOfContents\Services;
 
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
 use Hessamzm\TableOfContents\Settings\Settings;
+use Hessamzm\TableOfContents\Frontend\TocAssets;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
 
 defined('ABSPATH') || exit;
@@ -15,6 +16,7 @@ final class ManualTocRenderer
         private readonly ContentProcessor $processor,
         private readonly TocRenderer $tocRenderer,
         private readonly Settings $settings,
+        private readonly TocAssets $assets,
     ) {
     }
 
@@ -23,6 +25,8 @@ final class ManualTocRenderer
      */
     public function render(array $attributes = []): string
     {
+        $this->assets->enqueue();
+
         $postId = get_the_ID();
 
         if (!$postId) {
