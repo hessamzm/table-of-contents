@@ -25,6 +25,9 @@ final class Settings
         'indentation' => '1.5rem',
         'border_radius' => '0px',
         'sticky_toc' => false,
+        'position' => 'right',
+        'more_text' => 'View more',
+        'less_text' => 'View less',
         'delete_data_on_uninstall' => false,
     ];
 
@@ -88,6 +91,12 @@ final class Settings
 
         $clean['show_numbers'] = !empty($settings['show_numbers']);
         $clean['sticky_toc'] = !empty($settings['sticky_toc']);
+
+        $position = isset($settings['position']) ? sanitize_key($settings['position']) : 'right';
+        $clean['position'] = in_array($position, ['left', 'right'], true) ? $position : 'right';
+
+        $clean['more_text'] = isset($settings['more_text']) ? sanitize_text_field($settings['more_text']) : $this->defaults['more_text'];
+        $clean['less_text'] = isset($settings['less_text']) ? sanitize_text_field($settings['less_text']) : $this->defaults['less_text'];
 
         foreach (['background_color', 'text_color', 'link_color', 'border_color'] as $key) {
             $value = isset($settings[$key]) ? sanitize_hex_color($settings[$key]) : false;
