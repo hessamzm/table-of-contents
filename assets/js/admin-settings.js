@@ -27,9 +27,11 @@
         var root = preview;
         var style = value('style', 'paper');
         var position = value('position', 'right');
-        var title = value('title', '') || root.querySelector('.hessamzm-toc__title').dataset.defaultTitle;
-        var moreText = value('more_text', '') || root.querySelector('.hessamzm-toc__toggle').dataset.defaultMore;
-        var lessText = value('less_text', '') || root.querySelector('.hessamzm-toc__toggle').dataset.defaultLess;
+        var titleElement = root.querySelector('.hessamzm-toc__title');
+        var toggle = root.querySelector('.hessamzm-toc__toggle');
+        var title = value('title', '') || titleElement.dataset.defaultTitle;
+        var moreText = value('more_text', '') || toggle.dataset.expandLabel;
+        var lessText = value('less_text', '') || toggle.dataset.collapseLabel;
         var fontSize = value('font_size', '16px');
         var stickyFontSize = value('sticky_font_size', '14px');
         var indentation = value('indentation', '1.5rem');
@@ -66,7 +68,6 @@
         root.style.setProperty('--hessamzm-toc-border-radius', radius);
 
         root.querySelector('.hessamzm-toc__title').textContent = title;
-        var toggle = root.querySelector('.hessamzm-toc__toggle');
         toggle.textContent = moreText;
         toggle.dataset.expandLabel = moreText;
         toggle.dataset.collapseLabel = lessText;
