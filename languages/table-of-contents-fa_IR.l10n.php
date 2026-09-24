@@ -50,4 +50,12 @@ return [
     'Advanced Settings' => 'تنظیمات پیشرفته',
     'Conclusion' => 'جمع‌بندی',
     'Subsection example' => 'نمونه زیربخش',
-];
+    "Shortcode" => "کد کوتاه",
+    "Basic shortcode" => "کد کوتاه پایه",
+    "Advanced shortcode" => "کد کوتاه پیشرفته",
+    "Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor." => "یکی از این کدهای کوتاه را کپی کرده و در نوشته، برگه، ابزارک یا ویرایشگری که از کد کوتاه پشتیبانی می‌کند قرار دهید.",
+    "Uses the global TOC settings and the current content." => "از تنظیمات عمومی فهرست مطالب و محتوای جاری استفاده می‌کند.",
+    "Optional attributes: levels, title, style, and numbers." => "ویژگی‌های اختیاری: levels، title، style و numbers.",
+    "Displays a table of contents generated from the current post or product content." => "فهرست مطالب تولیدشده از محتوای نوشته یا محصول جاری را نمایش می‌دهد.",
+    "This widget uses the current post or product content and the global TOC settings." => "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات عمومی فهرست مطالب استفاده می‌کند.",
+]; 
