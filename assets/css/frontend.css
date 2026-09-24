@@ -298,9 +298,8 @@
     top: var(--hessamzm-toc-sticky-offset, .75rem);
     z-index: 10;
     width: min(34rem, calc(100% - 1rem));
-    margin-inline-start: 0;
-    margin-inline-end: auto;
     padding: .55rem .8rem;
+    font-size: var(--hessamzm-toc-sticky-font-size, .875rem);
     border-radius: 10px;
     box-shadow: 0 5px 18px rgb(0 0 0 / 13%);
 }

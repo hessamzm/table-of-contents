@@ -22,6 +22,7 @@ final class Settings
         'link_color' => '#2271b1',
         'border_color' => '#dcdcde',
         'font_size' => '16px',
+        'sticky_font_size' => '14px',
         'indentation' => '1.5rem',
         'border_radius' => '0px',
         'sticky_toc' => false,
@@ -103,7 +104,7 @@ final class Settings
             $clean[$key] = $value ?: $this->defaults[$key];
         }
 
-        foreach (['font_size', 'indentation', 'border_radius'] as $key) {
+        foreach (['font_size', 'sticky_font_size', 'indentation', 'border_radius'] as $key) {
             $value = isset($settings[$key]) ? sanitize_text_field($settings[$key]) : '';
             $clean[$key] = $this->sanitize_css_length($value, (string) $this->defaults[$key]);
         }

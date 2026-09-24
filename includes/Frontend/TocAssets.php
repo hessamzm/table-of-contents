@@ -55,6 +55,7 @@ final class TocAssets
             '--hessamzm-toc-link-color' => 'link_color',
             '--hessamzm-toc-border-color' => 'border_color',
             '--hessamzm-toc-font-size' => 'font_size',
+            '--hessamzm-toc-sticky-font-size' => 'sticky_font_size',
             '--hessamzm-toc-indentation' => 'indentation',
             '--hessamzm-toc-border-radius' => 'border_radius',
         ];

@@ -19,6 +19,7 @@ final class SettingsPage
     {
         add_action('admin_menu', [$this, 'registerMenu']);
         add_action('admin_init', [$this, 'registerSettings']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
     }
 
     public function registerMenu(): void
@@ -131,6 +132,7 @@ final class SettingsPage
         }
 
         $this->addTextField('font_size', __('Font size', 'table-of-contents'), 'css-length');
+        $this->addTextField('sticky_font_size', __('Sticky TOC font size', 'table-of-contents'), 'css-length');
         $this->addTextField('indentation', __('Indentation', 'table-of-contents'), 'css-length');
         $this->addTextField('border_radius', __('Border radius', 'table-of-contents'), 'css-length');
     }
@@ -139,6 +141,76 @@ final class SettingsPage
     {
         echo '<p>' . esc_html__('Configure automatic TOC rendering and its global appearance.', 'table-of-contents') . '</p>';
     }
+
+    public function enqueueAssets(string $hookSuffix): void
+    {
+        if ($hookSuffix !== 'settings_page_' . self::PAGE_SLUG) {
+            return;
+        }
+
+        wp_enqueue_style(
+            'hessamzm-toc',
+            HESSAMZM_TOC_URL . 'assets/css/frontend.css',
+            [],
+            HESSAMZM_TOC_VERSION
+        );
+
+        wp_enqueue_style(
+            'hessamzm-toc-admin',
+            HESSAMZM_TOC_URL . 'assets/css/admin.css',
+            [],
+            HESSAMZM_TOC_VERSION
+        );
+
+        wp_enqueue_script(
+            'hessamzm-toc-admin',
+            HESSAMZM_TOC_URL . 'assets/js/admin-settings.js',
+            [],
+            HESSAMZM_TOC_VERSION,
+            true
+        );
+
+        wp_set_script_translations(
+            'hessamzm-toc-admin',
+            'table-of-contents',
+            HESSAMZM_TOC_DIR . 'languages'
+        );
+    }
+
+    public function renderLivePreview(): void
+    {
+        $previewItems = [
+            __('Introduction', 'table-of-contents'),
+            __('Getting Started', 'table-of-contents'),
+            __('Configuration', 'table-of-contents'),
+            __('Advanced Settings', 'table-of-contents'),
+            __('Conclusion', 'table-of-contents'),
+        ];
+
+        echo '<div class="hessamzm-toc-live-preview">';
+        echo '<h2>' . esc_html__('Live preview', 'table-of-contents') . '</h2>';
+        echo '<p class="description">' . esc_html__('Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes.', 'table-of-contents') . '</p>';
+        echo '<div class="hessamzm-toc-preview-stage">';
+        echo '<nav class="hessamzm-toc hessamzm-toc--paper hessamzm-toc--position-right" aria-label="' . esc_attr__('Live preview', 'table-of-contents') . '">';
+        echo '<div class="hessamzm-toc__header"><p class="hessamzm-toc__title" data-default-title="' . esc_attr__('Table of Contents', 'table-of-contents') . '">' . esc_html__('Table of Contents', 'table-of-contents') . '</p></div>';
+        echo '<div class="hessamzm-toc__body">';
+        echo '<ol class="hessamzm-toc__list">';
+        foreach ($previewItems as $index => $item) {
+            echo '<li class="hessamzm-toc__item"><a class="hessamzm-toc__link" href="#">' . esc_html($item) . '</a>';
+            if ($index === 1) {
+                echo '<ol class="hessamzm-toc__children">';
+                echo '<li class="hessamzm-toc__item"><a class="hessamzm-toc__link" href="#">' . esc_html__('Subsection example', 'table-of-contents') . '</a></li>';
+                echo '</ol>';
+            }
+            echo '</li>';
+        }
+        echo '</ol></div>';
+        echo '<div class="hessamzm-toc__footer">';
+        echo '<button type="button" class="hessamzm-toc__toggle" data-expand-label="' . esc_attr__('View more', 'table-of-contents') . '" data-collapse-label="' . esc_attr__('View less', 'table-of-contents') . '">' . esc_html__('View more', 'table-of-contents') . '</button>';
+        echo '</div></nav>';
+        echo '</div></div>';
+    }
+
 
     public function render(): void
     {
@@ -151,6 +223,7 @@ final class SettingsPage
         echo '<form method="post" action="options.php">';
         settings_fields('hessamzm_toc');
         do_settings_sections(self::PAGE_SLUG);
+        $this->renderLivePreview();
         submit_button();
         echo '</form>';
         echo '</div>';
