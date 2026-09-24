@@ -73,6 +73,10 @@ final class Settings
     /** @return array<string,mixed> */
     public function getProfile(string $type): array
     {
+        if ($type === 'general') {
+            return $this->profileFromLegacy($this->all());
+        }
+
         $key = $type === 'product' ? 'product_toc' : 'post_toc';
         $profile = $this->get($key);
 
