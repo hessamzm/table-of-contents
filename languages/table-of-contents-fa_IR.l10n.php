@@ -6,7 +6,7 @@ return [
     'project-id-version' => 'Table of Contents 0.11.1',
     'pot-creation-date' => '2026-09-24T00:00:00+00:00',
     'po-revision-date' => '2026-09-24 00:00:00+0000',
-    'x-generator' => 'WP-CLI i18n pipeline',
+    'x-generator' => 'WordPress i18n pipeline',
     'messages' => [
         'Table of Contents' => 'فهرست مطالب',
         'General' => 'عمومی',
