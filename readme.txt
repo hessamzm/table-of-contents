@@ -2,7 +2,7 @@
 Contributors: hessamzm
 Requires at least: 7.0
 Requires PHP: 8.2
-Stable tag: 0.7.0
+Stable tag: 0.12.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ Generate a table of contents from selected H1-H6 headings for posts, pages, and 
 == Features ==
 
 * Automatic TOC rendering.
-* Gutenberg block and shortcode.
+* Gutenberg block and dedicated Blog/Product shortcodes.
 * Heading-level selection.
 * Existing ID preservation and duplicate anchor handling.
 * Rank Math TOC detection compatibility.
@@ -36,9 +36,13 @@ Generate a table of contents from selected H1-H6 headings for posts, pages, and 
 2. Activate it from Plugins.
 3. Configure it under Settings > Table of Contents.
 
-== Shortcode ==
+== Shortcodes ==
 
-Use `[hessamzm_toc]`.
+Use `[hessamzm_blog_toc]` inside blog posts or `[hessamzm_product_toc]` inside WooCommerce products.
+
+The General settings tab includes shortcode generators for both TOC types, so users can build a ready-to-use shortcode without manually learning shortcode attributes.
+
+The legacy `[hessamzm_toc]` shortcode remains available for backwards compatibility.
 
 == Development ==
 

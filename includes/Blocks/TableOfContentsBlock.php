@@ -63,6 +63,8 @@ final class TableOfContentsBlock
      */
     public function render(array $attributes, string $content = ''): string
     {
-        return $this->renderer->render($attributes);
+        $profile = get_post_type() === 'product' ? 'product' : 'post';
+
+        return $this->renderer->render($attributes, $profile);
     }
 }

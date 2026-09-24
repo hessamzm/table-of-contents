@@ -81,6 +81,8 @@ final class AutomaticRenderer
         return str_contains($content, 'hessamzm-toc-manual')
             || has_block('hessamzm/table-of-contents', $content)
             || has_shortcode($content, 'hessamzm_toc')
+            || has_shortcode($content, 'hessamzm_blog_toc')
+            || has_shortcode($content, 'hessamzm_product_toc')
             || $this->seoTocCompatibility->hasToc($content);
     }
 

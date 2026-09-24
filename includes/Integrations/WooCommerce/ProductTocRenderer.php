@@ -47,7 +47,17 @@ final class ProductTocRenderer
             return;
         }
 
-        $processed = $this->getProcessedDescription();
+        $product = $this->getProduct();
+        if ($product === null) {
+            return;
+        }
+
+        $description = (string) $product->get_description();
+        if ($this->hasManualToc($description)) {
+            return;
+        }
+
+        $processed = $this->getProcessedDescription($product);
 
         if ($processed === null || $processed['tree']->isEmpty()) {
             return;
@@ -101,6 +111,10 @@ final class ProductTocRenderer
 
         $processedContent = $processed['content'];
 
+        if ($this->hasManualToc($content)) {
+            return $processedContent;
+        }
+
         if ($this->getPosition() !== 'inside_description' || $processed['tree']->isEmpty()) {
             return $processedContent;
         }
@@ -115,6 +129,13 @@ final class ProductTocRenderer
         }
 
         return '<div class="hessamzm-toc-product hessamzm-toc-product--inside-description">' . $toc . '</div>' . $processedContent;
+    }
+
+    private function hasManualToc(string $content): bool
+    {
+        return str_contains($content, 'hessamzm-toc-manual')
+            || has_shortcode($content, 'hessamzm_product_toc')
+            || has_shortcode($content, 'hessamzm_toc');
     }
 
     private function getProcessedDescription(?object $product = null): ?array

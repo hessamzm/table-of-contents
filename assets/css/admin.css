@@ -120,3 +120,69 @@
         padding: 16px;
     }
 }
+
+.hessamzm-toc-shortcode-generators {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #dcdcde;
+}
+
+.hessamzm-toc-shortcode-generators > h2 {
+    margin: 0 0 6px;
+}
+
+.hessamzm-toc-shortcode-generator {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+}
+
+.hessamzm-toc-shortcode-generator h3 {
+    margin: 0 0 6px;
+}
+
+.hessamzm-toc-shortcode-generator fieldset {
+    margin: 16px 0;
+    padding: 12px;
+    border: 1px solid #dcdcde;
+}
+
+.hessamzm-toc-shortcode-generator fieldset legend {
+    padding: 0 6px;
+    font-weight: 600;
+}
+
+.hessamzm-toc-shortcode-generator fieldset label {
+    display: inline-block;
+    margin: 4px 16px 4px 0;
+}
+
+.hessamzm-toc-shortcode-generator__fields {
+    max-width: 720px;
+}
+
+.hessamzm-toc-shortcode-generator__fields p {
+    margin: 14px 0;
+}
+
+.hessamzm-toc-shortcode-generator .hessamzm-toc-shortcode-output {
+    min-height: 48px;
+    direction: ltr;
+    text-align: left;
+}
+
+.hessamzm-toc-shortcode-copy {
+    margin-top: 2px;
+}
+
+@media (max-width: 782px) {
+    .hessamzm-toc-shortcode-generator {
+        padding: 16px;
+    }
+
+    .hessamzm-toc-shortcode-generator fieldset label {
+        display: block;
+    }
+}
