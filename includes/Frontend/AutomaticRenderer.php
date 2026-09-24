@@ -16,6 +16,7 @@ final class AutomaticRenderer
         private readonly ContentProcessor $processor,
         private readonly TocRenderer $tocRenderer,
         private readonly Settings $settings,
+        private readonly TocAssets $assets,
     ) {
     }
 
@@ -31,14 +32,7 @@ final class AutomaticRenderer
             return;
         }
 
-        wp_enqueue_style(
-            'hessamzm-toc',
-            HESSAMZM_TOC_URL . 'assets/css/frontend.css',
-            [],
-            HESSAMZM_TOC_VERSION
-        );
-
-        wp_add_inline_style('hessamzm-toc', $this->getCssVariables());
+        $this->assets->enqueue();
     }
 
     public function filterContent(string $content): string
@@ -75,31 +69,6 @@ final class AutomaticRenderer
         } finally {
             $this->rendering = false;
         }
-    }
-
-    /**
-     * @return list<int>
-     */
-    private function getCssVariables(): string
-    {
-        $map = [
-            '--hessamzm-toc-background-color' => 'background_color',
-            '--hessamzm-toc-text-color' => 'text_color',
-            '--hessamzm-toc-link-color' => 'link_color',
-            '--hessamzm-toc-border-color' => 'border_color',
-            '--hessamzm-toc-font-size' => 'font_size',
-            '--hessamzm-toc-indentation' => 'indentation',
-            '--hessamzm-toc-border-radius' => 'border_radius',
-        ];
-
-        $variables = [];
-
-        foreach ($map as $property => $key) {
-            $value = (string) $this->settings->get($key);
-            $variables[] = $property . ':' . esc_attr($value);
-        }
-
-        return '.hessamzm-toc{' . implode(';', $variables) . ';}';
     }
 
     private function hasManualToc(string $content): bool
