@@ -16,7 +16,9 @@ Production-oriented WordPress Table of Contents plugin by hessamzm.
 - Gutenberg dynamic block.
 - `[hessamzm_toc]` shortcode.
 - Rank Math TOC detection compatibility.
-- Classic, Minimal, and Card styles.
+- Classic, Minimal, Card, and Paper Menu styles.
+- Three-line compact preview with configurable expand/collapse labels.
+- Left/right TOC alignment configurable from settings.
 - Hierarchical numbering.
 - Sticky TOC on larger screens.
 - IntersectionObserver scroll spy with `aria-current="location"`.
@@ -32,7 +34,8 @@ Open **Settings > Table of Contents** to configure:
 - Eligible post types.
 - Heading levels.
 - TOC title and style.
-- Numbering and sticky behavior.
+- Numbering, sticky behavior, and left/right position.
+- Custom text for the View More and View Less controls.
 - Colors, font size, indentation, and border radius.
 - Optional deletion of plugin settings on uninstall.
 
@@ -84,6 +87,7 @@ Text domain: `table-of-contents`
 - Gutenberg strings use `wp.i18n`.
 - Script translation hooks are registered for frontend and editor scripts.
 - Translation template: `languages/table-of-contents.pot`.
+- Persian runtime translation: `languages/table-of-contents-fa_IR.l10n.php`.
 
 ## Security
 
@@ -98,6 +102,8 @@ The plugin uses WordPress Settings API validation/sanitization, escaped output, 
 5. Rank Math compatibility — Implemented; runtime validation pending
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Implemented; runtime validation pending
 7. Security, lifecycle, translation, performance, tests and documentation — Implemented; runtime WordPress/browser validation pending
+8. TOC UX and Paper Menu style — Implemented
+9. TOC position, configurable labels, and Persian admin/frontend localization — In Progress
 
 ## Production validation
 
