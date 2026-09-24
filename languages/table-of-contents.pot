@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Table of Contents 0.10.0\n"
+"Project-Id-Version: Table of Contents 0.11.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
@@ -229,4 +229,37 @@ msgstr ""
 
 #: includes/Admin/SettingsPage.php
 msgid "Subsection example"
+msgstr ""
+
+
+#: includes/Admin/SettingsPage.php
+msgid "Shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Basic shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Advanced shortcode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Uses the global TOC settings and the current content."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Optional attributes: levels, title, style, and numbers."
+msgstr ""
+
+#: includes/Widgets/TableOfContentsWidget.php
+msgid "Displays a table of contents generated from the current post or product content."
+msgstr ""
+
+#: includes/Widgets/TableOfContentsWidget.php
+msgid "This widget uses the current post or product content and the global TOC settings."
 msgstr ""
