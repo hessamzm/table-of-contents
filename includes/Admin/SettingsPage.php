@@ -227,6 +227,9 @@ final class SettingsPage
         echo '</nav>';
 
         echo '<div class="hessamzm-toc-settings-layout">';
+        echo '<aside class="hessamzm-toc-settings-preview">';
+        $this->renderLivePreview($tab === 'products' ? 'product' : 'post');
+        echo '</aside>';
         echo '<main class="hessamzm-toc-settings-form">';
         echo '<form method="post" action="options.php">';
         settings_fields('hessamzm_toc');
@@ -248,6 +251,35 @@ final class SettingsPage
         echo '</main>';
         echo '</div>';
         echo '</div>';
+    }
+
+    private function renderLivePreview(string $profile): void
+    {
+        $previewItems = [
+            __('Introduction', 'table-of-contents'),
+            __('Getting Started', 'table-of-contents'),
+            __('Configuration', 'table-of-contents'),
+            __('Advanced Settings', 'table-of-contents'),
+            __('Conclusion', 'table-of-contents'),
+        ];
+
+        echo '<div class="hessamzm-toc-live-preview" data-preview-profile="' . esc_attr($profile) . '">';
+        echo '<h2>' . esc_html__('Live preview', 'table-of-contents') . '</h2>';
+        echo '<p class="description">' . esc_html__('Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes.', 'table-of-contents') . '</p>';
+        echo '<div class="hessamzm-toc-preview-stage">';
+        echo '<nav class="hessamzm-toc hessamzm-toc--paper hessamzm-toc--position-right" aria-label="' . esc_attr__('Live preview', 'table-of-contents') . '">';
+        echo '<div class="hessamzm-toc__header"><p class="hessamzm-toc__title" data-default-title="' . esc_attr__('Table of Contents', 'table-of-contents') . '">' . esc_html__('Table of Contents', 'table-of-contents') . '</p></div>';
+        echo '<div class="hessamzm-toc__body"><ol class="hessamzm-toc__list">';
+        foreach ($previewItems as $index => $item) {
+            echo '<li class="hessamzm-toc__item"><a class="hessamzm-toc__link" href="#">' . esc_html($item) . '</a>';
+            if ($index === 1) {
+                echo '<ol class="hessamzm-toc__children"><li class="hessamzm-toc__item"><a class="hessamzm-toc__link" href="#">' . esc_html__('Subsection example', 'table-of-contents') . '</a></li></ol>';
+            }
+            echo '</li>';
+        }
+        echo '</ol></div><div class="hessamzm-toc__footer">';
+        echo '<button type="button" class="hessamzm-toc__toggle" data-expand-label="' . esc_attr__('View more', 'table-of-contents') . '" data-collapse-label="' . esc_attr__('View less', 'table-of-contents') . '">' . esc_html__('View more', 'table-of-contents') . '</button>'; 
+        echo '</div></nav></div></div>';
     }
 
     public function renderGeneralDescription(): void
