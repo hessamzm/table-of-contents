@@ -28,5 +28,6 @@
     "html": false
   },
   "editorScript": "hessamzm-toc-block-editor",
-  "editorStyle": "file:./editor.css"
+  "editorStyle": "file:./editor.css",
+  "style": "hessamzm-toc"
 }
