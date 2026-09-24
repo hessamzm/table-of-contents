@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Table of Contents 0.7.0\n"
+"Project-Id-Version: Table of Contents 0.10.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
@@ -193,4 +193,40 @@ msgstr ""
 
 #: includes/Frontend/TocRenderer.php
 msgid "View less"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Sticky TOC font size"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Live preview"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Introduction"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Getting Started"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Configuration"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Advanced Settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Conclusion"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Subsection example"
 msgstr ""
