@@ -52,12 +52,31 @@ final class TocRenderer
             $classes[] = 'hessamzm-toc--sticky';
         }
 
-        $attributes = (string) apply_filters(
-            'hessamzm_toc/container_attributes',
-            ''
+        $attributes = apply_filters('hessamzm_toc/container_attributes', '');
+
+        if (!is_string($attributes)) {
+            $attributes = '';
+        }
+
+        $safeAttributes = wp_kses(
+            '<nav ' . $attributes . '></nav>',
+            [
+                'nav' => [
+                    'id' => true,
+                    'role' => true,
+                    'title' => true,
+                    'tabindex' => true,
+                    'aria-label' => true,
+                    'aria-labelledby' => true,
+                    'aria-describedby' => true,
+                ],
+            ]
         );
 
-        $html = '<nav class="' . esc_attr(implode(' ', $classes)) . '"' . ($attributes !== '' ? ' ' . wp_kses_post($attributes) : '') . ' aria-label="' . esc_attr($title) . '">';
+        preg_match('/^<nav(.*?)><\\/nav>$/s', $safeAttributes, $attributeMatch);
+        $safeAttributes = isset($attributeMatch[1]) ? trim($attributeMatch[1]) : '';
+
+        $html = '<nav class="' . esc_attr(implode(' ', $classes)) . '"' . ($safeAttributes !== '' ? ' ' . $safeAttributes : '') . ' aria-label="' . esc_attr($title) . '">';
         $html .= '<p class="hessamzm-toc__title">' . esc_html($title) . '</p>';
         $html .= '<ol class="hessamzm-toc__list">';
 
