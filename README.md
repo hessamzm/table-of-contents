@@ -65,7 +65,7 @@ In Progress:
 
 1. Architecture + Core Engine — Completed
 2. Automatic Rendering — Completed
-3. Admin Settings and Styling System — In Progress
+3. Admin Settings and Styling System — Completed
 4. Gutenberg block and shortcode — In Progress
 5. Rank Math and compatibility integrations
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy
