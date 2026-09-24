@@ -6,6 +6,9 @@ namespace Hessamzm\TableOfContents\Core;
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
 use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
+use Hessamzm\TableOfContents\Blocks\TableOfContentsBlock;
+use Hessamzm\TableOfContents\Shortcodes\TableOfContentsShortcode;
+use Hessamzm\TableOfContents\Services\ManualTocRenderer;
 use Hessamzm\TableOfContents\Settings\Settings;
 use Hessamzm\TableOfContents\TOC\AnchorGenerator;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
@@ -25,6 +28,8 @@ final class Plugin
     private AutomaticRenderer $automaticRenderer;
     private Settings $settings;
     private SettingsPage $settingsPage;
+    private TableOfContentsBlock $block;
+    private TableOfContentsShortcode $shortcode;
 
     public function __construct()
     {
@@ -39,6 +44,13 @@ final class Plugin
             $this->tocBuilder
         );
         $this->tocRenderer = new TocRenderer($this->settings);
+        $manualRenderer = new ManualTocRenderer(
+            $this->contentProcessor,
+            $this->tocRenderer,
+            $this->settings
+        );
+        $this->block = new TableOfContentsBlock($manualRenderer);
+        $this->shortcode = new TableOfContentsShortcode($manualRenderer, $this->settings);
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
@@ -50,6 +62,8 @@ final class Plugin
     {
         $this->settingsPage->boot();
         $this->automaticRenderer->boot();
+        $this->block->boot();
+        $this->shortcode->boot();
 
         /**
          * Fires after the Table of Contents core services are initialized.
