@@ -57,7 +57,8 @@ final class Plugin
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
-            $this->settings
+            $this->settings,
+            $assets
         );
     }
 
