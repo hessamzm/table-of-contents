@@ -136,6 +136,10 @@ final class Settings
     /** @param array<string,mixed> $input @param array<string,mixed> $fallback @return array<string,mixed> */
     private function sanitizeProfile(array $input, array $fallback, bool $allowPosition): array
     {
+        if ($input === []) {
+            return $fallback;
+        }
+
         $levels = isset($input['heading_levels']) && is_array($input['heading_levels'])
             ? array_map('absint', $input['heading_levels'])
             : $fallback['heading_levels'];
