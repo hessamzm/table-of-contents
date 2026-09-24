@@ -41,4 +41,13 @@ return [
     'Use a CSS length such as 16px, 1rem, or 1.5em.' => 'یک مقدار CSS مانند 16px، 1rem یا 1.5em وارد کنید.',
     'View more' => 'مشاهده بیشتر',
     'View less' => 'مشاهده کمتر',
+];    "Sticky TOC font size" => "اندازه فونت فهرست مطالب چسبیده",
+    "Live preview" => "پیش‌نمایش زنده",
+    "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes." => "هنگام سفارشی‌سازی ظاهر فهرست مطالب، پیش‌نمایش آن را مشاهده کنید. تغییرات بلافاصله نمایش داده می‌شوند و با کلیک روی ذخیره تغییرات ذخیره خواهند شد.",
+    "Introduction" => "مقدمه",
+    "Getting Started" => "شروع کار",
+    "Configuration" => "پیکربندی",
+    "Advanced Settings" => "تنظیمات پیشرفته",
+    "Conclusion" => "جمع‌بندی",
+    "Subsection example" => "نمونه زیربخش",
 ];
