@@ -31,7 +31,100 @@ final class SettingsTest extends TestCase
         self::assertSame('left', $clean['position']);
         self::assertSame('13px', $clean['sticky_font_size']);
         self::assertTrue($clean['product_toc_enabled']);
+        self::assertArrayNotHasKey('enabled', $clean);
         self::assertSame('inside_description', $clean['product_toc_position']);
+    }
+
+    public function testArticlesTabPreservesProductProfileAndIgnoresGlobalToggle(): void
+    {
+        $settings = new Settings();
+
+        $GLOBALS['hessamzm_toc_test_options'][Settings::OPTION_KEY] = [
+            'enabled' => false,
+            'post_toc' => [
+                'enabled' => false,
+                'heading_levels' => [2, 3],
+                'title' => 'Posts',
+                'style' => 'paper',
+                'show_numbers' => false,
+                'sticky_toc' => false,
+                'position' => 'right',
+                'more_text' => 'More',
+                'less_text' => 'Less',
+            ],
+            'product_toc' => [
+                'enabled' => true,
+                'heading_levels' => [2, 4],
+                'title' => 'Products',
+                'style' => 'card',
+                'show_numbers' => true,
+                'sticky_toc' => true,
+                'position' => 'left',
+                'placement' => 'inside_description',
+                'more_text' => 'More',
+                'less_text' => 'Less',
+            ],
+        ];
+
+        $clean = $settings->sanitize([
+            '_active_tab' => 'articles',
+            'post_toc' => [
+                'enabled' => true,
+                'heading_levels' => [2, 5],
+                'title' => 'Updated posts',
+            ],
+        ]);
+
+        self::assertTrue($clean['post_toc']['enabled']);
+        self::assertTrue($clean['product_toc']['enabled']);
+        self::assertSame('card', $clean['product_toc']['style']);
+        self::assertArrayNotHasKey('enabled', $clean);
+    }
+
+    public function testProductsTabPreservesArticleProfileAndIgnoresGlobalToggle(): void
+    {
+        $settings = new Settings();
+
+        $GLOBALS['hessamzm_toc_test_options'][Settings::OPTION_KEY] = [
+            'enabled' => false,
+            'post_toc' => [
+                'enabled' => true,
+                'heading_levels' => [2, 3],
+                'title' => 'Posts',
+                'style' => 'paper',
+                'show_numbers' => false,
+                'sticky_toc' => false,
+                'position' => 'right',
+                'more_text' => 'More',
+                'less_text' => 'Less',
+            ],
+            'product_toc' => [
+                'enabled' => false,
+                'heading_levels' => [2, 4],
+                'title' => 'Products',
+                'style' => 'card',
+                'show_numbers' => true,
+                'sticky_toc' => true,
+                'position' => 'left',
+                'placement' => 'inside_description',
+                'more_text' => 'More',
+                'less_text' => 'Less',
+            ],
+        ];
+
+        $clean = $settings->sanitize([
+            '_active_tab' => 'products',
+            'product_toc' => [
+                'enabled' => true,
+                'heading_levels' => [2, 6],
+                'placement' => 'after_tabs',
+            ],
+        ]);
+
+        self::assertTrue($clean['product_toc']['enabled']);
+        self::assertTrue($clean['post_toc']['enabled']);
+        self::assertSame('paper', $clean['post_toc']['style']);
+        self::assertArrayNotHasKey('enabled', $clean);
     }
 
     public function testItSupportsIndependentArticleAndProductProfiles(): void
