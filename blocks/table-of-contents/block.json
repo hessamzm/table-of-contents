@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "hessamzm/table-of-contents",
+  "title": "Table of Contents",
+  "category": "widgets",
+  "description": "Display a manually placed table of contents.",
+  "textdomain": "table-of-contents",
+  "attributes": {
+    "headingLevels": {
+      "type": "array",
+      "default": []
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "style": {
+      "type": "string",
+      "default": ""
+    },
+    "showNumbers": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "editorScript": "hessamzm-toc-block-editor"
+}
