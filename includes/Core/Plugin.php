@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Hessamzm\TableOfContents\Core;
 
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
+use Hessamzm\TableOfContents\Integrations\RankMath\RankMathIntegration;
 use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
 use Hessamzm\TableOfContents\Frontend\TocAssets;
@@ -31,6 +32,7 @@ final class Plugin
     private SettingsPage $settingsPage;
     private TableOfContentsBlock $block;
     private TableOfContentsShortcode $shortcode;
+    private RankMathIntegration $rankMathIntegration;
 
     public function __construct()
     {
@@ -54,6 +56,7 @@ final class Plugin
         );
         $this->block = new TableOfContentsBlock($manualRenderer);
         $this->shortcode = new TableOfContentsShortcode($manualRenderer);
+        $this->rankMathIntegration = new RankMathIntegration();
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
@@ -68,6 +71,7 @@ final class Plugin
         $this->automaticRenderer->boot();
         $this->block->boot();
         $this->shortcode->boot();
+        $this->rankMathIntegration->boot();
 
         /**
          * Fires after the Table of Contents core services are initialized.
