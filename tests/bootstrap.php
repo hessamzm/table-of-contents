@@ -46,6 +46,13 @@ function wp_parse_args($args, $defaults = []): array
     return array_merge($defaults, is_array($args) ? $args : []);
 }
 
+$GLOBALS['hessamzm_toc_test_options'] = [];
+
+function get_option(string $option, mixed $default = false): mixed
+{
+    return $GLOBALS['hessamzm_toc_test_options'][$option] ?? $default;
+}
+
 function apply_filters(string $hook, $value, ...$args)
 {
     return $value;

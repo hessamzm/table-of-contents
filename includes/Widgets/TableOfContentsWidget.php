@@ -54,7 +54,7 @@ final class TableOfContentsWidget extends \WP_Widget
 
     public function form($instance): void
     {
-        echo '<p>' . esc_html__('This widget uses the current post or product content and the global TOC settings.', 'table-of-contents') . '</p>';
+        echo '<p>' . esc_html__('This widget uses the current post or product content and its independent TOC profile settings.', 'table-of-contents') . '</p>';
     }
 
     /** @param array<string,mixed> $new_instance @param array<string,mixed> $old_instance @return array<string,mixed> */

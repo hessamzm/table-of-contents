@@ -211,8 +211,7 @@ final class ProductTocRenderer
 
     private function isEnabled(): bool
     {
-        return (bool) $this->settings->get('enabled')
-            && (bool) $this->getProfile()['enabled'];
+        return !empty($this->getProfile()['enabled']);
     }
 
     private function getPosition(): string

@@ -11,7 +11,6 @@ final class Settings
 
     /** @var array<string,mixed> */
     private array $defaults = [
-        'enabled' => true,
         'post_types' => ['post', 'page', 'product'],
         'delete_data_on_uninstall' => false,
         'heading_levels' => [2, 3, 4, 5, 6],
@@ -102,10 +101,6 @@ final class Settings
             $clean = $stored;
 
             if ($activeTab === 'general') {
-                if (array_key_exists('enabled', $settings)) {
-                    $clean['enabled'] = !empty($settings['enabled']);
-                }
-
                 if (array_key_exists('delete_data_on_uninstall', $settings)) {
                     $clean['delete_data_on_uninstall'] = !empty($settings['delete_data_on_uninstall']);
                 }
@@ -156,13 +151,12 @@ final class Settings
             $clean['sticky_toc'] = !empty($clean['post_toc']['sticky_toc']);
             $clean['position'] = $clean['post_toc']['position'] ?? $this->defaults['position'];
 
-            unset($clean['_active_tab']);
+            unset($clean['_active_tab'], $clean['enabled']);
 
             return $clean;
         }
 
         $clean = $this->defaults;
-        $clean['enabled'] = !empty($settings['enabled']);
         $clean['delete_data_on_uninstall'] = !empty($settings['delete_data_on_uninstall']);
 
         $postTypes = isset($settings['post_types']) && is_array($settings['post_types'])
@@ -203,6 +197,8 @@ final class Settings
         $clean['show_numbers'] = $clean['post_toc']['show_numbers'];
         $clean['sticky_toc'] = $clean['post_toc']['sticky_toc'];
         $clean['position'] = $clean['post_toc']['position'];
+
+        unset($clean['enabled']);
 
         return $clean;
     }
@@ -258,7 +254,7 @@ final class Settings
     private function profileFromLegacy(array $settings): array
     {
         return [
-            'enabled' => !empty($settings['enabled']),
+            'enabled' => true,
             'heading_levels' => $settings['heading_levels'] ?? $this->defaults['heading_levels'],
             'title' => (string) ($settings['title'] ?? ''),
             'style' => (string) ($settings['style'] ?? 'paper'),
