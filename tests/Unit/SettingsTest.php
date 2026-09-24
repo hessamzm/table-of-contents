@@ -17,6 +17,8 @@ final class SettingsTest extends TestCase
             'background_color' => '#112233',
             'font_size' => '18px',
             'indentation' => 'expression(alert(1))',
+            'position' => 'left',
+            'sticky_font_size' => '13px',
         ]);
 
         self::assertSame([2], $clean['heading_levels']);
@@ -24,5 +26,7 @@ final class SettingsTest extends TestCase
         self::assertSame('#112233', $clean['background_color']);
         self::assertSame('18px', $clean['font_size']);
         self::assertSame('1.5rem', $clean['indentation']);
+        self::assertSame('left', $clean['position']);
+        self::assertSame('13px', $clean['sticky_font_size']);
     }
 }
