@@ -7,8 +7,6 @@ defined('ABSPATH') || exit;
 
 final class RankMathIntegration
 {
-    public const PLUGIN_FILE = 'table-of-contents/table-of-contents.php';
-
     public function boot(): void
     {
         if (!$this->isEnabled()) {
@@ -24,7 +22,7 @@ final class RankMathIntegration
      */
     public function registerTocPlugin(array $tocPlugins): array
     {
-        $tocPlugins[self::PLUGIN_FILE] = __('Table of Contents', 'table-of-contents');
+        $tocPlugins[plugin_basename(HESSAMZM_TOC_FILE)] = __('Table of Contents', 'table-of-contents');
 
         return $tocPlugins;
     }
