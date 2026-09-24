@@ -81,4 +81,128 @@
     });
 
     update();
+
+    function initializeShortcodeGenerators() {
+        document.querySelectorAll('.hessamzm-toc-shortcode-generator').forEach(function (generator) {
+            var tag = generator.dataset.shortcodeTag || '';
+            var defaultLevels = [];
+
+            try {
+                defaultLevels = JSON.parse(generator.dataset.defaultLevels || '[]');
+            } catch (error) {
+                defaultLevels = [];
+            }
+
+            var defaultTitle = generator.dataset.defaultTitle || '';
+            var defaultStyle = generator.dataset.defaultStyle || 'paper';
+            var defaultNumbers = generator.dataset.defaultNumbers === '1';
+            var output = generator.querySelector('.hessamzm-toc-shortcode-output');
+            var copyButton = generator.querySelector('.hessamzm-toc-shortcode-copy');
+
+            if (!tag || !output) {
+                return;
+            }
+
+            function currentLevels() {
+                return Array.prototype.map.call(
+                    generator.querySelectorAll('.hessamzm-toc-shortcode-level:checked'),
+                    function (input) {
+                        return parseInt(input.value, 10);
+                    }
+                ).filter(function (level) {
+                    return level >= 1 && level <= 6;
+                }).sort(function (a, b) {
+                    return a - b;
+                });
+            }
+
+            function sameLevels(left, right) {
+                if (left.length !== right.length) {
+                    return false;
+                }
+
+                return left.every(function (level, index) {
+                    return level === right[index];
+                });
+            }
+
+            function escapeAttribute(value) {
+                return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+            }
+
+            function build() {
+                var attributes = [];
+                var levels = currentLevels();
+                var titleInput = generator.querySelector('.hessamzm-toc-shortcode-title');
+                var styleInput = generator.querySelector('.hessamzm-toc-shortcode-style');
+                var numbersInput = generator.querySelector('.hessamzm-toc-shortcode-numbers');
+                var title = titleInput ? titleInput.value.trim() : '';
+                var style = styleInput ? styleInput.value : defaultStyle;
+                var numbers = !!(numbersInput && numbersInput.checked);
+
+                if (!sameLevels(levels, defaultLevels)) {
+                    attributes.push('levels="' + escapeAttribute(levels.join(',')) + '"');
+                }
+
+                if (title !== defaultTitle) {
+                    attributes.push('title="' + escapeAttribute(title) + '"');
+                }
+
+                if (style !== defaultStyle) {
+                    attributes.push('style="' + escapeAttribute(style) + '"');
+                }
+
+                if (numbers !== defaultNumbers) {
+                    attributes.push('numbers="' + (numbers ? 'true' : 'false') + '"');
+                }
+
+                output.value = attributes.length
+                    ? '[' + tag + ' ' + attributes.join(' ') + ']'
+                    : '[' + tag + ']';
+            }
+
+            function copy() {
+                output.focus();
+                output.select();
+
+                var copied = false;
+
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(output.value).then(function () {
+                        copied = true;
+                        copyButton.textContent = copyButton.dataset.copiedLabel || copyButton.textContent;
+                    }).catch(function () {});
+                }
+
+                if (!copied && document.execCommand) {
+                    try {
+                        copied = document.execCommand('copy');
+                    } catch (error) {
+                        copied = false;
+                    }
+                }
+
+                if (copied) {
+                    copyButton.textContent = copyButton.dataset.copiedLabel || copyButton.textContent;
+                    window.setTimeout(function () {
+                        copyButton.textContent = copyButton.dataset.copyLabel || copyButton.textContent;
+                    }, 1600);
+                }
+            }
+
+            generator.querySelectorAll('input, select').forEach(function (input) {
+                input.addEventListener('input', build);
+                input.addEventListener('change', build);
+            });
+
+            if (copyButton) {
+                copyButton.addEventListener('click', copy);
+            }
+
+            build();
+        });
+    }
+
+    initializeShortcodeGenerators();
+
 })();

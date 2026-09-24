@@ -233,6 +233,7 @@ final class SettingsPage
         echo '<main class="hessamzm-toc-settings-form">';
         echo '<form method="post" action="options.php">';
         settings_fields('hessamzm_toc');
+        echo '<input type="hidden" name="' . esc_attr(Settings::OPTION_KEY . '[_active_tab]') . '" value="' . esc_attr($tab) . '">';
         $section = 'hessamzm_toc_' . $tab;
         echo '<div class="hessamzm-toc-settings-section">';
         if ($tab === 'general') {
@@ -245,6 +246,9 @@ final class SettingsPage
         echo '<table class="form-table" role="presentation">';
         do_settings_fields(self::PAGE_SLUG, $section);
         echo '</table>';
+        if ($tab === 'general') {
+            $this->renderShortcodeGenerators();
+        }
         echo '</div>';
         submit_button();
         echo '</form>';
@@ -280,6 +284,81 @@ final class SettingsPage
         echo '</ol></div><div class="hessamzm-toc__footer">';
         echo '<button type="button" class="hessamzm-toc__toggle" data-expand-label="' . esc_attr__('View more', 'table-of-contents') . '" data-collapse-label="' . esc_attr__('View less', 'table-of-contents') . '">' . esc_html__('View more', 'table-of-contents') . '</button>'; 
         echo '</div></nav></div></div>';
+    }
+
+    private function renderShortcodeGenerators(): void
+    {
+        echo '<section class="hessamzm-toc-shortcode-generators" aria-labelledby="hessamzm-toc-shortcode-generators-title">';
+        echo '<h2 id="hessamzm-toc-shortcode-generators-title">' . esc_html__('Shortcode generators', 'table-of-contents') . '</h2>';
+        echo '<p class="description">' . esc_html__('Build a ready-to-use shortcode without memorizing attributes. Each generator uses the settings for its own TOC profile as the starting point.', 'table-of-contents') . '</p>';
+
+        $this->renderShortcodeGeneratorCard(
+            'post',
+            __('Blog TOC shortcode', 'table-of-contents'),
+            __('Use this shortcode inside a blog post to insert the Blog TOC manually.', 'table-of-contents'),
+            'hessamzm_blog_toc'
+        );
+
+        $this->renderShortcodeGeneratorCard(
+            'product',
+            __('Product TOC shortcode', 'table-of-contents'),
+            __('Use this shortcode inside a WooCommerce product to insert the Product TOC manually.', 'table-of-contents'),
+            'hessamzm_product_toc'
+        );
+
+        echo '</section>';
+    }
+
+    private function renderShortcodeGeneratorCard(string $profile, string $title, string $description, string $tagConstant): void
+    {
+        $values = $this->settings->getProfile($profile);
+        $levels = array_map('absint', (array) ($values['heading_levels'] ?? [2, 3, 4, 5, 6]));
+        $style = (string) ($values['style'] ?? 'paper');
+        $profileId = 'hessamzm-toc-shortcode-generator-' . $profile;
+
+        echo '<div class="hessamzm-toc-shortcode-generator" data-shortcode-profile="' . esc_attr($profile) . '"';
+        echo ' data-shortcode-tag="' . esc_attr($tagConstant) . '"';
+        echo ' data-default-levels="' . esc_attr(wp_json_encode(array_values($levels))) . '"';
+        echo ' data-default-title="' . esc_attr((string) ($values['title'] ?? '')) . '"';
+        echo ' data-default-style="' . esc_attr($style) . '"';
+        echo ' data-default-numbers="' . esc_attr(!empty($values['show_numbers']) ? '1' : '0') . '">';
+
+        echo '<h3>' . esc_html($title) . '</h3>';
+        echo '<p>' . esc_html($description) . '</p>';
+
+        echo '<div class="hessamzm-toc-shortcode-generator__fields">';
+        echo '<fieldset>';
+        echo '<legend>' . esc_html__('Heading levels', 'table-of-contents') . '</legend>';
+        for ($level = 1; $level <= 6; $level++) {
+            echo '<label>';
+            echo '<input type="checkbox" class="hessamzm-toc-shortcode-level" value="' . esc_attr((string) $level) . '" ' . checked(in_array($level, $levels, true), true, false) . '>';
+            echo esc_html(sprintf(/* translators: %d: heading level */ __('Heading %d', 'table-of-contents'), $level));
+            echo '</label>';
+        }
+        echo '</fieldset>';
+
+        echo '<p><label for="' . esc_attr($profileId . '-title') . '">' . esc_html__('Title', 'table-of-contents') . '</label><br>';
+        echo '<input id="' . esc_attr($profileId . '-title') . '" type="text" class="regular-text hessamzm-toc-shortcode-title" value="' . esc_attr((string) ($values['title'] ?? '')) . '"></p>';
+
+        echo '<p><label for="' . esc_attr($profileId . '-style') . '">' . esc_html__('Style', 'table-of-contents') . '</label><br>';
+        echo '<select id="' . esc_attr($profileId . '-style') . '" class="hessamzm-toc-shortcode-style">';
+        foreach ([
+            'classic' => __('Classic', 'table-of-contents'),
+            'minimal' => __('Minimal', 'table-of-contents'),
+            'card' => __('Card', 'table-of-contents'),
+            'paper' => __('Paper Menu', 'table-of-contents'),
+        ] as $option => $label) {
+            echo '<option value="' . esc_attr($option) . '" ' . selected($style, $option, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select></p>';
+
+        echo '<p><label><input type="checkbox" class="hessamzm-toc-shortcode-numbers" ' . checked(!empty($values['show_numbers']), true, false) . '> ' . esc_html__('Show numbers', 'table-of-contents') . '</label></p>';
+        echo '</div>';
+
+        echo '<p><label for="' . esc_attr($profileId . '-output') . '">' . esc_html__('Generated shortcode', 'table-of-contents') . '</label><br>';
+        echo '<textarea id="' . esc_attr($profileId . '-output') . '" class="large-text code hessamzm-toc-shortcode-output" rows="2" readonly></textarea></p>';
+        echo '<button type="button" class="button hessamzm-toc-shortcode-copy" data-copy-label="' . esc_attr__('Copy shortcode', 'table-of-contents') . '" data-copied-label="' . esc_attr__('Copied', 'table-of-contents') . '">' . esc_html__('Copy shortcode', 'table-of-contents') . '</button>';
+        echo '</div>';
     }
 
     public function renderGeneralDescription(): void

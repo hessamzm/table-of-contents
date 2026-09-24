@@ -40,7 +40,8 @@ final class TableOfContentsWidget extends \WP_Widget
             return;
         }
 
-        $toc = $this->renderer->render();
+        $profile = get_post_type() === 'product' ? 'product' : 'post';
+        $toc = $this->renderer->render([], $profile);
 
         if ($toc === '') {
             return;

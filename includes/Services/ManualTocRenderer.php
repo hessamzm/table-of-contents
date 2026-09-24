@@ -23,11 +23,26 @@ final class ManualTocRenderer
     /**
      * @param array<string,mixed> $attributes
      */
-    public function render(array $attributes = []): string
+    public function render(array $attributes = [], string $profileType = 'post'): string
     {
+        $profileType = in_array($profileType, ['post', 'product'], true) ? $profileType : 'post';
         $postId = get_the_ID();
 
-        if (!$postId) {
+        if (!$postId || !is_singular()) {
+            return '';
+        }
+
+        if ($profileType === 'product' && get_post_type($postId) !== 'product') {
+            return '';
+        }
+
+        if ($profileType === 'post' && get_post_type($postId) !== 'post') {
+            return '';
+        }
+
+        $profile = $this->settings->getProfile($profileType);
+
+        if (empty($profile['enabled'])) {
             return '';
         }
 
@@ -37,35 +52,36 @@ final class ManualTocRenderer
             return '';
         }
 
-        $this->assets->enqueue();
+        $this->assets->enqueue($profile);
 
-        $levels = $this->resolveLevels($attributes);
+        $levels = $this->resolveLevels($attributes, $profile);
         $processed = $this->processor->process($content, $levels);
 
         if ($processed['tree']->isEmpty()) {
             return '';
         }
 
-        $overrides = $this->resolveRendererOverrides($attributes);
+        $overrides = array_merge($profile, $this->resolveRendererOverrides($attributes));
+        $overrides['profile'] = $profileType;
 
-        return '<div class="hessamzm-toc-manual">' . $this->tocRenderer->render(
-            $processed['tree'],
-            $overrides
-        ) . '</div>';
+        return '<div class="hessamzm-toc-manual hessamzm-toc-manual--' . esc_attr($profileType) . '">' .
+            $this->tocRenderer->render($processed['tree'], $overrides) .
+            '</div>';
     }
 
     /**
      * @param array<string,mixed> $attributes
+     * @param array<string,mixed> $profile
      * @return list<int>
      */
-    private function resolveLevels(array $attributes): array
+    private function resolveLevels(array $attributes, array $profile): array
     {
         $levels = isset($attributes['headingLevels']) && is_array($attributes['headingLevels'])
             ? array_map('absint', $attributes['headingLevels'])
             : [];
 
         if ($levels === []) {
-            $levels = (array) $this->settings->get('heading_levels');
+            $levels = (array) ($profile['heading_levels'] ?? []);
         }
 
         $levels = array_values(
