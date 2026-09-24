@@ -58,13 +58,4 @@ return [
     "Optional attributes: levels, title, style, and numbers." => "الخصائص الاختيارية: levels وtitle وstyle وnumbers.",
     "Displays a table of contents generated from the current post or product content." => "يعرض فهرس محتويات مُنشأ من محتوى المقالة أو المنتج الحالي.",
     "This widget uses the current post or product content and the global TOC settings." => "تستخدم هذه الأداة محتوى المقالة أو المنتج الحالي وإعدادات فهرس المحتويات العامة.",
-    "Sticky TOC font size" => "حجم خط فهرس المحتويات الثابت",
-    "Live preview" => "معاينة مباشرة",
-    "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes." => "عاين فهرس المحتويات أثناء تخصيص مظهره. تظهر التغييرات فورًا ويتم حفظها عند النقر على حفظ التغييرات.",
-    "Introduction" => "مقدمة",
-    "Getting Started" => "البدء",
-    "Configuration" => "الإعدادات",
-    "Advanced Settings" => "الإعدادات المتقدمة",
-    "Conclusion" => "الخلاصة",
-    "Subsection example" => "مثال على قسم فرعي",
 ];

@@ -59,6 +59,19 @@ register_deactivation_hook(
 add_action(
     'plugins_loaded',
     static function (): void {
+        load_plugin_textdomain(
+            'table-of-contents',
+            false,
+            dirname(plugin_basename(HESSAMZM_TOC_FILE)) . '/languages'
+        );
+    },
+    1
+);
+
+add_action(
+    'plugins_loaded',
+    static function (): void {
         (new \Hessamzm\TableOfContents\Core\Plugin())->boot();
-    }
+    },
+    20
 );

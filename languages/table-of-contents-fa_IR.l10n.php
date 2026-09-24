@@ -58,13 +58,4 @@ return [
     "Optional attributes: levels, title, style, and numbers." => "ویژگی‌های اختیاری: levels، title، style و numbers.",
     "Displays a table of contents generated from the current post or product content." => "فهرست مطالب تولیدشده از محتوای نوشته یا محصول جاری را نمایش می‌دهد.",
     "This widget uses the current post or product content and the global TOC settings." => "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات عمومی فهرست مطالب استفاده می‌کند.",
-    "Sticky TOC font size" => "اندازه فونت فهرست مطالب چسبیده",
-    "Live preview" => "پیش‌نمایش زنده",
-    "Preview the TOC while you customize its appearance. Changes are shown instantly and are saved when you click Save Changes." => "هنگام سفارشی‌سازی ظاهر فهرست مطالب، پیش‌نمایش آن را مشاهده کنید. تغییرات بلافاصله نمایش داده می‌شوند و با کلیک روی ذخیره تغییرات ذخیره خواهند شد.",
-    "Introduction" => "مقدمه",
-    "Getting Started" => "شروع کار",
-    "Configuration" => "پیکربندی",
-    "Advanced Settings" => "تنظیمات پیشرفته",
-    "Conclusion" => "جمع‌بندی",
-    "Subsection example" => "نمونه زیربخش",
 ];
