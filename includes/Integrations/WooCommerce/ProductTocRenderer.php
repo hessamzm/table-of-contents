@@ -38,7 +38,7 @@ final class ProductTocRenderer
         } elseif ($position === 'before_tabs') {
             add_action('woocommerce_after_single_product_summary', [$this, 'render'], 5);
         } else {
-            add_action('woocommerce_after_single_product', [$this, 'render'], 5);
+            add_action('woocommerce_after_single_product_summary', [$this, 'render'], 12);
         }
     }
 
