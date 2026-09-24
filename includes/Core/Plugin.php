@@ -5,6 +5,7 @@ namespace Hessamzm\TableOfContents\Core;
 
 use Hessamzm\TableOfContents\Frontend\AutomaticRenderer;
 use Hessamzm\TableOfContents\Integrations\RankMath\RankMathIntegration;
+use Hessamzm\TableOfContents\Integrations\WooCommerce\WooCommerceIntegration;
 use Hessamzm\TableOfContents\Admin\SettingsPage;
 use Hessamzm\TableOfContents\Frontend\TocRenderer;
 use Hessamzm\TableOfContents\Frontend\TocAssets;
@@ -34,6 +35,7 @@ final class Plugin
     private TableOfContentsBlock $block;
     private TableOfContentsShortcode $shortcode;
     private RankMathIntegration $rankMathIntegration;
+    private WooCommerceIntegration $wooCommerceIntegration;
     private TableOfContentsWidget $widget;
 
     public function __construct()
@@ -60,6 +62,12 @@ final class Plugin
         $this->shortcode = new TableOfContentsShortcode($manualRenderer);
         $this->widget = new TableOfContentsWidget($manualRenderer);
         $this->rankMathIntegration = new RankMathIntegration();
+        $this->wooCommerceIntegration = new WooCommerceIntegration(
+            $this->contentProcessor,
+            $this->tocRenderer,
+            $this->settings,
+            $assets
+        );
         $this->automaticRenderer = new AutomaticRenderer(
             $this->contentProcessor,
             $this->tocRenderer,
@@ -76,6 +84,7 @@ final class Plugin
         $this->shortcode->boot();
         $this->widget->boot();
         $this->rankMathIntegration->boot();
+        $this->wooCommerceIntegration->boot();
 
         /**
          * Fires after the Table of Contents core services are initialized.
