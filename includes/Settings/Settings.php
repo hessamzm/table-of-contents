@@ -13,6 +13,8 @@ final class Settings
     private array $defaults = [
         'enabled' => true,
         'post_types' => ['post', 'page', 'product'],
+        'product_toc_enabled' => true,
+        'product_toc_position' => 'before_tabs',
         'heading_levels' => [2, 3, 4, 5, 6],
         'title' => '',
         'style' => 'paper',
@@ -67,6 +69,12 @@ final class Settings
     {
         $clean = $this->defaults;
         $clean['enabled'] = !empty($settings['enabled']);
+        $clean['product_toc_enabled'] = !empty($settings['product_toc_enabled']);
+
+        $productPosition = isset($settings['product_toc_position']) ? sanitize_key($settings['product_toc_position']) : 'before_tabs';
+        $clean['product_toc_position'] = in_array($productPosition, ['before_summary', 'before_tabs', 'after_tabs'], true)
+            ? $productPosition
+            : 'before_tabs';
         $clean['delete_data_on_uninstall'] = !empty($settings['delete_data_on_uninstall']);
 
         $postTypes = isset($settings['post_types']) && is_array($settings['post_types'])

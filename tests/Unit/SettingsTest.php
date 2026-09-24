@@ -19,6 +19,8 @@ final class SettingsTest extends TestCase
             'indentation' => 'expression(alert(1))',
             'position' => 'left',
             'sticky_font_size' => '13px',
+            'product_toc_enabled' => 1,
+            'product_toc_position' => 'before_tabs',
         ]);
 
         self::assertSame([2], $clean['heading_levels']);
@@ -28,5 +30,7 @@ final class SettingsTest extends TestCase
         self::assertSame('1.5rem', $clean['indentation']);
         self::assertSame('left', $clean['position']);
         self::assertSame('13px', $clean['sticky_font_size']);
+        self::assertTrue($clean['product_toc_enabled']);
+        self::assertSame('before_tabs', $clean['product_toc_position']);
     }
 }

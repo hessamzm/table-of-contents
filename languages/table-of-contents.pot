@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Table of Contents 0.11.1\n"
+"Project-Id-Version: Table of Contents 0.12.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
@@ -263,3 +263,40 @@ msgstr ""
 #: includes/Widgets/TableOfContentsWidget.php
 msgid "This widget uses the current post or product content and the global TOC settings."
 msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Product TOC"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Enable Product TOC"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Generate a dedicated table of contents for WooCommerce product descriptions."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Product TOC position"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Before product summary"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Before product tabs"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "After product tabs"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "The TOC uses the product description headings and the global appearance settings."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Configure the WooCommerce product TOC independently from the general automatic renderer."
+msgstr ""
+
