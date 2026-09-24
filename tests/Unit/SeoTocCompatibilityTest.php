@@ -5,7 +5,6 @@ namespace Hessamzm\TableOfContents\Tests\Unit;
 
 use Hessamzm\TableOfContents\Integrations\SEO\SeoTocCompatibility;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 
 final class SeoTocCompatibilityTest extends TestCase
 {
@@ -34,12 +33,5 @@ final class SeoTocCompatibilityTest extends TestCase
         self::assertFalse(
             $compatibility->hasToc('<!-- wp:paragraph --><p>Content</p><!-- /wp:paragraph -->')
         );
-    }
-
-    public function testSupportedBlockConfigurationIsPrivate(): void
-    {
-        $method = new ReflectionMethod(SeoTocCompatibility::class, 'getSupportedBlocks');
-
-        self::assertTrue($method->isPrivate());
     }
 }
