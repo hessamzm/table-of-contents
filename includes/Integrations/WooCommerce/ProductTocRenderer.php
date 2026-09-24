@@ -53,9 +53,10 @@ final class ProductTocRenderer
             return;
         }
 
-        $this->assets->enqueue();
+        $profile = $this->getProfile();
+        $this->assets->enqueue($profile);
 
-        $toc = $this->tocRenderer->render($processed['tree']);
+        $toc = $this->tocRenderer->render($processed['tree'], array_merge($profile, ['profile' => 'product']));
 
         if ($toc === '') {
             return;
@@ -73,7 +74,7 @@ final class ProductTocRenderer
      */
     public function filterBodyClass(array $classes): array
     {
-        if ($this->shouldRender() && (bool) $this->settings->get('sticky_toc')) {
+        if ($this->shouldRender() && (bool) $this->getProfile()['sticky_toc'] {
             $classes[] = 'hessamzm-toc-product-sticky';
         }
 
@@ -104,9 +105,10 @@ final class ProductTocRenderer
             return $processedContent;
         }
 
-        $this->assets->enqueue();
+        $profile = $this->getProfile();
+        $this->assets->enqueue($profile);
 
-        $toc = $this->tocRenderer->render($processed['tree']);
+        $toc = $this->tocRenderer->render($processed['tree'], array_merge($profile, ['profile' => 'product']));
 
         if ($toc === '') {
             return $processedContent;
@@ -188,12 +190,12 @@ final class ProductTocRenderer
 
     private function isEnabled(): bool
     {
-        return (bool) $this->settings->get('product_toc_enabled');
+        return (bool) $this->getProfile()['enabled'];
     }
 
     private function getPosition(): string
     {
-        $position = sanitize_key((string) $this->settings->get('product_toc_position'));
+        $position = sanitize_key((string) $this->getProfile()['placement']);
 
         return in_array($position, ['before_summary', 'inside_description', 'after_tabs'], true)
             ? $position
@@ -205,7 +207,7 @@ final class ProductTocRenderer
     {
         $levels = (array) apply_filters(
             'hessamzm_toc/product_heading_levels',
-            (array) $this->settings->get('heading_levels')
+            (array) $this->getProfile()['heading_levels']
         );
 
         return array_values(
@@ -214,6 +216,12 @@ final class ProductTocRenderer
                 static fn (int $level): bool => $level >= 1 && $level <= 6
             )
         );
+    }
+
+    /** @return array<string,mixed> */
+    private function getProfile(): array
+    {
+        return $this->settings->getProfile('product');
     }
 
     private function isAvailable(): bool

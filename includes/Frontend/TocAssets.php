@@ -15,7 +15,7 @@ final class TocAssets
     {
     }
 
-    public function enqueue(): void
+    public function enqueue(array $profile = []): void
     {
         if ($this->enqueued) {
             return;
@@ -28,7 +28,7 @@ final class TocAssets
             HESSAMZM_TOC_VERSION
         );
 
-        wp_add_inline_style('hessamzm-toc', $this->getCssVariables());
+        wp_add_inline_style('hessamzm-toc', $this->getCssVariables($profile));
 
         wp_enqueue_script(
             'hessamzm-toc-frontend',
@@ -47,7 +47,7 @@ final class TocAssets
         $this->enqueued = true;
     }
 
-    private function getCssVariables(): string
+    private function getCssVariables(array $profile = []): string
     {
         $map = [
             '--hessamzm-toc-background-color' => 'background_color',
@@ -63,7 +63,7 @@ final class TocAssets
         $variables = [];
 
         foreach ($map as $property => $key) {
-            $value = (string) $this->settings->get($key);
+            $value = isset($profile[$key]) ? (string) $profile[$key] : (string) $this->settings->get($key);
             $variables[] = $property . ':' . $value;
         }
 
