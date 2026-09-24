@@ -1,0 +1,21 @@
+{
+  "name": "hessamzm/table-of-contents",
+  "description": "Production-oriented WordPress Table of Contents plugin.",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5 || ^11.0"
+  },
+  "autoload": {
+    "classmap": [
+      "includes/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Hessamzm\\TableOfContents\\Tests\\": "tests/"
+    }
+  }
+}
