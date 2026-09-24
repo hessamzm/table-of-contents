@@ -159,3 +159,6 @@ msgstr ""
 #: blocks/table-of-contents/block.json
 msgid "Display a manually placed table of contents."
 msgstr ""
+#: includes/Admin/SettingsPage.php
+msgid "Paper Menu"
+msgstr ""

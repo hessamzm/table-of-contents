@@ -63,7 +63,8 @@
                             { label: __('Global setting', 'table-of-contents'), value: '' },
                             { label: __('Classic', 'table-of-contents'), value: 'classic' },
                             { label: __('Minimal', 'table-of-contents'), value: 'minimal' },
-                            { label: __('Card', 'table-of-contents'), value: 'card' }
+                            { label: __('Card', 'table-of-contents'), value: 'card' },
+                            { label: __('Paper Menu', 'table-of-contents'), value: 'paper' }
                         ],
                         onChange: function (value) {
                             setAttributes({ style: value });

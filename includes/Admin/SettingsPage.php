@@ -214,6 +214,7 @@ final class SettingsPage
             'classic' => __('Classic', 'table-of-contents'),
             'minimal' => __('Minimal', 'table-of-contents'),
             'card' => __('Card', 'table-of-contents'),
+            'paper' => __('Paper Menu', 'table-of-contents'),
         ];
 
         echo '<select name="' . esc_attr(Settings::OPTION_KEY . '[style]') . '">';
