@@ -58,6 +58,6 @@ register_deactivation_hook(
 add_action(
     'plugins_loaded',
     static function (): void {
-        (new \\Hessamzm\\TableOfContents\\Core\\Plugin())->boot();
+        (new \Hessamzm\TableOfContents\Core\Plugin())->boot();
     }
 );
