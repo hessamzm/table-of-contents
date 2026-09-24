@@ -50,4 +50,12 @@ return [
     'Advanced Settings' => 'الإعدادات المتقدمة',
     'Conclusion' => 'الخلاصة',
     'Subsection example' => 'مثال على قسم فرعي',
-];
+    "Shortcode" => "الرمز القصير",
+    "Basic shortcode" => "الرمز القصير الأساسي",
+    "Advanced shortcode" => "الرمز القصير المتقدم",
+    "Copy one of these shortcodes and paste it into a post, page, widget, or shortcode-capable editor." => "انسخ أحد هذه الرموز القصيرة والصقه في مقالة أو صفحة أو أداة أو محرر يدعم الرموز القصيرة.",
+    "Uses the global TOC settings and the current content." => "يستخدم إعدادات فهرس المحتويات العامة والمحتوى الحالي.",
+    "Optional attributes: levels, title, style, and numbers." => "الخصائص الاختيارية: levels وtitle وstyle وnumbers.",
+    "Displays a table of contents generated from the current post or product content." => "يعرض فهرس محتويات مُنشأ من محتوى المقالة أو المنتج الحالي.",
+    "This widget uses the current post or product content and the global TOC settings." => "تستخدم هذه الأداة محتوى المقالة أو المنتج الحالي وإعدادات فهرس المحتويات العامة.",
+]; 
