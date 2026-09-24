@@ -46,7 +46,7 @@ Completed:
 
 ## Phase 4 — Gutenberg Block + Shortcode
 
-In Progress:
+Implemented:
 
 - Dynamic Gutenberg block registered from `block.json` metadata.
 - Block Editor controls for title, style, numbering and H1–H6 selection.
@@ -68,6 +68,18 @@ Optional attributes:
 
 When `levels` is omitted, the shortcode uses the global heading-level settings. The block follows the same global settings unless a per-block override is selected.
 
+## Phase 5 — Rank Math & Compatibility
+
+Implemented:
+
+- Rank Math Content Readability compatibility through `rank_math/researches/toc_plugins`.
+- Integration is only registered when Rank Math is active; there is no hard dependency on Rank Math.
+- Plugin basename is resolved dynamically for reliable registration.
+- Integration can be disabled with the `hessamzm_toc/rank_math_integration_enabled` filter.
+- Existing automatic, Gutenberg and shortcode rendering pipelines remain independent from Rank Math.
+
+Rank Math documents `rank_math/researches/toc_plugins` as the compatibility filter used to register third-party TOC plugins for its TOC readability test.
+
 ## Requirements
 
 - WordPress 7+
@@ -79,6 +91,6 @@ When `levels` is omitted, the shortcode uses the global heading-level settings. 
 2. Automatic Rendering — Completed
 3. Admin Settings and Styling System — Completed
 4. Gutenberg block and shortcode — In Progress
-5. Rank Math and compatibility integrations
+5. Rank Math and compatibility integrations — In Progress
 6. Frontend assets, sticky TOC, responsive behavior and scroll spy
 7. Security, translation, performance, tests and documentation
