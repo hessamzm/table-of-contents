@@ -87,7 +87,9 @@ final class AutomaticRenderer
     /** @return array<string,mixed> */
     private function getProfile(): array
     {
-        return get_post_type() === 'post' ? $this->settings->getProfile('post') : $this->settings->getProfile('post');
+        return get_post_type() === 'post'
+            ? $this->settings->getProfile('post')
+            : $this->settings->getProfile('general');
     }
 
     private function hasActiveTocWidget(): bool
@@ -117,7 +119,7 @@ final class AutomaticRenderer
     {
         $levels = (array) apply_filters(
             'hessamzm_toc/heading_levels',
-            (array) ($this->settings->getProfile('post')['heading_levels'] ?? [])
+            (array) ($this->getProfile()['heading_levels'] ?? [])
         );
 
         return array_values(
