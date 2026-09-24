@@ -283,15 +283,24 @@
 }
 
 /* Sticky mode is deliberately a compact top navigation, not a page-height sidebar. */
+.hessamzm-toc--position-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.hessamzm-toc--position-right {
+    margin-left: auto;
+    margin-right: 0;
+}
+
 .hessamzm-toc--sticky {
     position: sticky;
     top: var(--hessamzm-toc-sticky-offset, .75rem);
     z-index: 10;
-    width: min(36rem, calc(100% - 1rem));
-    max-height: 5.25rem;
-    margin-inline: auto;
+    width: min(34rem, calc(100% - 1rem));
+    margin-inline-start: 0;
+    margin-inline-end: auto;
     padding: .55rem .8rem;
-    overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 5px 18px rgb(0 0 0 / 13%);
 }
@@ -320,12 +329,13 @@
     font-size: .75rem;
 }
 
-.hessamzm-toc--sticky.is-expanded {
-    max-height: min(45vh, 22rem);
-    overflow: auto;
+.hessamzm-toc--sticky.is-expanded .hessamzm-toc__body {
+    max-height: min(42vh, 20rem);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.hessamzm-toc--sticky.is-expanded .hessamzm-toc__body {
+.hessamzm-toc--sticky.is-expanded {
     max-height: none;
 }
 
@@ -340,12 +350,11 @@
 
     .hessamzm-toc--sticky {
         width: calc(100% - .75rem);
-        max-height: 4.8rem;
         padding: .5rem .7rem;
     }
 
-    .hessamzm-toc--sticky.is-expanded {
-        max-height: min(55vh, 18rem);
+    .hessamzm-toc--sticky.is-expanded .hessamzm-toc__body {
+        max-height: min(50vh, 16rem);
     }
 
     .hessamzm-toc__list,

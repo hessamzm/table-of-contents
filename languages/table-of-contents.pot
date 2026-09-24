@@ -162,3 +162,35 @@ msgstr ""
 #: includes/Admin/SettingsPage.php
 msgid "Paper Menu"
 msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "TOC position"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "View more text"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "View less text"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Right"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Left"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Choose which side of the content the TOC is aligned to."
+msgstr ""
+
+#: includes/Frontend/TocRenderer.php
+msgid "View more"
+msgstr ""
+
+#: includes/Frontend/TocRenderer.php
+msgid "View less"
+msgstr ""

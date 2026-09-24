@@ -101,6 +101,17 @@ final class SettingsPage
         $this->addTextField('title', __('Title', 'table-of-contents'));
         $this->addCheckbox('show_numbers', __('Show numbers', 'table-of-contents'), __('Prefix TOC items with hierarchical numbers.', 'table-of-contents'), 'hessamzm_toc_style');
         $this->addCheckbox('sticky_toc', __('Sticky TOC', 'table-of-contents'), __('Keep the TOC visible while scrolling on larger screens.', 'table-of-contents'), 'hessamzm_toc_style');
+
+        add_settings_field(
+            'position',
+            __('TOC position', 'table-of-contents'),
+            [$this, 'renderPositionField'],
+            self::PAGE_SLUG,
+            'hessamzm_toc_style'
+        );
+
+        $this->addTextField('more_text', __('View more text', 'table-of-contents'));
+        $this->addTextField('less_text', __('View less text', 'table-of-contents'));
         $this->addCheckbox('delete_data_on_uninstall', __('Delete data on uninstall', 'table-of-contents'), __('Delete plugin settings when the plugin is permanently uninstalled. This does not affect post content.', 'table-of-contents'), 'hessamzm_toc_style');
 
         foreach ([
@@ -222,6 +233,22 @@ final class SettingsPage
             echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
         }
         echo '</select>';
+    }
+
+    public function renderPositionField(): void
+    {
+        $value = (string) $this->settings->get('position');
+        $options = [
+            'right' => __('Right', 'table-of-contents'),
+            'left' => __('Left', 'table-of-contents'),
+        ];
+
+        echo '<select name="' . esc_attr(Settings::OPTION_KEY . '[position]') . '">';
+        foreach ($options as $key => $label) {
+            echo '<option value="' . esc_attr($key) . '" ' . selected($value, $key, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select>';
+        echo '<p class="description">' . esc_html__('Choose which side of the content the TOC is aligned to.', 'table-of-contents') . '</p>';
     }
 
     public function renderColorField(array $args): void

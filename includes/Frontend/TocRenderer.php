@@ -29,7 +29,12 @@ final class TocRenderer
             ? (bool) $overrides['show_numbers']
             : (bool) $this->settings->get('show_numbers');
 
-        $classes = ['hessamzm-toc', 'hessamzm-toc--' . ($style ?: 'classic')];
+        $position = sanitize_key((string) ($overrides['position'] ?? $this->settings->get('position')));
+        if (!in_array($position, ['left', 'right'], true)) {
+            $position = 'right';
+        }
+
+        $classes = ['hessamzm-toc', 'hessamzm-toc--' . ($style ?: 'classic'), 'hessamzm-toc--position-' . $position];
         if ($numbered) { $classes[] = 'hessamzm-toc--numbered'; }
 
         $sticky = array_key_exists('sticky_toc', $overrides)
@@ -48,8 +53,15 @@ final class TocRenderer
         preg_match('/^<nav(.*?)><\/nav>$/s', $safeAttributes, $attributeMatch);
         $safeAttributes = isset($attributeMatch[1]) ? trim($attributeMatch[1]) : '';
 
-        $expandLabel = __('View more', 'table-of-contents');
-        $collapseLabel = __('View less', 'table-of-contents');
+        $expandLabel = sanitize_text_field((string) ($overrides['more_text'] ?? $this->settings->get('more_text')));
+        $collapseLabel = sanitize_text_field((string) ($overrides['less_text'] ?? $this->settings->get('less_text')));
+
+        if ($expandLabel === '') {
+            $expandLabel = __('View more', 'table-of-contents');
+        }
+        if ($collapseLabel === '') {
+            $collapseLabel = __('View less', 'table-of-contents');
+        }
         $listId = function_exists('wp_unique_id') ? wp_unique_id('hessamzm-toc-list-') : 'hessamzm-toc-list';
 
         $html = '<nav class="' . esc_attr(implode(' ', $classes)) . '"' .
