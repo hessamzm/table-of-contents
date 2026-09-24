@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Hessamzm\TableOfContents\Frontend;
 
 use Hessamzm\TableOfContents\Settings\Settings;
+use Hessamzm\TableOfContents\Widgets\TableOfContentsWidget;
 use Hessamzm\TableOfContents\TOC\ContentProcessor;
 
 defined('ABSPATH') || exit;
@@ -56,7 +57,7 @@ final class AutomaticRenderer
                 return $content;
             }
 
-            if ($this->hasManualToc($content)) {
+            if ($this->hasManualToc($content) || $this->hasActiveTocWidget()) {
                 return $processed['content'];
             }
 
@@ -77,6 +78,15 @@ final class AutomaticRenderer
         return str_contains($content, 'hessamzm-toc-manual')
             || has_block('hessamzm/table-of-contents', $content)
             || has_shortcode($content, 'hessamzm_toc');
+    }
+
+    private function hasActiveTocWidget(): bool
+    {
+        if (!in_array(get_post_type(), ['post', 'product'], true)) {
+            return false;
+        }
+
+        return TableOfContentsWidget::isActive();
     }
 
     private function isEnabled(): bool
