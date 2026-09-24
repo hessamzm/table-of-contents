@@ -256,3 +256,15 @@ msgid "The table of contents will be generated on the front end from this post�
 msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
 msgid "This widget uses the current post or product content and its independent TOC profile settings."
 msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات مستقل فهرست مطالب مربوط به آن استفاده می‌کند."
+
+msgid "Delete plugin settings when the plugin is permanently uninstalled."
+msgstr "هنگام حذف کامل افزونه، تنظیمات افزونه را حذف می‌کند."
+
+msgid "Inside product description"
+msgstr "داخل توضیحات محصول"
+
+msgid "Before product summary"
+msgstr "قبل از خلاصه محصول"
+
+msgid "After product tabs"
+msgstr "بعد از تب‌های محصول"
