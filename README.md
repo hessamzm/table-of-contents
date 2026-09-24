@@ -44,6 +44,18 @@ Implemented:
 - Frontend CSS variables generated from sanitized settings.
 - Settings-aware automatic renderer and TOC renderer.
 
+## Phase 4 — Gutenberg Block + Shortcode
+
+Implemented:
+
+- Dynamic Gutenberg block registered from `block.json` metadata.
+- Block Editor controls for title, style, numbering and H1–H6 selection.
+- Server-side block rendering using the shared TOC processing pipeline.
+- `[hessamzm_toc]` shortcode with optional `levels`, `title`, `style` and `numbers` attributes.
+- Manual TOC marker prevents duplicate automatic TOC insertion while still allowing automatic anchor injection.
+- Shared manual rendering service keeps block and shortcode behavior consistent.
+- Frontend CSS variables scoped to the TOC component instead of `:root`.
+
 ## Requirements
 
 - WordPress 7+
