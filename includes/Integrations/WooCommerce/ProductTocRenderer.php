@@ -74,7 +74,7 @@ final class ProductTocRenderer
      */
     public function filterBodyClass(array $classes): array
     {
-        if ($this->shouldRender() && (bool) $this->getProfile()['sticky_toc'] {
+        if ($this->shouldRender() && (bool) $this->getProfile()['sticky_toc']) {
             $classes[] = 'hessamzm-toc-product-sticky';
         }
 
