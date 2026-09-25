@@ -1,7 +1,12 @@
 .hessamzm-toc {
     --hessamzm-toc-radius: var(--hessamzm-toc-border-radius, 12px);
     --hessamzm-toc-accent: var(--hessamzm-toc-link-color);
-    --hessamzm-toc-preview-height: 4.7rem;
+    --hessamzm-toc-preview-lines: 3;
+    --hessamzm-toc-preview-height: calc(
+        var(--hessamzm-toc-preview-lines)
+        * var(--hessamzm-toc-font-size)
+        * 1.55
+    );
     position: relative;
     box-sizing: border-box;
     margin: 0 0 2rem;
@@ -61,7 +66,7 @@
     padding-top: .55rem;
 }
 
-.hessamzm-toc--js-ready .hessamzm-toc__footer {
+.hessamzm-toc--js-ready .hessamzm-toc__footer:not([hidden]) {
     display: flex;
 }
 
