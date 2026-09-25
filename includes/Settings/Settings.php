@@ -27,8 +27,8 @@ final class Settings
         'border_radius' => '0px',
         'sticky_toc' => false,
         'position' => 'right',
-        'more_text' => 'View more',
-        'less_text' => 'View less',
+        'more_text' => __('View more', 'table-of-contents'),
+        'less_text' => __('View less', 'table-of-contents'),
         'product_toc_enabled' => true,
         'product_toc_position' => 'inside_description',
         'post_toc' => [],
@@ -78,9 +78,17 @@ final class Settings
         }
 
         $key = $type === 'product' ? 'product_toc' : 'post_toc';
-        $profile = $this->get($key);
+        $profile = is_array($this->get($key)) ? $this->get($key) : $this->profileFromLegacy($this->all());
 
-        return is_array($profile) ? $profile : $this->profileFromLegacy($this->all());
+        if (($profile['more_text'] ?? '') === 'View more') {
+            $profile['more_text'] = __('View more', 'table-of-contents');
+        }
+
+        if (($profile['less_text'] ?? '') === 'View less') {
+            $profile['less_text'] = __('View less', 'table-of-contents');
+        }
+
+        return $profile;
     }
 
     /** @return array<string,mixed> */
@@ -270,8 +278,8 @@ final class Settings
             'sticky_toc' => !empty($settings['sticky_toc']),
             'position' => (string) ($settings['position'] ?? 'right'),
             'placement' => (string) ($settings['product_toc_position'] ?? 'inside_description'),
-            'more_text' => (string) ($settings['more_text'] ?? 'View more'),
-            'less_text' => (string) ($settings['less_text'] ?? 'View less'),
+            'more_text' => (string) ($settings['more_text'] ?? __('View more', 'table-of-contents')),
+            'less_text' => (string) ($settings['less_text'] ?? __('View less', 'table-of-contents')),
         ];
     }
 
