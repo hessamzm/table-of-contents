@@ -34,7 +34,7 @@ final class TocAssets
             'hessamzm-toc-frontend',
             HESSAMZM_TOC_URL . 'assets/js/frontend.js',
             [],
-            HESSAMZM_TOC_VERSION,
+            $this->getAssetVersion('assets/js/frontend.js'),
             true
         );
 
@@ -45,6 +45,20 @@ final class TocAssets
         );
 
         $this->enqueued = true;
+    }
+
+    private function getAssetVersion(string $relativePath): string
+    {
+        $path = HESSAMZM_TOC_DIR . ltrim($relativePath, '/');
+
+        if (is_readable($path)) {
+            $mtime = filemtime($path);
+            if ($mtime !== false) {
+                return HESSAMZM_TOC_VERSION . '.' . $mtime;
+            }
+        }
+
+        return HESSAMZM_TOC_VERSION;
     }
 
     private function getCssVariables(array $profile = []): string
