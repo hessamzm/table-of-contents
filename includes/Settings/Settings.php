@@ -10,30 +10,35 @@ final class Settings
     public const OPTION_KEY = 'hessamzm_toc_settings';
 
     /** @var array<string,mixed> */
-    private array $defaults = [
-        'post_types' => ['post', 'page', 'product'],
-        'delete_data_on_uninstall' => false,
-        'heading_levels' => [2, 3, 4, 5, 6],
-        'title' => '',
-        'style' => 'paper',
-        'show_numbers' => false,
-        'background_color' => '#ffffff',
-        'text_color' => '#1d2327',
-        'link_color' => '#2271b1',
-        'border_color' => '#dcdcde',
-        'font_size' => '16px',
-        'sticky_font_size' => '14px',
-        'indentation' => '1.5rem',
-        'border_radius' => '0px',
-        'sticky_toc' => false,
-        'position' => 'right',
-        'more_text' => __('View more', 'table-of-contents'),
-        'less_text' => __('View less', 'table-of-contents'),
-        'product_toc_enabled' => true,
-        'product_toc_position' => 'inside_description',
-        'post_toc' => [],
-        'product_toc' => [],
-    ];
+    private array $defaults;
+
+    public function __construct()
+    {
+        $this->defaults = [
+            'post_types' => ['post', 'page', 'product'],
+            'delete_data_on_uninstall' => false,
+            'heading_levels' => [2, 3, 4, 5, 6],
+            'title' => '',
+            'style' => 'paper',
+            'show_numbers' => false,
+            'background_color' => '#ffffff',
+            'text_color' => '#1d2327',
+            'link_color' => '#2271b1',
+            'border_color' => '#dcdcde',
+            'font_size' => '16px',
+            'sticky_font_size' => '14px',
+            'indentation' => '1.5rem',
+            'border_radius' => '0px',
+            'sticky_toc' => false,
+            'position' => 'right',
+            'more_text' => __('View more', 'table-of-contents'),
+            'less_text' => __('View less', 'table-of-contents'),
+            'product_toc_enabled' => true,
+            'product_toc_position' => 'inside_description',
+            'post_toc' => [],
+            'product_toc' => [],
+        ];
+    }
 
     /** @var array<string,mixed>|null */
     private ?array $cached = null;
