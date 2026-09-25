@@ -7,6 +7,7 @@
         }
 
         toc.dataset.tocInitialized = 'true';
+        toc.classList.add('hessamzm-toc--js-ready');
 
         var toggle = toc.querySelector('.hessamzm-toc__toggle');
         var body = toc.querySelector('.hessamzm-toc__body');
@@ -28,7 +29,11 @@
         }
 
         if (toggle && body && footer) {
-            updateToggleVisibility();
+            var refreshToggleVisibility = function () {
+                window.requestAnimationFrame(updateToggleVisibility);
+            };
+
+            refreshToggleVisibility();
 
             toggle.addEventListener('click', function () {
                 var expanded = toc.classList.toggle('is-expanded');
@@ -42,7 +47,10 @@
                 var resizeObserver = new ResizeObserver(updateToggleVisibility);
                 resizeObserver.observe(body);
             } else {
-                window.addEventListener('resize', updateToggleVisibility);
+                window.addEventListener('resize', refreshToggleVisibility);
+            }
+
+            window.setTimeout(refreshToggleVisibility, 0);
             }
         }
 
