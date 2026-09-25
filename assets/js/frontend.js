@@ -2,56 +2,68 @@
     'use strict';
 
     function initToc(toc) {
-        if (toc.dataset.tocInitialized === 'true') {
-            return;
-        }
-
-        toc.dataset.tocInitialized = 'true';
-        toc.classList.add('hessamzm-toc--js-ready');
-
         var toggle = toc.querySelector('.hessamzm-toc__toggle');
         var body = toc.querySelector('.hessamzm-toc__body');
         var footer = toc.querySelector('.hessamzm-toc__footer');
 
+        if (!toggle || !body || !footer) {
+            return;
+        }
+
+        /*
+         * Keep initialization idempotent without preventing visibility
+         * recalculation. This matters when theme/plugin scripts change the
+         * layout after the first pass.
+         */
+        if (toc.dataset.tocInitialized !== 'true') {
+            toc.dataset.tocInitialized = 'true';
+            toc.classList.add('hessamzm-toc--js-ready');
+
+            toggle.addEventListener('click', function () {
+                var expanded = toc.classList.toggle('is-expanded');
+
+                toggle.setAttribute(
+                    'aria-expanded',
+                    expanded ? 'true' : 'false'
+                );
+
+                toggle.textContent = expanded
+                    ? toggle.dataset.collapseLabel
+                    : toggle.dataset.expandLabel;
+            });
+        } else {
+            toc.classList.add('hessamzm-toc--js-ready');
+        }
+
         function updateToggleVisibility() {
-            if (!toggle || !body || !footer) {
+            if (toc.classList.contains('is-expanded')) {
+                footer.hidden = false;
                 return;
             }
 
             var needsToggle = body.scrollHeight > body.clientHeight + 2;
             footer.hidden = !needsToggle;
-
-            if (!needsToggle && toc.classList.contains('is-expanded')) {
-                toc.classList.remove('is-expanded');
-                toggle.setAttribute('aria-expanded', 'false');
-                toggle.textContent = toggle.dataset.expandLabel;
-            }
         }
 
-        if (toggle && body && footer) {
-            var refreshToggleVisibility = function () {
-                window.requestAnimationFrame(updateToggleVisibility);
-            };
+        var refreshToggleVisibility = function () {
+            window.requestAnimationFrame(updateToggleVisibility);
+        };
 
-            refreshToggleVisibility();
+        updateToggleVisibility();
+        refreshToggleVisibility();
 
-            toggle.addEventListener('click', function () {
-                var expanded = toc.classList.toggle('is-expanded');
-                toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-                toggle.textContent = expanded
-                    ? toggle.dataset.collapseLabel
-                    : toggle.dataset.expandLabel;
-            });
+        if (!toc._hessamzmTocResizeObserver && 'ResizeObserver' in window) {
+            toc._hessamzmTocResizeObserver = new ResizeObserver(
+                updateToggleVisibility
+            );
 
-            if ('ResizeObserver' in window) {
-                var resizeObserver = new ResizeObserver(updateToggleVisibility);
-                resizeObserver.observe(body);
-            } else {
-                window.addEventListener('resize', refreshToggleVisibility);
-            }
-
-            window.setTimeout(refreshToggleVisibility, 0);
+            toc._hessamzmTocResizeObserver.observe(body);
+        } else if (!toc._hessamzmTocResizeObserver) {
+            window.addEventListener('resize', refreshToggleVisibility);
         }
+
+        window.setTimeout(refreshToggleVisibility, 0);
+        window.setTimeout(refreshToggleVisibility, 100);
 
         var links = Array.prototype.slice.call(
             toc.querySelectorAll('.hessamzm-toc__link[href^="#"]')
@@ -110,6 +122,12 @@
         });
 
         links.forEach(function (link) {
+            if (link.dataset.tocScrollInitialized === 'true') {
+                return;
+            }
+
+            link.dataset.tocScrollInitialized = 'true';
+
             link.addEventListener('click', function () {
                 var id = link.getAttribute('href').slice(1);
                 var heading = document.getElementById(id);
