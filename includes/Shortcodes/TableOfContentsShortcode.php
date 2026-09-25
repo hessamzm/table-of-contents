@@ -13,6 +13,26 @@ final class TableOfContentsShortcode
     public const PRODUCT_TAG = 'hessamzm_product_toc';
     public const LEGACY_TAG = 'hessamzm_toc';
 
+    /** @var array<string,string> */
+    private const COMMON_ATTRIBUTES = [
+        'levels' => '',
+        'title' => '',
+        'style' => '',
+        'numbers' => '',
+        'sticky' => '',
+        'position' => '',
+        'background' => '',
+        'text_color' => '',
+        'link_color' => '',
+        'border_color' => '',
+        'font_size' => '',
+        'sticky_font_size' => '',
+        'indentation' => '',
+        'border_radius' => '',
+        'more_text' => '',
+        'less_text' => '',
+    ];
+
     public function __construct(private readonly ManualTocRenderer $renderer)
     {
     }
@@ -64,13 +84,13 @@ final class TableOfContentsShortcode
     /** @param array<string,mixed> $atts @return array<string,mixed> */
     private function normalizeAttributes(array $atts, string $tag): array
     {
-        $atts = shortcode_atts([
-            'levels' => '',
-            'title' => '',
-            'style' => '',
-            'numbers' => '',
-        ], $atts, $tag);
+        $defaults = self::COMMON_ATTRIBUTES;
 
+        if ($tag === self::PRODUCT_TAG || $tag === self::LEGACY_TAG) {
+            $defaults['placement'] = '';
+        }
+
+        $atts = shortcode_atts($defaults, $atts, $tag);
         $attributes = [];
 
         if ($atts['levels'] !== '') {
@@ -86,19 +106,78 @@ final class TableOfContentsShortcode
         }
 
         if ($atts['style'] !== '') {
-            $attributes['style'] = sanitize_key((string) $atts['style']);
+            $style = sanitize_key((string) $atts['style']);
+            if (in_array($style, ['classic', 'minimal', 'card', 'paper'], true)) {
+                $attributes['style'] = $style;
+            }
         }
 
-        if ($atts['numbers'] !== '') {
-            $attributes['showNumbers'] = in_array(
-                strtolower((string) $atts['numbers']),
-                ['1', 'true', 'yes'],
-                true
-            );
+        foreach ([
+            'numbers' => 'showNumbers',
+            'sticky' => 'stickyToc',
+        ] as $attribute => $override) {
+            if ($atts[$attribute] !== '') {
+                $attributes[$override] = in_array(
+                    strtolower((string) $atts[$attribute]),
+                    ['1', 'true', 'yes', 'on'],
+                    true
+                );
+            }
+        }
+
+        if ($atts['position'] !== '') {
+            $position = sanitize_key((string) $atts['position']);
+            if (in_array($position, ['left', 'right'], true)) {
+                $attributes['position'] = $position;
+            }
+        }
+
+        if (isset($atts['placement']) && $atts['placement'] !== '') {
+            $placement = sanitize_key((string) $atts['placement']);
+            if (in_array($placement, ['before_summary', 'inside_description', 'after_tabs'], true)) {
+                $attributes['placement'] = $placement;
+            }
+        }
+
+        foreach ([
+            'background' => 'background_color',
+            'text_color' => 'text_color',
+            'link_color' => 'link_color',
+            'border_color' => 'border_color',
+        ] as $attribute => $override) {
+            if ($atts[$attribute] !== '') {
+                $color = sanitize_hex_color((string) $atts[$attribute]);
+                if ($color) {
+                    $attributes[$override] = $color;
+                }
+            }
+        }
+
+        foreach ([
+            'font_size' => 'font_size',
+            'sticky_font_size' => 'sticky_font_size',
+            'indentation' => 'indentation',
+            'border_radius' => 'border_radius',
+        ] as $attribute => $override) {
+            if ($atts[$attribute] !== '') {
+                $value = sanitize_text_field((string) $atts[$attribute]);
+                if (preg_match('/^(?:0|[1-9]\d*)(?:\.\d+)?(?:px|rem|em|%)$/', $value)) {
+                    $attributes[$override] = $value;
+                }
+            }
+        }
+
+        foreach ([
+            'more_text' => 'more_text',
+            'less_text' => 'less_text',
+        ] as $attribute => $override) {
+            if ($atts[$attribute] !== '') {
+                $attributes[$override] = sanitize_text_field((string) $atts[$attribute]);
+            }
         }
 
         /**
-         * Filters attributes passed to the manual TOC renderer.
+         * Filters normalized attributes passed to the manual TOC renderer.
          *
          * @param array<string,mixed> $attributes
          * @param string $tag Registered shortcode tag.
