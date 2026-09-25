@@ -2,7 +2,7 @@
 Contributors: hessamzm
 Requires at least: 7.0
 Requires PHP: 8.2
-Stable tag: 0.12.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,6 +47,15 @@ Shortcode attributes can customize heading levels, title, style, numbering, stic
 To prevent duplicate TOCs, the shortcode generator disables the Blog or Product generator when that content type's automatic TOC is enabled. When both Articles and Products automatic TOCs are enabled, the entire shortcode generator section is disabled.
 
 The legacy `[hessamzm_toc]` shortcode remains available for backwards compatibility.
+
+== Changelog ==
+
+= 1.0.0 =
+* First stable release.
+* Added independent Blog and Product TOC settings.
+* Added configurable Blog and Product shortcodes with duplicate-prevention guidance.
+* Added Persian runtime translation catalogs.
+* Added a direct Settings link on the WordPress Plugins screen.
 
 == Development ==
 
