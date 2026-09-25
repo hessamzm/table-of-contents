@@ -3,7 +3,7 @@
  * Plugin Name: Table of Contents
  * Plugin URI: https://github.com/hessamzm/table-of-contents
  * Description: Automatic, extensible table of contents engine for WordPress content.
- * Version: 0.12.1
+ * Version: 1.0.0
  * Requires at least: 7.0
  * Requires PHP: 8.2
  * WC requires at least: 10.0
@@ -12,14 +12,14 @@
  * Text Domain: table-of-contents
  * Domain Path: /languages
  *
- * @package Hessamzm\TableOfContents
+ * @package Hessamzm\\TableOfContents
  */
 
 declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-define('HESSAMZM_TOC_VERSION', '0.12.1');
+define('HESSAMZM_TOC_VERSION', '1.0.0');
 define('HESSAMZM_TOC_FILE', __FILE__);
 define('HESSAMZM_TOC_DIR', plugin_dir_path(__FILE__));
 define('HESSAMZM_TOC_URL', plugin_dir_url(__FILE__));
@@ -79,13 +79,13 @@ add_action(
             return;
         }
 
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+        \\Automattic\\WooCommerce\\Utilities\\FeaturesUtil::declare_compatibility(
             'custom_order_tables',
             HESSAMZM_TOC_FILE,
             true
         );
 
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+        \\Automattic\\WooCommerce\\Utilities\\FeaturesUtil::declare_compatibility(
             'product_block_editor',
             HESSAMZM_TOC_FILE,
             true
@@ -96,7 +96,7 @@ add_action(
 add_action(
     'plugins_loaded',
     static function (): void {
-        (new \Hessamzm\TableOfContents\Core\Plugin())->boot();
+        (new \\Hessamzm\\TableOfContents\\Core\\Plugin())->boot();
     },
     20
 );

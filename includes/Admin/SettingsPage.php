@@ -20,6 +20,28 @@ final class SettingsPage
         add_action('admin_menu', [$this, 'registerMenu']);
         add_action('admin_init', [$this, 'registerSettings']);
         add_action('admin_enqueue_scripts', [$this, 'enqueueAssets']);
+        add_filter('plugin_action_links_' . plugin_basename(HESSAMZM_TOC_FILE), [$this, 'addSettingsLink']);
+    }
+
+    /**
+     * Add a direct link to the plugin settings from the Plugins screen.
+     *
+     * @param array<int,string> $links Existing plugin action links.
+     * @return array<int,string>
+     */
+    public function addSettingsLink(array $links): array
+    {
+        $settingsUrl = add_query_arg(
+            ['page' => self::PAGE_SLUG],
+            admin_url('options-general.php')
+        );
+
+        array_unshift(
+            $links,
+            '<a href="' . esc_url($settingsUrl) . '">' . esc_html__('Settings', 'table-of-contents') . '</a>'
+        );
+
+        return $links;
     }
 
     public function registerMenu(): void
