@@ -42,6 +42,10 @@ Use `[hessamzm_blog_toc]` inside blog posts or `[hessamzm_product_toc]` inside W
 
 The General settings tab includes shortcode generators for both TOC types, so users can build a ready-to-use shortcode without manually learning shortcode attributes.
 
+Shortcode attributes can customize heading levels, title, style, numbering, sticky behavior, alignment, colors, typography, indentation, border radius, and expand/collapse labels. Product placement remains controlled by where the Product shortcode is inserted; the automatic Product TOC placement setting does not relocate a manually inserted shortcode.
+
+To prevent duplicate TOCs, the shortcode generator disables the Blog or Product generator when that content type's automatic TOC is enabled. When both Articles and Products automatic TOCs are enabled, the entire shortcode generator section is disabled.
+
 The legacy `[hessamzm_toc]` shortcode remains available for backwards compatibility.
 
 == Development ==
