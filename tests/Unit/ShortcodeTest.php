@@ -71,7 +71,7 @@ final class ShortcodeTest extends TestCase
             'border_radius' => '12vh',
         ], TableOfContentsShortcode::BLOG_TAG);
 
-        self::assertSame([0, 2, 7], $attributes['headingLevels']);
+        self::assertSame([2], $attributes['headingLevels']);
         self::assertFalse($attributes['showNumbers']);
         self::assertFalse($attributes['stickyToc']);
         self::assertArrayNotHasKey('style', $attributes);
