@@ -57,6 +57,12 @@ function apply_filters(string $hook, $value, ...$args)
 {
     return $value;
 }
+\nfunction shortcode_atts(array $pairs, array $atts, string $shortcode = ''): array
+{
+    $atts = array_change_key_case($atts, CASE_LOWER);
+    return array_merge($pairs, array_intersect_key($atts, $pairs));
+}
+
 
 function has_block(string $block_name, string $content): bool
 {
@@ -76,5 +82,7 @@ require_once dirname(__DIR__) . '/includes/TOC/AnchorGenerator.php';
 require_once dirname(__DIR__) . '/includes/TOC/HeadingTree.php';
 require_once dirname(__DIR__) . '/includes/TOC/TocBuilder.php';
 require_once dirname(__DIR__) . '/includes/Settings/Settings.php';
+require_once dirname(__DIR__) . '/includes/Services/ManualTocRenderer.php';
+require_once dirname(__DIR__) . '/includes/Shortcodes/TableOfContentsShortcode.php';
 require_once dirname(__DIR__) . '/includes/Integrations/WooCommerce/ProductTocRenderer.php';
 require_once dirname(__DIR__) . '/includes/Integrations/SEO/SeoTocCompatibility.php';

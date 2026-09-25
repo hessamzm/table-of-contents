@@ -93,9 +93,25 @@
                 defaultLevels = [];
             }
 
-            var defaultTitle = generator.dataset.defaultTitle || '';
-            var defaultStyle = generator.dataset.defaultStyle || 'paper';
-            var defaultNumbers = generator.dataset.defaultNumbers === '1';
+            var defaults = {
+                title: generator.dataset.defaultTitle || '',
+                style: generator.dataset.defaultStyle || 'paper',
+                numbers: generator.dataset.defaultNumbers === '1',
+                sticky: generator.dataset.defaultSticky === '1',
+                position: generator.dataset.defaultPosition || 'right',
+                placement: generator.dataset.defaultPlacement || '',
+                background: generator.dataset.defaultBackground || '#ffffff',
+                text_color: generator.dataset.defaultTextColor || '#1d2327',
+                link_color: generator.dataset.defaultLinkColor || '#2271b1',
+                border_color: generator.dataset.defaultBorderColor || '#dcdcde',
+                font_size: generator.dataset.defaultFontSize || '16px',
+                sticky_font_size: generator.dataset.defaultStickyFontSize || '14px',
+                indentation: generator.dataset.defaultIndentation || '1.5rem',
+                border_radius: generator.dataset.defaultBorderRadius || '0px',
+                more_text: generator.dataset.defaultMoreText || '',
+                less_text: generator.dataset.defaultLessText || ''
+            };
+
             var output = generator.querySelector('.hessamzm-toc-shortcode-output');
             var copyButton = generator.querySelector('.hessamzm-toc-shortcode-copy');
 
@@ -130,31 +146,55 @@
                 return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
             }
 
+            function inputValue(selector, fallback) {
+                var input = generator.querySelector(selector);
+                return input ? input.value : fallback;
+            }
+
+            function checked(selector, fallback) {
+                var input = generator.querySelector(selector);
+                return input ? !!input.checked : fallback;
+            }
+
+            function addIfChanged(attributes, name, value, defaultValue) {
+                if (String(value) !== String(defaultValue)) {
+                    attributes.push(name + '="' + escapeAttribute(value) + '"');
+                }
+            }
+
             function build() {
                 var attributes = [];
                 var levels = currentLevels();
-                var titleInput = generator.querySelector('.hessamzm-toc-shortcode-title');
-                var styleInput = generator.querySelector('.hessamzm-toc-shortcode-style');
-                var numbersInput = generator.querySelector('.hessamzm-toc-shortcode-numbers');
-                var title = titleInput ? titleInput.value.trim() : '';
-                var style = styleInput ? styleInput.value : defaultStyle;
-                var numbers = !!(numbersInput && numbersInput.checked);
 
                 if (!sameLevels(levels, defaultLevels)) {
                     attributes.push('levels="' + escapeAttribute(levels.join(',')) + '"');
                 }
 
-                if (title !== defaultTitle) {
-                    attributes.push('title="' + escapeAttribute(title) + '"');
-                }
+                addIfChanged(attributes, 'title', inputValue('.hessamzm-toc-shortcode-title', defaults.title), defaults.title);
+                addIfChanged(attributes, 'style', inputValue('.hessamzm-toc-shortcode-style', defaults.style), defaults.style);
 
-                if (style !== defaultStyle) {
-                    attributes.push('style="' + escapeAttribute(style) + '"');
-                }
-
-                if (numbers !== defaultNumbers) {
+                var numbers = checked('.hessamzm-toc-shortcode-numbers', defaults.numbers);
+                if (numbers !== defaults.numbers) {
                     attributes.push('numbers="' + (numbers ? 'true' : 'false') + '"');
                 }
+
+                var sticky = checked('.hessamzm-toc-shortcode-sticky', defaults.sticky);
+                if (sticky !== defaults.sticky) {
+                    attributes.push('sticky="' + (sticky ? 'true' : 'false') + '"');
+                }
+
+                addIfChanged(attributes, 'position', inputValue('.hessamzm-toc-shortcode-position', defaults.position), defaults.position);
+                addIfChanged(attributes, 'placement', inputValue('.hessamzm-toc-shortcode-placement', defaults.placement), defaults.placement);
+                addIfChanged(attributes, 'background', inputValue('.hessamzm-toc-shortcode-background_color', defaults.background), defaults.background);
+                addIfChanged(attributes, 'text_color', inputValue('.hessamzm-toc-shortcode-text_color', defaults.text_color), defaults.text_color);
+                addIfChanged(attributes, 'link_color', inputValue('.hessamzm-toc-shortcode-link_color', defaults.link_color), defaults.link_color);
+                addIfChanged(attributes, 'border_color', inputValue('.hessamzm-toc-shortcode-border_color', defaults.border_color), defaults.border_color);
+                addIfChanged(attributes, 'font_size', inputValue('.hessamzm-toc-shortcode-font_size', defaults.font_size), defaults.font_size);
+                addIfChanged(attributes, 'sticky_font_size', inputValue('.hessamzm-toc-shortcode-sticky_font_size', defaults.sticky_font_size), defaults.sticky_font_size);
+                addIfChanged(attributes, 'indentation', inputValue('.hessamzm-toc-shortcode-indentation', defaults.indentation), defaults.indentation);
+                addIfChanged(attributes, 'border_radius', inputValue('.hessamzm-toc-shortcode-border_radius', defaults.border_radius), defaults.border_radius);
+                addIfChanged(attributes, 'more_text', inputValue('.hessamzm-toc-shortcode-more-text', defaults.more_text), defaults.more_text);
+                addIfChanged(attributes, 'less_text', inputValue('.hessamzm-toc-shortcode-less-text', defaults.less_text), defaults.less_text);
 
                 output.value = attributes.length
                     ? '[' + tag + ' ' + attributes.join(' ') + ']'
@@ -162,19 +202,27 @@
             }
 
             function copy() {
-                output.focus();
-                output.select();
+                if (!copyButton || copyButton.disabled) {
+                    return;
+                }
 
+                var value = output.value;
                 var copied = false;
 
                 if (navigator.clipboard && window.isSecureContext) {
-                    navigator.clipboard.writeText(output.value).then(function () {
-                        copied = true;
+                    navigator.clipboard.writeText(value).then(function () {
                         copyButton.textContent = copyButton.dataset.copiedLabel || copyButton.textContent;
+                        window.setTimeout(function () {
+                            copyButton.textContent = copyButton.dataset.copyLabel || copyButton.textContent;
+                        }, 1600);
                     }).catch(function () {});
+                    return;
                 }
 
-                if (!copied && document.execCommand) {
+                output.focus();
+                output.select();
+
+                if (document.execCommand) {
                     try {
                         copied = document.execCommand('copy');
                     } catch (error) {

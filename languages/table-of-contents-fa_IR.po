@@ -273,3 +273,39 @@ msgstr "قبل از خلاصه محصول"
 
 msgid "After product tabs"
 msgstr "بعد از تب‌های محصول"
+
+#: includes/Admin/SettingsPage.php
+msgid "Build a fully customizable shortcode. The generator exposes the same visual and behavioral settings available in the selected TOC profile."
+msgstr "یک کد کوتاه کاملاً قابل سفارشی‌سازی بسازید. سازنده همان تنظیمات ظاهری و رفتاری موجود در پروفایل فهرست مطالب انتخاب‌شده را در اختیار شما قرار می‌دهد."
+
+#: includes/Admin/SettingsPage.php
+msgid "Shortcodes are disabled while both automatic TOCs are enabled."
+msgstr "تا زمانی که هر دو فهرست مطالب خودکار فعال باشند، کدهای کوتاه غیرفعال هستند."
+
+#: includes/Admin/SettingsPage.php
+msgid "Both Articles and Products currently generate their TOC automatically. Adding a manual shortcode would create a duplicate TOC, so disable the automatic TOC for the content type you want to place manually, then return here to generate its shortcode."
+msgstr "در حال حاضر فهرست مطالب مقالات و محصولات هر دو به‌صورت خودکار تولید می‌شوند. افزودن کد کوتاه دستی باعث ایجاد فهرست مطالب تکراری می‌شود. برای نوع محتوایی که می‌خواهید فهرست مطالب را به‌صورت دستی قرار دهید، ابتدا فهرست مطالب خودکار را غیرفعال کنید و سپس برای ساخت کد کوتاه به این بخش برگردید."
+
+#: includes/Admin/SettingsPage.php
+msgid "Use a shortcode only for a content type whose automatic TOC is disabled. This prevents the same post or product from receiving two TOCs."
+msgstr "کد کوتاه را فقط برای نوع محتوایی استفاده کنید که فهرست مطالب خودکار آن غیرفعال است. این کار از ایجاد دو فهرست مطالب در یک نوشته یا محصول جلوگیری می‌کند."
+
+#: includes/Admin/SettingsPage.php
+msgid "The Articles automatic TOC is enabled. Disable it before using the Blog shortcode, otherwise the post may contain two TOCs."
+msgstr "فهرست مطالب خودکار مقالات فعال است. پیش از استفاده از کد کوتاه وبلاگ، آن را غیرفعال کنید؛ در غیر این صورت ممکن است نوشته دو فهرست مطالب داشته باشد."
+
+#: includes/Admin/SettingsPage.php
+msgid "The Products automatic TOC is enabled. Disable it before using the Product shortcode, otherwise the product may contain two TOCs."
+msgstr "فهرست مطالب خودکار محصولات فعال است. پیش از استفاده از کد کوتاه محصول، آن را غیرفعال کنید؛ در غیر این صورت ممکن است محصول دو فهرست مطالب داشته باشد."
+
+#: includes/Admin/SettingsPage.php
+msgid "Disable the automatic TOC for this content type before using its shortcode."
+msgstr "پیش از استفاده از کد کوتاه این نوع محتوا، فهرست مطالب خودکار آن را غیرفعال کنید."
+
+#: includes/Admin/SettingsPage.php
+msgid "Content and layout"
+msgstr "محتوا و چیدمان"
+
+#: includes/Admin/SettingsPage.php
+msgid "Example: 16px, 1rem, or 1.5em"
+msgstr "مثال: 16px، 1rem یا 1.5em"

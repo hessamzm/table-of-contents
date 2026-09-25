@@ -186,3 +186,59 @@
         display: block;
     }
 }
+
+
+.hessamzm-toc-shortcode-generators.is-disabled {
+    opacity: 0.82;
+}
+
+.hessamzm-toc-shortcode-warning,
+.hessamzm-toc-shortcode-card-warning {
+    margin: 16px 0;
+}
+
+.hessamzm-toc-shortcode-generator {
+    min-width: 0;
+}
+
+.hessamzm-toc-shortcode-generator[disabled] {
+    opacity: 0.75;
+}
+
+.hessamzm-toc-shortcode-generator__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.hessamzm-toc-shortcode-field-group {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+}
+
+.hessamzm-toc-shortcode-field-group h4 {
+    margin: 0 0 12px;
+}
+
+.hessamzm-toc-shortcode-field-group fieldset {
+    margin-top: 0;
+}
+
+.hessamzm-toc-shortcode-generator input[type="color"] {
+    width: 48px;
+    min-width: 48px;
+    height: 34px;
+    padding: 2px;
+}
+
+.hessamzm-toc-shortcode-generator .hessamzm-toc-shortcode-output {
+    min-height: 80px;
+}
+
+@media (max-width: 900px) {
+    .hessamzm-toc-shortcode-generator__fields {
+        grid-template-columns: 1fr;
+    }
+}
