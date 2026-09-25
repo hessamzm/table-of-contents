@@ -287,60 +287,114 @@ final class SettingsPage
 
     private function renderShortcodeGenerators(): void
     {
-        echo '<section class="hessamzm-toc-shortcode-generators" aria-labelledby="hessamzm-toc-shortcode-generators-title">';
+        $postProfile = $this->settings->getProfile('post');
+        $productProfile = $this->settings->getProfile('product');
+        $postEnabled = !empty($postProfile['enabled']);
+        $productEnabled = !empty($productProfile['enabled']);
+        $bothEnabled = $postEnabled && $productEnabled;
+
+        $sectionClass = 'hessamzm-toc-shortcode-generators' . ($bothEnabled ? ' is-disabled' : '');
+
+        echo '<section class="' . esc_attr($sectionClass) . '" aria-labelledby="hessamzm-toc-shortcode-generators-title">';
         echo '<h2 id="hessamzm-toc-shortcode-generators-title">' . esc_html__('Shortcode generators', 'table-of-contents') . '</h2>';
-        echo '<p class="description">' . esc_html__('Build a ready-to-use shortcode without memorizing attributes. Each generator uses the settings for its own TOC profile as the starting point.', 'table-of-contents') . '</p>';
+        echo '<p class="description">' . esc_html__('Build a fully customizable shortcode. The generator exposes the same visual and behavioral settings available in the selected TOC profile.', 'table-of-contents') . '</p>';
+
+        if ($bothEnabled) {
+            echo '<div class="notice notice-warning inline hessamzm-toc-shortcode-warning">';
+            echo '<p><strong>' . esc_html__('Shortcodes are disabled while both automatic TOCs are enabled.', 'table-of-contents') . '</strong><br>';
+            echo esc_html__('Both Articles and Products currently generate their TOC automatically. Adding a manual shortcode would create a duplicate TOC, so disable the automatic TOC for the content type you want to place manually, then return here to generate its shortcode.', 'table-of-contents') . '</p>';
+            echo '</div>';
+        } else {
+            echo '<p class="description">' . esc_html__('Use a shortcode only for a content type whose automatic TOC is disabled. This prevents the same post or product from receiving two TOCs.', 'table-of-contents') . '</p>';
+        }
 
         $this->renderShortcodeGeneratorCard(
             'post',
             __('Blog TOC shortcode', 'table-of-contents'),
             __('Use this shortcode inside a blog post to insert the Blog TOC manually.', 'table-of-contents'),
-            'hessamzm_blog_toc'
+            'hessamzm_blog_toc',
+            $postEnabled || $bothEnabled,
+            $postEnabled
+                ? __('The Articles automatic TOC is enabled. Disable it before using the Blog shortcode, otherwise the post may contain two TOCs.', 'table-of-contents')
+                : ''
         );
 
         $this->renderShortcodeGeneratorCard(
             'product',
             __('Product TOC shortcode', 'table-of-contents'),
             __('Use this shortcode inside a WooCommerce product to insert the Product TOC manually.', 'table-of-contents'),
-            'hessamzm_product_toc'
+            'hessamzm_product_toc',
+            $productEnabled || $bothEnabled,
+            $productEnabled
+                ? __('The Products automatic TOC is enabled. Disable it before using the Product shortcode, otherwise the product may contain two TOCs.', 'table-of-contents')
+                : ''
         );
 
         echo '</section>';
     }
 
-    private function renderShortcodeGeneratorCard(string $profile, string $title, string $description, string $tagConstant): void
-    {
+    private function renderShortcodeGeneratorCard(
+        string $profile,
+        string $title,
+        string $description,
+        string $tagConstant,
+        bool $disabled = false,
+        string $disabledReason = ''
+    ): void {
         $values = $this->settings->getProfile($profile);
         $levels = array_map('absint', (array) ($values['heading_levels'] ?? [2, 3, 4, 5, 6]));
         $style = (string) ($values['style'] ?? 'paper');
         $profileId = 'hessamzm-toc-shortcode-generator-' . $profile;
 
-        echo '<div class="hessamzm-toc-shortcode-generator" data-shortcode-profile="' . esc_attr($profile) . '"';
+        echo '<fieldset class="hessamzm-toc-shortcode-generator" data-shortcode-profile="' . esc_attr($profile) . '"';
         echo ' data-shortcode-tag="' . esc_attr($tagConstant) . '"';
         echo ' data-default-levels="' . esc_attr(wp_json_encode(array_values($levels))) . '"';
         echo ' data-default-title="' . esc_attr((string) ($values['title'] ?? '')) . '"';
         echo ' data-default-style="' . esc_attr($style) . '"';
-        echo ' data-default-numbers="' . esc_attr(!empty($values['show_numbers']) ? '1' : '0') . '">';
+        echo ' data-default-numbers="' . esc_attr(!empty($values['show_numbers']) ? '1' : '0') . '"';
+        echo ' data-default-sticky="' . esc_attr(!empty($values['sticky_toc']) ? '1' : '0') . '"';
+        echo ' data-default-position="' . esc_attr((string) ($values['position'] ?? 'right')) . '"';
+        echo ' data-default-placement="' . esc_attr((string) ($values['placement'] ?? 'inside_description')) . '"';
+        echo ' data-default-background="' . esc_attr((string) ($values['background_color'] ?? '#ffffff')) . '"';
+        echo ' data-default-text-color="' . esc_attr((string) ($values['text_color'] ?? '#1d2327')) . '"';
+        echo ' data-default-link-color="' . esc_attr((string) ($values['link_color'] ?? '#2271b1')) . '"';
+        echo ' data-default-border-color="' . esc_attr((string) ($values['border_color'] ?? '#dcdcde')) . '"';
+        echo ' data-default-font-size="' . esc_attr((string) ($values['font_size'] ?? '16px')) . '"';
+        echo ' data-default-sticky-font-size="' . esc_attr((string) ($values['sticky_font_size'] ?? '14px')) . '"';
+        echo ' data-default-indentation="' . esc_attr((string) ($values['indentation'] ?? '1.5rem')) . '"';
+        echo ' data-default-border-radius="' . esc_attr((string) ($values['border_radius'] ?? '0px')) . '"';
+        echo ' data-default-more-text="' . esc_attr((string) ($values['more_text'] ?? __('View more', 'table-of-contents'))) . '"';
+        echo ' data-default-less-text="' . esc_attr((string) ($values['less_text'] ?? __('View less', 'table-of-contents'))) . '"';
+        echo '>';
 
-        echo '<h3>' . esc_html($title) . '</h3>';
+        echo '<legend><span class="h3">' . esc_html($title) . '</span></legend>';
         echo '<p>' . esc_html($description) . '</p>';
 
+        if ($disabled) {
+            echo '<div class="notice notice-warning inline hessamzm-toc-shortcode-card-warning">';
+            echo '<p>' . esc_html($disabledReason !== '' ? $disabledReason : __('Disable the automatic TOC for this content type before using its shortcode.', 'table-of-contents')) . '</p>';
+            echo '</div>';
+        }
+
         echo '<div class="hessamzm-toc-shortcode-generator__fields">';
+        echo '<div class="hessamzm-toc-shortcode-field-group">';
+        echo '<h4>' . esc_html__('Content and layout', 'table-of-contents') . '</h4>';
+
         echo '<fieldset>';
         echo '<legend>' . esc_html__('Heading levels', 'table-of-contents') . '</legend>';
         for ($level = 1; $level <= 6; $level++) {
             echo '<label>';
-            echo '<input type="checkbox" class="hessamzm-toc-shortcode-level" value="' . esc_attr((string) $level) . '" ' . checked(in_array($level, $levels, true), true, false) . '>';
+            echo '<input type="checkbox" class="hessamzm-toc-shortcode-level" value="' . esc_attr((string) $level) . '" ' . checked(in_array($level, $levels, true), true, false) . ' ' . disabled($disabled, true, false) . '>';
             echo esc_html(sprintf(/* translators: %d: heading level */ __('Heading %d', 'table-of-contents'), $level));
             echo '</label>';
         }
         echo '</fieldset>';
 
         echo '<p><label for="' . esc_attr($profileId . '-title') . '">' . esc_html__('Title', 'table-of-contents') . '</label><br>';
-        echo '<input id="' . esc_attr($profileId . '-title') . '" type="text" class="regular-text hessamzm-toc-shortcode-title" value="' . esc_attr((string) ($values['title'] ?? '')) . '"></p>';
+        echo '<input id="' . esc_attr($profileId . '-title') . '" type="text" class="regular-text hessamzm-toc-shortcode-title" value="' . esc_attr((string) ($values['title'] ?? '')) . '" ' . disabled($disabled, true, false) . '></p>';
 
         echo '<p><label for="' . esc_attr($profileId . '-style') . '">' . esc_html__('Style', 'table-of-contents') . '</label><br>';
-        echo '<select id="' . esc_attr($profileId . '-style') . '" class="hessamzm-toc-shortcode-style">';
+        echo '<select id="' . esc_attr($profileId . '-style') . '" class="hessamzm-toc-shortcode-style" ' . disabled($disabled, true, false) . '>';
         foreach ([
             'classic' => __('Classic', 'table-of-contents'),
             'minimal' => __('Minimal', 'table-of-contents'),
@@ -351,13 +405,63 @@ final class SettingsPage
         }
         echo '</select></p>';
 
-        echo '<p><label><input type="checkbox" class="hessamzm-toc-shortcode-numbers" ' . checked(!empty($values['show_numbers']), true, false) . '> ' . esc_html__('Show numbers', 'table-of-contents') . '</label></p>';
+        echo '<p><label><input type="checkbox" class="hessamzm-toc-shortcode-numbers" ' . checked(!empty($values['show_numbers']), true, false) . ' ' . disabled($disabled, true, false) . '> ' . esc_html__('Show numbers', 'table-of-contents') . '</label></p>';
+        echo '<p><label><input type="checkbox" class="hessamzm-toc-shortcode-sticky" ' . checked(!empty($values['sticky_toc']), true, false) . ' ' . disabled($disabled, true, false) . '> ' . esc_html__('Sticky TOC', 'table-of-contents') . '</label></p>';
+
+        echo '<p><label for="' . esc_attr($profileId . '-position') . '">' . esc_html__('Alignment', 'table-of-contents') . '</label><br>';
+        echo '<select id="' . esc_attr($profileId . '-position') . '" class="hessamzm-toc-shortcode-position" ' . disabled($disabled, true, false) . '>';
+        foreach (['right' => __('Right', 'table-of-contents'), 'left' => __('Left', 'table-of-contents')] as $option => $label) {
+            echo '<option value="' . esc_attr($option) . '" ' . selected((string) ($values['position'] ?? 'right'), $option, false) . '>' . esc_html($label) . '</option>';
+        }
+        echo '</select></p>';
+
+        if ($profile === 'product') {
+            echo '<p><label for="' . esc_attr($profileId . '-placement') . '">' . esc_html__('TOC placement', 'table-of-contents') . '</label><br>';
+            echo '<select id="' . esc_attr($profileId . '-placement') . '" class="hessamzm-toc-shortcode-placement" ' . disabled($disabled, true, false) . '>';
+            foreach ([
+                'inside_description' => __('Inside product description', 'table-of-contents'),
+                'before_summary' => __('Before product summary', 'table-of-contents'),
+                'after_tabs' => __('After product tabs', 'table-of-contents'),
+            ] as $option => $label) {
+                echo '<option value="' . esc_attr($option) . '" ' . selected((string) ($values['placement'] ?? 'inside_description'), $option, false) . '>' . esc_html($label) . '</option>';
+            }
+            echo '</select></p>';
+        }
+        echo '</div>';
+
+        echo '<div class="hessamzm-toc-shortcode-field-group">';
+        echo '<h4>' . esc_html__('Appearance', 'table-of-contents') . '</h4>';
+        foreach ([
+            'background_color' => __('Background color', 'table-of-contents'),
+            'text_color' => __('Text color', 'table-of-contents'),
+            'link_color' => __('Link color', 'table-of-contents'),
+            'border_color' => __('Border color', 'table-of-contents'),
+        ] as $key => $label) {
+            echo '<p><label for="' . esc_attr($profileId . '-' . $key) . '">' . esc_html($label) . '</label><br>';
+            echo '<input id="' . esc_attr($profileId . '-' . $key) . '" type="color" class="hessamzm-toc-shortcode-' . esc_attr($key) . '" value="' . esc_attr((string) ($values[$key] ?? '#ffffff')) . '" ' . disabled($disabled, true, false) . '></p>';
+        }
+
+        foreach ([
+            'font_size' => __('Font size', 'table-of-contents'),
+            'sticky_font_size' => __('Sticky TOC font size', 'table-of-contents'),
+            'indentation' => __('Indentation', 'table-of-contents'),
+            'border_radius' => __('Border radius', 'table-of-contents'),
+        ] as $key => $label) {
+            echo '<p><label for="' . esc_attr($profileId . '-' . $key) . '">' . esc_html($label) . '</label><br>';
+            echo '<input id="' . esc_attr($profileId . '-' . $key) . '" type="text" class="regular-text hessamzm-toc-shortcode-' . esc_attr($key) . '" value="' . esc_attr((string) ($values[$key] ?? '')) . '" placeholder="' . esc_attr__('Example: 16px, 1rem, or 1.5em', 'table-of-contents') . '" ' . disabled($disabled, true, false) . '></p>';
+        }
+
+        echo '<p><label for="' . esc_attr($profileId . '-more-text') . '">' . esc_html__('View more text', 'table-of-contents') . '</label><br>';
+        echo '<input id="' . esc_attr($profileId . '-more-text') . '" type="text" class="regular-text hessamzm-toc-shortcode-more-text" value="' . esc_attr((string) ($values['more_text'] ?? '')) . '" ' . disabled($disabled, true, false) . '></p>';
+        echo '<p><label for="' . esc_attr($profileId . '-less-text') . '">' . esc_html__('View less text', 'table-of-contents') . '</label><br>';
+        echo '<input id="' . esc_attr($profileId . '-less-text') . '" type="text" class="regular-text hessamzm-toc-shortcode-less-text" value="' . esc_attr((string) ($values['less_text'] ?? '')) . '" ' . disabled($disabled, true, false) . '></p>';
+        echo '</div>';
         echo '</div>';
 
         echo '<p><label for="' . esc_attr($profileId . '-output') . '">' . esc_html__('Generated shortcode', 'table-of-contents') . '</label><br>';
-        echo '<textarea id="' . esc_attr($profileId . '-output') . '" class="large-text code hessamzm-toc-shortcode-output" rows="2" readonly></textarea></p>';
-        echo '<button type="button" class="button hessamzm-toc-shortcode-copy" data-copy-label="' . esc_attr__('Copy shortcode', 'table-of-contents') . '" data-copied-label="' . esc_attr__('Copied', 'table-of-contents') . '">' . esc_html__('Copy shortcode', 'table-of-contents') . '</button>';
-        echo '</div>';
+        echo '<textarea id="' . esc_attr($profileId . '-output') . '" class="large-text code hessamzm-toc-shortcode-output" rows="4" readonly></textarea></p>';
+        echo '<button type="button" class="button hessamzm-toc-shortcode-copy" data-copy-label="' . esc_attr__('Copy shortcode', 'table-of-contents') . '" data-copied-label="' . esc_attr__('Copied', 'table-of-contents') . '" ' . disabled($disabled, true, false) . '>' . esc_html__('Copy shortcode', 'table-of-contents') . '</button>';
+        echo '</fieldset>';
     }
 
     public function renderGeneralDescription(): void
