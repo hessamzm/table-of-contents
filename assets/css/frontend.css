@@ -55,10 +55,14 @@
 }
 
 .hessamzm-toc__footer {
-    display: flex;
+    display: none;
     justify-content: center;
     margin-top: .35rem;
     padding-top: .55rem;
+}
+
+.hessamzm-toc--js-ready .hessamzm-toc__footer {
+    display: flex;
 }
 
 .hessamzm-toc__toggle {
