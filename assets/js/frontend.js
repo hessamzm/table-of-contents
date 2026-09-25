@@ -51,7 +51,6 @@
             }
 
             window.setTimeout(refreshToggleVisibility, 0);
-            }
         }
 
         var links = Array.prototype.slice.call(
