@@ -52,17 +52,19 @@ final class ManualTocRenderer
             return '';
         }
 
-        $this->assets->enqueue($profile);
-
         $levels = $this->resolveLevels($attributes, $profile);
+        $overrides = array_merge($profile, $this->resolveRendererOverrides($attributes));
+        $overrides['profile'] = $profileType;
+
+        // The shortcode is an explicit manual placement, so its complete visual
+        // profile must also be passed to the asset layer.
+        $this->assets->enqueue($overrides);
+
         $processed = $this->processor->process($content, $levels);
 
         if ($processed['tree']->isEmpty()) {
             return '';
         }
-
-        $overrides = array_merge($profile, $this->resolveRendererOverrides($attributes));
-        $overrides['profile'] = $profileType;
 
         return '<div class="hessamzm-toc-manual hessamzm-toc-manual--' . esc_attr($profileType) . '">' .
             $this->tocRenderer->render($processed['tree'], $overrides) .
@@ -106,20 +108,29 @@ final class ManualTocRenderer
     {
         $overrides = [];
 
-        if (array_key_exists('title', $attributes)) {
-            $overrides['title'] = sanitize_text_field((string) $attributes['title']);
-        }
+        $map = [
+            'title' => 'title',
+            'style' => 'style',
+            'showNumbers' => 'show_numbers',
+            'stickyToc' => 'sticky_toc',
+            'position' => 'position',
+            'placement' => 'placement',
+            'background_color' => 'background_color',
+            'text_color' => 'text_color',
+            'link_color' => 'link_color',
+            'border_color' => 'border_color',
+            'font_size' => 'font_size',
+            'sticky_font_size' => 'sticky_font_size',
+            'indentation' => 'indentation',
+            'border_radius' => 'border_radius',
+            'more_text' => 'more_text',
+            'less_text' => 'less_text',
+        ];
 
-        if (isset($attributes['style'])) {
-            $style = sanitize_key((string) $attributes['style']);
-
-            if (in_array($style, ['classic', 'minimal', 'card', 'paper'], true)) {
-                $overrides['style'] = $style;
+        foreach ($map as $attribute => $override) {
+            if (array_key_exists($attribute, $attributes)) {
+                $overrides[$override] = $attributes[$attribute];
             }
-        }
-
-        if (array_key_exists('showNumbers', $attributes)) {
-            $overrides['show_numbers'] = (bool) $attributes['showNumbers'];
         }
 
         return $overrides;
