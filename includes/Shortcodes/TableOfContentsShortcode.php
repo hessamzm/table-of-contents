@@ -98,7 +98,15 @@ final class TableOfContentsShortcode
                 'absint',
                 preg_split('/\s*,\s*/', (string) $atts['levels']) ?: []
             );
-            $attributes['headingLevels'] = $levels;
+            $attributes['headingLevels'] = array_values(
+                array_unique(
+                    array_filter(
+                        $levels,
+                        static fn (int $level): bool => $level >= 1 && $level <= 6
+                    )
+                )
+            );
+            sort($attributes['headingLevels']);
         }
 
         if ($atts['title'] !== '') {
