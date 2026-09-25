@@ -3,7 +3,7 @@
  * Plugin Name: Table of Contents
  * Plugin URI: https://github.com/hessamzm/table-of-contents
  * Description: Automatic, extensible table of contents engine for WordPress content.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Requires at least: 7.0
  * Requires PHP: 8.2
  * WC requires at least: 10.0
