@@ -259,14 +259,6 @@ msgstr "تنظیمات فهرست مطالب"
 msgid "Leave empty to use the global plugin title."
 msgstr "برای استفاده از عنوان عمومی افزونه، این قسمت را خالی بگذارید."
 
-msgid "Global setting"
-msgstr "تنظیم عمومی"
-
-msgid "Override the global numbering setting."
-msgstr "تنظیم شماره‌گذاری عمومی را نادیده بگیرید."
-msgid "The table of contents will be generated on the front end from this post’s headings."
-msgstr "فهرست مطالب در بخش کاربری بر اساس عنوان‌های این نوشته تولید می‌شود."
-
 msgid "This widget uses the current post or product content and its independent TOC profile settings."
 msgstr "این ابزارک از محتوای نوشته یا محصول جاری و تنظیمات مستقل فهرست مطالب مربوط به آن استفاده می‌کند."
 
