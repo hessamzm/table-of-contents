@@ -396,3 +396,39 @@ msgstr ""
 #: includes/Widgets/TableOfContentsWidget.php
 msgid "This widget uses the current post or product content and its independent TOC profile settings."
 msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Build a fully customizable shortcode. The generator exposes the same visual and behavioral settings available in the selected TOC profile."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Shortcodes are disabled while both automatic TOCs are enabled."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Both Articles and Products currently generate their TOC automatically. Adding a manual shortcode would create a duplicate TOC, so disable the automatic TOC for the content type you want to place manually, then return here to generate its shortcode."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Use a shortcode only for a content type whose automatic TOC is disabled. This prevents the same post or product from receiving two TOCs."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "The Articles automatic TOC is enabled. Disable it before using the Blog shortcode, otherwise the post may contain two TOCs."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "The Products automatic TOC is enabled. Disable it before using the Product shortcode, otherwise the product may contain two TOCs."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Disable the automatic TOC for this content type before using its shortcode."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Content and layout"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php
+msgid "Example: 16px, 1rem, or 1.5em"
+msgstr ""
