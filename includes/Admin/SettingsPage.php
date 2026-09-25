@@ -365,7 +365,7 @@ final class SettingsPage
         echo ' data-default-border-radius="' . esc_attr((string) ($values['border_radius'] ?? '0px')) . '"';
         echo ' data-default-more-text="' . esc_attr((string) ($values['more_text'] ?? __('View more', 'table-of-contents'))) . '"';
         echo ' data-default-less-text="' . esc_attr((string) ($values['less_text'] ?? __('View less', 'table-of-contents'))) . '"';
-        echo '>';
+        echo ' ' . disabled($disabled, true, false) . '>';
 
         echo '<legend><span class="h3">' . esc_html($title) . '</span></legend>';
         echo '<p>' . esc_html($description) . '</p>';
