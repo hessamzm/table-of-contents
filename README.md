@@ -2,133 +2,110 @@
 
 Production-oriented WordPress Table of Contents plugin by hessamzm.
 
-## Requirements
+> **Documentation:** [فارسی](readme-fa.md) | [العربية](readme-ar.md)
 
-- WordPress 7+
-- PHP 8.2+
-- WooCommerce 10+ is supported for Product post types, but WooCommerce is not a hard dependency.
+## 1. Plugin Introduction
 
-## Features
+**Table of Contents** is a lightweight, extensible WordPress plugin for automatically generating a table of contents from headings in your content.
 
-- Automatic TOC for selected H1-H6 headings.
-- Automatic insertion above eligible post, page, or product content.
-- Existing heading IDs are preserved and duplicate anchors are made unique.
-- Gutenberg dynamic block.
-- `[hessamzm_toc]` shortcode with usage examples shown in the plugin settings.
-- WordPress sidebar widget for Posts and Products, generated from the current content.
-- Rank Math TOC detection compatibility.
-- Classic, Minimal, Card, and Paper Menu styles.
-- Three-line compact preview with configurable expand/collapse labels.
-- Left/right TOC alignment configurable from settings.
-- Hierarchical numbering.
-- Sticky TOC on larger screens.
-- IntersectionObserver scroll spy with `aria-current="location"`.
-- Responsive frontend behavior and reduced-motion support.
-- Settings API based administration.
-- Sanitized color, CSS length, heading-level, post-type, and style settings.
+It supports independent TOC configuration for blog articles and WooCommerce products, with customization for heading levels, title, style, numbering, colors, typography, spacing, sticky behavior, and placement.
 
-## Configuration
+Key features:
 
-Open **Settings > Table of Contents** to configure:
+- Automatic table of contents from H1-H6 headings.
+- Independent TOC settings for blog articles and WooCommerce products.
+- Support for posts, pages, and WooCommerce products.
+- Custom heading levels, title, style, and numbering.
+- Sticky TOC and scroll spy support.
+- Responsive frontend behavior for desktop, tablet, and mobile.
+- Gutenberg Block support.
+- Dedicated Blog and Product shortcodes for manual placement.
+- Shortcode generator with extensive customization options.
+- Rank Math compatibility and duplicate TOC prevention in supported scenarios.
+- Preservation of existing heading IDs and unique handling of duplicate anchors.
+- Persian and English plugin interface support.
+- WooCommerce HPOS-compatible architecture.
 
-- Automatic rendering.
-- Eligible post types.
-- Heading levels.
-- TOC title and style.
-- Numbering, sticky behavior, and left/right position.
-- Custom text for the View More and View Less controls.
-- Colors, font size, indentation, and border radius.
-- Optional deletion of plugin settings on uninstall.
+## 2. Requirements
 
-Deactivation does not delete settings or content. Permanent deletion removes the settings option only when **Delete data on uninstall** is enabled.
+To use version 1.0.0:
 
-## Manual placement
+- **WordPress:** 7.0 or higher
+- **PHP:** 8.2 or higher
+- **WooCommerce:** 10.0 or higher for WooCommerce product features
+
+WooCommerce is optional unless you want to use the Product TOC features.
+
+## 3. Installation
+
+### Install from the WordPress dashboard
+
+1. Download the plugin ZIP file.
+2. Log in to your WordPress admin dashboard.
+3. Go to **Plugins > Add New Plugin**.
+4. Select **Upload Plugin**.
+5. Choose the plugin ZIP file and install it.
+6. Activate **Table of Contents**.
+7. Open **Settings > Table of Contents** to configure the plugin.
+
+### Manual installation
+
+1. Extract the plugin ZIP file.
+2. Upload the plugin folder to:
+
+`wp-content/plugins/table-of-contents/`
+
+3. Open the WordPress admin dashboard.
+4. Go to **Plugins**.
+5. Activate **Table of Contents**.
+6. Open **Settings > Table of Contents**.
+
+## 4. Simple Overview
+
+After activation, the plugin provides a dedicated settings page where you can configure the TOC behavior for different content types.
+
+### Articles
+
+The **Articles** section controls the TOC used for blog posts. You can configure heading levels, title, style, numbering, colors, typography, spacing, expand/collapse text, and sticky behavior independently from products.
+
+### Products
+
+The **Products** section controls the TOC used for WooCommerce products. Product TOC settings are independent from the article TOC, and the placement of the TOC can also be configured for product pages.
+
+### Shortcodes
+
+For manual placement, use the dedicated shortcodes:
+
+`[hessamzm_blog_toc]`
+
+`[hessamzm_product_toc]`
+
+The plugin includes a shortcode generator in the settings page, so you can build a shortcode without memorizing its attributes.
+
+Shortcodes can customize heading levels, title, style, numbering, sticky behavior, alignment or placement, colors, typography, indentation, border radius, and expand/collapse labels.
+
+To avoid accidentally displaying two TOCs for the same content type, the shortcode generator is disabled for a content type when its automatic TOC is enabled.
 
 ### Gutenberg
 
-Insert the **Table of Contents** block. The block is rendered server-side from the current post content.
+The **Table of Contents** Gutenberg block can be used to insert a TOC manually in supported content.
 
-### Shortcode
+### Widget
 
-The plugin settings page includes copy-ready shortcode examples.
+The **Table of Contents** widget can be added to an active WordPress widget area. On supported single content pages, it generates the TOC from the current content and prevents duplicate automatic insertion.
 
-`[hessamzm_toc]`
+## Translation
 
-Optional:
+The plugin interface is translation-ready and currently includes Persian and English translations.
 
-`[hessamzm_toc levels="2,3,4" title="Contents" style="card" numbers="true"]`
+## Compatibility
 
-### Sidebar widget
+The plugin uses standard WordPress APIs and is designed for modern WordPress sites.
 
-Add the **Table of Contents** widget to any active WordPress widget area. On single Posts and Products it reads the current content and renders the TOC using the global plugin settings. On other content types it remains hidden. When the widget is active on a supported Post or Product, automatic inline TOC insertion is suppressed to prevent duplicate TOCs.
+WooCommerce product functionality supports WooCommerce 10+ and is designed with HPOS compatibility in mind.
 
-## Extensibility
+## License
 
-Key filters include:
+This plugin is released under the **GPLv2 or later** license.
 
-- `hessamzm_toc/should_render`
-- `hessamzm_toc/post_types`
-- `hessamzm_toc/heading_levels`
-- `hessamzm_toc/title`
-- `hessamzm_toc/container_attributes`
-- `hessamzm_toc/html`
-- `hessamzm_toc/shortcode_attributes`
-- `hessamzm_toc/rank_math_integration_enabled`
-
-## Development
-
-Install development dependencies:
-
-```bash
-composer install
-vendor/bin/phpunit
-```
-
-The unit suite covers heading parsing, anchor generation, tree building, and settings sanitization. Full WordPress/browser integration testing requires a WordPress test environment and is tracked separately.
-
-## Internationalization
-
-Text domain: `table-of-contents`
-
-The repository uses a standard gettext translation pipeline:
-
-- Source template: `languages/table-of-contents.pot`.
-- Editable translations: `languages/table-of-contents-fa_IR.po` and `languages/table-of-contents-ar_AR.po`.
-- Compiled compatibility files: `.mo`.
-- WordPress 6.5+ runtime files: `.l10n.php`.
-- PHP strings use WordPress gettext functions.
-- Gutenberg strings use `wp.i18n`.
-- Script translation hooks are registered for frontend and editor scripts.
-- Translation generation uses WP-CLI `wp i18n` commands.
-
-See [docs/i18n.md](docs/i18n.md) for the update and build workflow.
-
-## Security
-
-The plugin uses WordPress Settings API validation/sanitization, escaped output, capability checks on the settings page, controlled CSS values, and sanitized shortcode/block inputs. No custom database tables are used.
-
-## Project phases
-
-1. Architecture + Core Engine — Completed
-2. Automatic Rendering — Completed
-3. Admin Settings and Styling System — Completed
-4. Gutenberg block and shortcode — Implemented
-5. Rank Math compatibility — Implemented; runtime validation pending
-6. Frontend assets, sticky TOC, responsive behavior and scroll spy — Implemented; runtime validation pending
-7. Security, lifecycle, translation, performance, tests and documentation — Implemented; runtime WordPress/browser validation pending
-8. TOC UX and Paper Menu style — Implemented
-9. TOC position, configurable labels, and Persian admin/frontend localization — Implemented; runtime validation pending
-10. Live settings preview and sticky typography customization — Implemented; runtime validation pending
-11. Settings shortcode guidance and Post/Product sidebar widget — Implemented; runtime validation pending
-
-## Production validation
-
-The remaining release gate is runtime validation in a real WordPress environment, including:
-
-- Plugin activation/deactivation/uninstall behavior.
-- Automatic rendering on posts/pages/products.
-- Gutenberg block and shortcode rendering.
-- Rank Math detection.
-- Frontend sticky and scroll spy behavior.
-- Accessibility and responsive checks.
-- PHPUnit execution in the project environment.
+Copyright © hessamzm
