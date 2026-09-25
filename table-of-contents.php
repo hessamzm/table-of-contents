@@ -85,7 +85,7 @@ add_action(
             true
         );
 
-        \\Automattic\\WooCommerce\\Utilities\\FeaturesUtil::declare_compatibility(
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
             'product_block_editor',
             HESSAMZM_TOC_FILE,
             true
