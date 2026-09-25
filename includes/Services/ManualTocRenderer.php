@@ -42,10 +42,8 @@ final class ManualTocRenderer
 
         $profile = $this->settings->getProfile($profileType);
 
-        if (empty($profile['enabled'])) {
-            return '';
-        }
-
+        // Manual shortcodes are intentionally independent from the automatic toggle.
+        // The profile remains the source of defaults, while the shortcode explicitly opts into rendering.
         $content = (string) get_post_field('post_content', $postId, 'raw');
 
         if ($content === '') {
