@@ -79,7 +79,7 @@ add_action(
             return;
         }
 
-        \\Automattic\\WooCommerce\\Utilities\\FeaturesUtil::declare_compatibility(
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
             'custom_order_tables',
             HESSAMZM_TOC_FILE,
             true
@@ -96,7 +96,7 @@ add_action(
 add_action(
     'plugins_loaded',
     static function (): void {
-        (new \\Hessamzm\\TableOfContents\\Core\\Plugin())->boot();
+        (new \Hessamzm\TableOfContents\Core\Plugin())->boot();
     },
     20
 );
